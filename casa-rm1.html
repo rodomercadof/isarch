@@ -7,7 +7,7 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <link class="favicon-elem" rel="icon" href="logo1.jpg" type="image/jpg">
+    <link class="favicon-elem" rel="icon" href="logo-solo.png" type="image/png">
 
     <style>
         :root {
@@ -59,12 +59,12 @@
         }
 
         .logo-img {
-            height: 30px; /* Altura base optimizada */
+            height: 40px; 
             width: auto;  
             object-fit: contain;
             transition: var(--transition);
-            transform: scale(2.2); /* Zoom digital para eliminar márgenes blancos del archivo */
-            transform-origin: left center; /* Mantiene el eje a la izquierda */
+            transform: scale(2.2); 
+            transform-origin: left center; 
         }
 
         .nav-links {
@@ -129,14 +129,14 @@
 
         .meta-item {
             display: flex;
-            align-items: center; /* Alinea verticalmente el icono con los textos */
-            gap: 15px; /* Distancia perfecta entre el logo y el bloque de texto */
+            align-items: center; 
+            gap: 15px; 
         }
 
         .meta-header-icon {
-            width: 15px;  /* Tamaño micro y sofisticado */
+            width: 15px;  
             height: 15px;
-            fill: #666;   /* Gris neutro que no compite en atención con las letras */
+            fill: #666;   
             flex-shrink: 0;
         }
 
@@ -220,8 +220,6 @@
             display: flex;
         }
 
-        /* Contenedor central con MEDIDAS DE ANCHO FIJO para todas las fotos */
-       /* ----- CONTENEDOR CENTRAL MODIFICADO CON MARGEN ----- */
         .lightbox-content {
             position: relative;
             width: 850px;   
@@ -230,24 +228,22 @@
             justify-content: center;
             align-items: center;
             background-color: transparent; 
-            /* Agregamos un margen arriba para que el título tenga su espacio exclusivo */
             margin-top: 50px; 
         }
 
-        /* La imagen hereda el ancho estricto sin deformarse */
         .lightbox-img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Recorta y encuadra al molde de forma limpia sin bandas blancas */
+            object-fit: cover; 
             box-shadow: 0 15px 50px rgba(0,0,0,0.12); 
         }
 
         /* ----- TÍTULO SUPERIOR ANCLADO AL MOLDE (INMUNE AL ZOOM) ----- */
         .lightbox-header-title {
-            position: absolute; /* Pasa de fixed a absolute para ligarse a la foto */
-            top: -40px; /* Se posiciona exactamente a 40px por encima de la imagen */
+            position: absolute; 
+            top: -40px; 
             left: 0;
-            width: 100%; /* Copia el ancho exacto de la foto (850px) automáticamente */
+            width: 100%; 
             text-align: left; 
             
             font-size: 0.78rem; 
@@ -258,10 +254,10 @@
             z-index: 10030;
             user-select: none;
         }
-        /* Modificación para que las flechas circulares no suban por el espacio del título */
+        
         .lightbox-content .prev-btn,
         .lightbox-content .next-btn {
-            top: calc(50% + 0px); /* Mantiene el centrado sobre el cuerpo de la foto */
+            top: calc(50% + 0px); 
         }
 
         /* Ajuste responsivo */
@@ -277,12 +273,11 @@
             }
         }
 
-        /* ----- BOTONES DEL VISOR EN FORMATO CIRCULAR ----- */
         /* ----- BOTONES CIRCULARES CON CENTRADO ÓPTICO CORREGIDO ----- */
         .lightbox-btn {
             position: absolute;
             top: 50%;
-            transform: translateY(-50%); /* Centrado vertical respecto al molde */
+            transform: translateY(-50%); 
             background-color: rgba(245, 245, 245, 0.25); 
             backdrop-filter: blur(8px); 
             -webkit-backdrop-filter: blur(8px);
@@ -294,41 +289,35 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.8rem; /* Reducido un toque para que el balance óptico sea más elegante */
+            font-size: 1.8rem; 
             font-weight: 300;
             cursor: pointer;
             z-index: 10020;
             transition: var(--transition);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
-            
-            /* Detalle técnico clave: quitamos cualquier comportamiento heredado de línea de texto */
             line-height: 1; 
         }
 
-        /* Al pasar el mouse, el círculo se vuelve más opaco y crece sutilmente */
         .lightbox-btn:hover {
             background-color: rgba(245, 245, 245, 0.8);
             color: #000;
             transform: translateY(-50%) scale(1.05); 
         }
 
-        /* Ajuste óptico fino para la flecha izquierda (‹) - Se mantiene impecable */
         .prev-btn {
             left: 20px; 
-            padding-left: 0;      /* Eliminamos el espacio izquierdo anterior */
-            padding-right: -1.5px;   /* ¡Empuja la flecha un pelín hacia la izquierda! */
-            padding-bottom: 4px;  /* Mantiene la línea de base equilibrada */
+            padding-left: 0;      
+            padding-right: -1.5px;   
+            padding-bottom: 4px;  
         }
 
-        /* RECALIBRADO: Corrección milimétrica para la flecha derecha (›) */
         .next-btn {
             right: 20px; 
-            padding-left: 0;      /* Eliminamos el espacio izquierdo anterior */
-            padding-right: -1.5px;   /* ¡Empuja la flecha un pelín hacia la izquierda! */
-            padding-bottom: 4px;  /* Mantiene la línea de base equilibrada */
+            padding-left: 0;      
+            padding-right: -1.5px;   
+            padding-bottom: 4px;  
         }
 
-        /* El botón de cerrar (✕) se mantiene inmune a los ajustes de las flechas */
         .close-btn {
             position: fixed;
             top: 30px;
@@ -349,23 +338,22 @@
             color: #888;
             transform: none;
         }
-        /* ----- CONTADOR INFERIOR ANCLADO ----- */
+        
         /* ----- CONTADOR INFERIOR ANCLADO AL MOLDE (INMUNE AL ZOOM) ----- */
         .lightbox-counter {
-            position: absolute; /* Pasa de fixed a absolute para ligarse a la caja de la foto */
-            bottom: -40px; /* Se posiciona exactamente a 40px por debajo de la imagen */
+            position: absolute; 
+            bottom: -40px; 
             left: 50%;
-            transform: translateX(-50%); /* Centrado horizontal matemático perfecto */
+            transform: translateX(-50%); 
             
             font-size: 0.8rem;
             font-weight: 400;
             letter-spacing: 2px;
-            color: #666; /* Un gris sutil que complementa el look sofisticado */
+            color: #666; 
             z-index: 10030;
             user-select: none;
         }
 
-        /* Ajuste responsivo para pantallas pequeñas */
         @media (max-width: 900px) {
             .lightbox-counter {
                 bottom: -30px;
@@ -394,14 +382,145 @@
             }
             .nav-links { display: none; }
         }
+
+        .img-3 img { object-position: 50% 20%; }
+        .img-2 img { object-position: 50% 85%; }
+
+        /* ----- FOOTER ----- */
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 80px 5% 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            font-size: 0.9rem;
+        }
+
+        footer h4 {
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1rem;
+        }
+
+        footer p {
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        footer ul { list-style: none; }
+        footer ul li { margin-bottom: 12px; }
+        footer ul li a { color: #aaa; transition: var(--transition); }
+        footer ul li a:hover { color: #fff; }
+
+        .footer-social-links li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-icon {
+            width: 16px;  
+            height: 16px;
+            fill: #aaa;   
+            transition: var(--transition);
+        }
+
+        .footer-social-links li a:hover .social-icon {
+            fill: #fff;
+            transform: translateY(-1px);
+        }
+
+        .whatsapp-floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366; 
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 9999; 
+            transition: var(--transition);
+        }
+
+        .whatsapp-floating-btn svg {
+            width: 32px;
+            height: 32px;
+            fill: #fff; 
+        }
+
+        .whatsapp-floating-btn:hover {
+            transform: scale(1.1); 
+            background-color: #20ba5a; 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ----- PANTALLA DE CARGA PREMIUM (PRELOADER) ----- */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #fcfcfc; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            opacity: 1;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .preloader-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px; 
+            animation: preloaderReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .preloader-logo-img {
+            width: 200px;       
+            height: auto;
+            display: block;
+            
+            /* CORRECCIÓN: Se eliminó el filtro destructivo para respetar los colores nativos */
+            filter: none; 
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+            transform: translateY(-30px);
+            pointer-events: none;
+        }
+
+        @keyframes preloaderReveal {
+            0% { opacity: 0; transform: scale(0.97) translateY(5px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Pantalla de Carga -->
+    <div id="sitePreloader" class="preloader">
+        <div class="preloader-wrapper">
+            <img src="logo-texto.png" alt="is.Arch Volúmenes" class="preloader-logo-img">
+        </div>
+    </div>
+
     <!-- Navegación -->
     <header>
         <a href="index.html" class="logo-container">
-            <img src="logo.jpg" alt="is.Arch Logo" class="logo-img">
+            <img src="logo-texto.png" alt="is.Arch Logo" class="logo-img">
         </a>
         <nav class="nav-links">
             <a href="index.html#inicio">Inicio</a>
@@ -447,7 +566,7 @@
     <!-- Galería e info -->
     <main class="project-content">
         <p class="project-description">
-            El diseño de Casa RM se estructuró a partir de la optimización del terreno y la búsqueda de luz natural constante. Con una fuerte impronta minimalista y el uso de materiales nobles como el hormigón visto, la madera y el vidrio, se logró articular un espacio fluido que conecta de manera directa el living principal con las áreas verdes exteriores.
+            El diseño de Casa RM se estructuró a partir de la optimización del terreno y la búsqueda de luz natural constante. Con una fuerte impronta minimalista y el uso de materiales nobles como el hormigón visto, la madera y el vidrio, se logró articular un espacio fluido que conecta de manera directo el living principal con las áreas verdes exteriores.
         </p>
 
         <div class="project-gallery">
@@ -486,9 +605,55 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
-        <p>© 2026 is.Arch - Todos los derechos reservados.</p>
+        <div>
+            <h4>Filosofía</h4>
+            <p>"Proyectando, tienes noción de las metas que puedes alcanzar, la idea es clara y sencilla. Partimos de tus ideas y las ajustamos hasta lograr el proyecto deseado".</p>
+        </div>
+        <div>
+            <h4>Especialidades</h4>
+            <ul>
+                <li><a href="#especialidades">Arquitectura</a></li>
+                <li><a href="#especialidades">Interiorismo</a></li>
+                <li><a href="#especialidades">Paisajismo</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Redes Sociales</h4>
+            <ul class="footer-social-links">
+                <li>
+                    <a href="https://www.instagram.com/is.arch.arq?igsh=ZHJudjh1MG43Zm1m" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                        Instagram
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/share/1E7nk3VJ9i/" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="social-icon"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+                        Facebook
+                    </a>
+                </li>
+                <li>
+                    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                        WhatsApp
+                    </a>
+                </li>
+            </ul>
+        </div>
     </footer>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="whatsapp-floating-btn" 
+       title="Escribinos por WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+    </a>
 
     <script>
         const galleryItems = document.querySelectorAll('.gallery-item img');
@@ -545,6 +710,18 @@
             if (e.key === 'ArrowLeft') prevImage();
             if (e.key === 'Escape') closeVisor();
         });
+
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('sitePreloader');
+            
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    preloader.remove();
+                }, 800); 
+            }, 400);
+        });   
     </script>
 </body>
 </html>
