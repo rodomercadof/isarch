@@ -59,11 +59,12 @@
         }
 
         .logo-img {
-            height: 55px;
+            height: 30px; /* Altura base optimizada */
             width: auto;  
             object-fit: contain;
-            transform: scale(2.2); 
-            transform-origin: left center; 
+            transition: var(--transition);
+            transform: scale(2.2); /* Zoom digital para eliminar márgenes blancos del archivo */
+            transform-origin: left center; /* Mantiene el eje a la izquierda */
         }
 
         .nav-links {
