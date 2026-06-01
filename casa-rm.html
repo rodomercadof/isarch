@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASA RM - is.Arch</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link class="favicon-elem" rel="icon" href="logo1.jpg" type="image/jpg">
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --accent-color: #000000;
+            --light-gray: #f5f5f5;
+            --transition: all 0.4s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 90px;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        /* ----- BARRA DE NAVEGACIÓN ----- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: #fff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding-left: 15px;
+        }
+
+        .logo-img {
+            height: 55px;
+            width: auto;  
+            object-fit: contain;
+            transform: scale(2.2); 
+            transform-origin: left center; 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: #888;
+        }
+
+        /* ----- DETALLE DEL PROYECTO ----- */
+        .project-header {
+            padding: 60px 5% 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            color: #777;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: #000;
+            transform: translateX(-5px);
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 25px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 40px;
+        }
+
+        .meta-item h5 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .meta-item p {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .project-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5% 100px;
+        }
+
+        .project-description {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: #444;
+            margin-bottom: 60px;
+            max-width: 800px;
+        }
+
+        /* ----- GRILLA COMPACTA RECTANGULAR MATEMÁTICA (12 COLUMNAS) ----- */
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 150px; /* Base modular limpia */
+            gap: 3px; 
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.03); 
+        }
+
+        /* Proporciones exactas en enteros para calzar la línea roja de tu croquis */
+        .img-1 {
+            grid-column: span 9;
+            grid-row: span 4;
+        }
+
+        .img-2 {
+            grid-column: span 3;
+            grid-row: span 4;
+        }
+
+        .img-3 {
+            grid-column: span 4;
+            grid-row: span 3;
+        }
+
+        .img-4 {
+            grid-column: span 5;
+            grid-row: span 3;
+        }
+
+        .img-5 {
+            grid-column: span 3;
+            grid-row: span 3;
+        }
+
+        /* ----- VISOR DE IMÁGENES (TRASLÚCIDO CON DIRECCIONALES FIJAS) ----- */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.54); /* Translúcido simil transparente */
+            backdrop-filter: blur(15px); /* Efecto difuminado de fondo */
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 10000;
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        /* Contenedor central con MEDIDAS FIJAS para congelar las flechas */
+        .lightbox-content {
+            position: relative;
+            width: 800px;  /* Ancho fijo idéntico para todas las fotos */
+            height: 550px; /* Alto fijo idéntico para todas las fotos */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff; /* Fondo blanco sutil por si alguna foto no cubre el 100% */
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+        }
+
+        /* Contenedor central con MEDIDAS PREDETERMINADAS fijas e invisibles */
+        .lightbox-content {
+            position: relative;
+            width: 900px;   /* Ancho predeterminado máximo para el visor */
+            height: 600px;  /* Alto predeterminado máximo para el visor */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent; /* ¡FONDO TRANSPARENTE TOTAL! Chau bordes blancos */
+        }
+
+        /* La imagen se adapta al tamaño predeterminado de forma inteligente */
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain; /* Evita que la foto se recorte o deforme */
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15); /* Sombra elegante sobre el cristal de fondo */
+        }
+
+        /* ----- VISOR DE IMÁGENES RECALIBRADO ----- */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.537);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 10000;
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        /* Contenedor relativo que encierra la foto y las flechas en sus extremos */
+        .lightbox-content {
+            position: relative;
+            max-width: 70%;
+            max-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08); 
+        }
+
+        /* CONFIGURACIÓN DE BOTONES FIJOS EN BORDES DE FOTO */
+        .lightbox-btn {
+            position: absolute; /* Se posicionan relativo a los bordes de la imagen */
+            background: none;
+            border: none;
+            color: #1a1a1a; 
+            font-size: 3.5rem;
+            font-weight: 300;
+            cursor: pointer;
+            padding: 20px;
+            transition: var(--transition);
+            z-index: 10020;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Asegura visibilidad si la foto es oscura */
+        }
+
+        /* Eliminado el 'scale' que causaba el movimiento indeseado */
+        .lightbox-btn:hover {
+            color: #888;
+        }
+
+        /* Centrado vertical perfecto justo encima de la línea roja */
+        .prev-btn {
+            left: 10px; 
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .next-btn {
+            right: 10px; 
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* El botón de cerrar se mantiene fijo arriba a la derecha de la pantalla global */
+        .close-btn {
+            position: fixed;
+            top: 30px;
+            right: 4%;
+            font-size: 2rem;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* ----- FOOTER ----- */
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 60px 5% 40px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        /* ----- RESPONSIVE (MÓVIL) ----- */
+        @media (max-width: 900px) {
+            .lightbox-btn { font-size: 2.5rem; padding: 15px; }
+            .prev-btn { left: 2%; }
+            .next-btn { right: 2%; }
+            .lightbox-content { max-width: 85%; }
+            .project-gallery { grid-auto-rows: 110px; } /* Ajuste modular para tablets */
+        }
+
+        @media (max-width: 768px) {
+            .project-title { font-size: 1.8rem; }
+            .project-gallery {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 250px;
+            }
+            .gallery-item {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+            }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo.png" alt="is.Arch Logo" class="logo-img">
+        </a>
+        <nav class="nav-links">
+            <a href="index.html#inicio">Inicio</a>
+            <a href="index.html#especialidades">Especialidades</a>
+            <a href="index.html#obras">Proyectos Destacados</a>
+            <a href="index.html#nosotros">Nosotros</a>
+            <a href="index.html#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <div class="project-header">
+        <a href="index.html#obras" class="back-link">← Volver a Proyectos Destacados</a>
+        <h1 class="project-title">Casa RM</h1>
+        
+        <div class="project-meta-grid">
+            <div class="meta-item">
+                <h5>Ubicación</h5>
+                <p>Córdoba, Argentina</p>
+            </div>
+            <div class="meta-item">
+                <h5>Año</h5>
+                <p>2022</p>
+            </div>
+            <div class="meta-item">
+                <h5>Superficie</h5>
+                <p>320 m²</p>
+            </div>
+            <div class="meta-item">
+                <h5>Fotografía</h5>
+                <p>Estudio de Arquitectura</p>
+            </div>
+        </div>
+    </div>
+
+    <main class="project-content">
+        <p class="project-description">
+            El diseño de Casa RM se estructuró a partir de la optimización del terreno y la búsqueda de luz natural constante. Con una fuerte impronta minimalista y el uso de materiales nobles como el hormigón visto, la madera y el vidrio, se logró articular un espacio fluido que conecta de manera directa el living principal con las áreas verdes exteriores.
+        </p>
+
+        <div class="project-gallery">
+            <div class="gallery-item img-1">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Fachada Principal e Integración del Parque">
+            </div>
+            <div class="gallery-item img-2">
+                <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Galería Exterior y Área de Piscina">
+            </div>
+            <div class="gallery-item img-3">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Diseño de Interiores y Comedor Integrado">
+            </div>
+            <div class="gallery-item img-4">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Detalle de Escalera Cemento y Madera">
+            </div>
+            <div class="gallery-item img-5">
+                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Estudio de Iluminación Cenital">
+            </div>
+        </div>
+    </main>
+
+    <!-- Visor Translúcido con Flechas Fijas en los Bordes de la Imagen -->
+    <div id="lightboxVisor" class="lightbox">
+        <button class="lightbox-btn close-btn" id="closeBtn">✕</button>
+        
+        <div class="lightbox-content">
+            <button class="lightbox-btn prev-btn" id="prevBtn">‹</button>
+            <img src="" alt="Visor de Obra" class="lightbox-img" id="lightboxImg">
+            <button class="lightbox-btn next-btn" id="nextBtn">›</button>
+            <div class="lightbox-counter" id="lightboxCounter">1 / 5</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 is.Arch - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+        const lightbox = document.getElementById('lightboxVisor');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeBtn = document.getElementById('closeBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('lightboxCounter');
+
+        let currentImgIndex = 0;
+        const totalImages = galleryItems.length;
+
+        galleryItems.forEach((img, index) => {
+            img.parentElement.addEventListener('click', () => {
+                currentImgIndex = index;
+                updateVisorContent();
+                lightbox.className = 'lightbox active'; 
+                document.body.style.overflow = 'hidden'; 
+            });
+        });
+
+        function updateVisorContent() {
+            const srcOriginal = galleryItems[currentImgIndex].getAttribute('src');
+            lightboxImg.setAttribute('src', srcOriginal);
+            counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
+        }
+
+        function nextImage() {
+            currentImgIndex = (currentImgIndex + 1) % totalImages;
+            updateVisorContent();
+        }
+
+        function prevImage() {
+            currentImgIndex = (currentImgIndex - 1 + totalImages) % totalImages;
+            updateVisorContent();
+        }
+
+        function closeVisor() {
+            lightbox.className = 'lightbox';
+            document.body.style.overflow = 'auto'; 
+        }
+
+        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+        closeBtn.addEventListener('click', closeVisor);
+        
+        lightbox.addEventListener('click', closeVisor);
+        lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'Escape') closeVisor();
+        });
+    </script>
+</body>
+</html>
