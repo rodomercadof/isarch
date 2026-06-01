@@ -220,14 +220,17 @@
         }
 
         /* Contenedor central con MEDIDAS DE ANCHO FIJO para todas las fotos */
+       /* ----- CONTENEDOR CENTRAL MODIFICADO CON MARGEN ----- */
         .lightbox-content {
             position: relative;
-            width: 850px;   /* Mismo ancho predeterminado exacto para todo el carrusel */
-            height: 580px;  /* Altura proporcional fija */
+            width: 850px;   
+            height: 580px;  
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: transparent; 
+            /* Agregamos un margen arriba para que el título tenga su espacio exclusivo */
+            margin-top: 50px; 
         }
 
         /* La imagen hereda el ancho estricto sin deformarse */
@@ -238,76 +241,93 @@
             box-shadow: 0 15px 50px rgba(0,0,0,0.12); 
         }
 
-        /* ----- TÍTULO SUPERIOR EDITORIAL (ALINEADO A LA IZQUIERDA) ----- */
+        /* ----- TÍTULO SUPERIOR ANCLADO AL MOLDE (INMUNE AL ZOOM) ----- */
         .lightbox-header-title {
-            position: fixed;
-            top: 45px; /* Distancia elegante desde el borde superior */
-            left: 50%;
-            /* El ancho coincide exactamente con el de .lightbox-content (850px) */
-            width: 850px; 
-            /* El truco de arquitectura: centramos el contenedor pero alineamos el texto a la izquierda */
-            transform: translateX(-50%); 
+            position: absolute; /* Pasa de fixed a absolute para ligarse a la foto */
+            top: -40px; /* Se posiciona exactamente a 40px por encima de la imagen */
+            left: 0;
+            width: 100%; /* Copia el ancho exacto de la foto (850px) automáticamente */
             text-align: left; 
             
-            font-size: 0.78rem; /* Un tamaño más pequeño, sutil y precioso */
+            font-size: 0.78rem; 
             font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 4px; /* Mayor espaciado entre caracteres para dar aire y sofisticación */
+            letter-spacing: 4px; 
             color: #1a1a1a;
             z-index: 10030;
             user-select: none;
         }
+        /* Modificación para que las flechas circulares no suban por el espacio del título */
+        .lightbox-content .prev-btn,
+        .lightbox-content .next-btn {
+            top: calc(50% + 0px); /* Mantiene el centrado sobre el cuerpo de la foto */
+        }
 
-        /* Ajuste fino para pantallas medianas: mantiene la alineación con la foto */
+        /* Ajuste responsivo */
         @media (max-width: 900px) {
+            .lightbox-content {
+                width: 90vw;  
+                height: 60vh; 
+                margin-top: 40px;
+            }
             .lightbox-header-title {
-                width: 90vw; 
-                top: 35px;
+                top: -30px;
                 letter-spacing: 3px;
             }
         }
 
         /* ----- BOTONES DEL VISOR EN FORMATO CIRCULAR ----- */
+        /* ----- BOTONES CIRCULARES CON CENTRADO ÓPTICO CORREGIDO ----- */
         .lightbox-btn {
             position: absolute;
             top: 50%;
-            transform: translateY(-50%); /* Centrado vertical matemático perfecto */
-            background-color: rgba(245, 245, 245, 0.25); /* Fondo gris claro translúcido */
-            backdrop-filter: blur(8px); /* Efecto cristal de fondo */
+            transform: translateY(-50%); /* Centrado vertical respecto al molde */
+            background-color: rgba(245, 245, 245, 0.25); 
+            backdrop-filter: blur(8px); 
             -webkit-backdrop-filter: blur(8px);
-            color: #1a1a1a; /* Flecha negra minimalista */
+            color: #1a1a1a; 
             border: none;
-            width: 45px;  /* Tamaño del círculo */
-            height: 45px; /* Tamaño del círculo */
-            border-radius: 50%; /* Transforma el botón en un círculo perfecto */
+            width: 45px;  
+            height: 45px; 
+            border-radius: 50%; 
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2rem;
+            font-size: 1.8rem; /* Reducido un toque para que el balance óptico sea más elegante */
             font-weight: 300;
             cursor: pointer;
             z-index: 10020;
             transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra suave para despegarlo de la foto */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+            
+            /* Detalle técnico clave: quitamos cualquier comportamiento heredado de línea de texto */
+            line-height: 1; 
         }
 
-        /* Al pasar el mouse, el círculo se vuelve más opaco y nítido */
+        /* Al pasar el mouse, el círculo se vuelve más opaco y crece sutilmente */
         .lightbox-btn:hover {
             background-color: rgba(245, 245, 245, 0.8);
             color: #000;
-            transform: translateY(-50%) scale(1.05); /* Crece sutilmente al hacer hover */
+            transform: translateY(-50%) scale(1.05); 
         }
 
-        /* Posicionamiento flotante exacto sobre los bordes izquierdo y derecho del molde */
+        /* Ajuste óptico fino para la flecha izquierda (‹) - Se mantiene impecable */
         .prev-btn {
-            left: 20px; /* Separación elegante desde el borde izquierdo de la imagen */
+            left: 20px; 
+            padding-left: 0;      /* Eliminamos el espacio izquierdo anterior */
+            padding-right: -1.5px;   /* ¡Empuja la flecha un pelín hacia la izquierda! */
+            padding-bottom: 4px;  /* Mantiene la línea de base equilibrada */
         }
 
+        /* RECALIBRADO: Corrección milimétrica para la flecha derecha (›) */
         .next-btn {
-            right: 20px; /* Separación elegante desde el borde derecho de la imagen */
+            right: 20px; 
+            padding-left: 0;      /* Eliminamos el espacio izquierdo anterior */
+            padding-right: -1.5px;   /* ¡Empuja la flecha un pelín hacia la izquierda! */
+            padding-bottom: 4px;  /* Mantiene la línea de base equilibrada */
         }
 
-        /* El botón de cerrar (✕) se mantiene fijo arriba a la derecha del navegador */
+        /* El botón de cerrar (✕) se mantiene inmune a los ajustes de las flechas */
         .close-btn {
             position: fixed;
             top: 30px;
@@ -321,6 +341,7 @@
             color: #1a1a1a;
             font-size: 2rem;
             transform: none;
+            padding: 0;
         }
         .close-btn:hover {
             background: none;
@@ -328,17 +349,27 @@
             transform: none;
         }
         /* ----- CONTADOR INFERIOR ANCLADO ----- */
+        /* ----- CONTADOR INFERIOR ANCLADO AL MOLDE (INMUNE AL ZOOM) ----- */
         .lightbox-counter {
-            position: fixed; 
-            bottom: 40px;    
+            position: absolute; /* Pasa de fixed a absolute para ligarse a la caja de la foto */
+            bottom: -40px; /* Se posiciona exactamente a 40px por debajo de la imagen */
             left: 50%;
-            transform: translateX(-50%);
-            color: #666;
-            font-size: 0.85rem;
+            transform: translateX(-50%); /* Centrado horizontal matemático perfecto */
+            
+            font-size: 0.8rem;
+            font-weight: 400;
             letter-spacing: 2px;
-            font-weight: 600;
+            color: #666; /* Un gris sutil que complementa el look sofisticado */
             z-index: 10030;
             user-select: none;
+        }
+
+        /* Ajuste responsivo para pantallas pequeñas */
+        @media (max-width: 900px) {
+            .lightbox-counter {
+                bottom: -30px;
+                font-size: 0.75rem;
+            }
         }
 
         /* ----- RESPONSIVE ----- */
@@ -369,7 +400,7 @@
     <!-- Navegación -->
     <header>
         <a href="index.html" class="logo-container">
-            <img src="logo.jpg" alt="is.Arch Logo" class="logo-img">
+            <img src="logo.png" alt="is.Arch Logo" class="logo-img">
         </a>
         <nav class="nav-links">
             <a href="index.html#inicio">Inicio</a>
@@ -440,17 +471,18 @@
     <!-- Visor de Imágenes Unificado -->
     <div id="lightboxVisor" class="lightbox">
         <button class="lightbox-btn close-btn" id="closeBtn">✕</button>
-         <div class="lightbox-header-title" id="lightboxProjectTitle">
-            is.Arch — Casa RM <span style="color: #888; font-weight: 300; margin-left: 10px;">· Córdoba, Argentina</span>
-        </div>
         
         <div class="lightbox-content">
+            <div class="lightbox-header-title" id="lightboxProjectTitle">
+                is.Arch — Casa RM <span style="color: #888; font-weight: 300; margin-left: 10px;">· Córdoba, Argentina</span>
+            </div>
+
             <button class="lightbox-btn prev-btn" id="prevBtn">‹</button>
             <img src="" alt="Visor de Obra" class="lightbox-img" id="lightboxImg">
             <button class="lightbox-btn next-btn" id="nextBtn">›</button>
+
+            <div class="lightbox-counter" id="lightboxCounter">1 / 5</div>
         </div>
-        
-        <div class="lightbox-counter" id="lightboxCounter">1 / 5</div>
     </div>
 
     <footer>
