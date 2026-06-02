@@ -168,7 +168,7 @@
             max-width: 800px;
         }
 
-        /* ----- GRILLA COMPACTA RECTANGULAR MATEMÁTICA (12 COLUMNAS) ----- */
+        /* ----- GRILLA COMPACTA RECTANGULAR MATEMÁTICA ----- */
         .project-gallery {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -238,14 +238,13 @@
             box-shadow: 0 15px 50px rgba(0,0,0,0.12); 
         }
 
-        /* ----- TÍTULO SUPERIOR ANCLADO AL MOLDE (INMUNE AL ZOOM) ----- */
+        /* ----- TÍTULO SUPERIOR ANCLADO AL MOLDE ----- */
         .lightbox-header-title {
             position: absolute; 
             top: -40px; 
             left: 0;
             width: 100%; 
             text-align: left; 
-            
             font-size: 0.78rem; 
             font-weight: 400;
             text-transform: uppercase;
@@ -260,7 +259,6 @@
             top: calc(50% + 0px); 
         }
 
-        /* Ajuste responsivo */
         @media (max-width: 900px) {
             .lightbox-content {
                 width: 90vw;  
@@ -273,7 +271,7 @@
             }
         }
 
-        /* ----- BOTONES CIRCULARES CON CENTRADO ÓPTICO CORREGIDO ----- */
+        /* ----- BOTONES CIRCULARES ----- */
         .lightbox-btn {
             position: absolute;
             top: 50%;
@@ -306,15 +304,11 @@
 
         .prev-btn {
             left: 20px; 
-            padding-left: 0;      
-            padding-right: -1.5px;   
             padding-bottom: 4px;  
         }
 
         .next-btn {
             right: 20px; 
-            padding-left: 0;      
-            padding-right: -1.5px;   
             padding-bottom: 4px;  
         }
 
@@ -339,13 +333,12 @@
             transform: none;
         }
         
-        /* ----- CONTADOR INFERIOR ANCLADO AL MOLDE (INMUNE AL ZOOM) ----- */
+        /* ----- CONTADOR INFERIOR ANCLADO ----- */
         .lightbox-counter {
             position: absolute; 
             bottom: -40px; 
             left: 50%;
             transform: translateX(-50%); 
-            
             font-size: 0.8rem;
             font-weight: 400;
             letter-spacing: 2px;
@@ -361,15 +354,96 @@
             }
         }
 
-        /* ----- RESPONSIVE ----- */
-        @media (max-width: 900px) {
-            .lightbox-content {
-                width: 90vw;  
-                height: 60vh; 
-            }
-            .lightbox-btn { width: 50px; font-size: 1.8rem; }
+        /* ----- NUEVO: MINIATURAS FLOTANTES COMPACTAS (TIPO CUADRADO PEQUEÑO) ----- */
+        .adjacent-project-card {
+            position: absolute;
+            top: 50%;
+            width: 200px; /* Tamaño cuadrado y compacto reducido */
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 10025;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 4px;
+            
+            /* Estado oculto inicial */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
+        /* Posicionamiento flotante al lado de las flechas */
+        .prev-card-panel {
+            left: 75px;
+            transform: translateY(-50%) translateX(-10px);
+        }
+
+        .next-card-panel {
+            right: 75px;
+            transform: translateY(-50%) translateX(10px);
+        }
+
+        /* Clase activa lanzada por JS al hacer Hover */
+        .adjacent-project-card.visible {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+            pointer-events: auto;
+        }
+
+        .card-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .card-tag {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            font-weight: 700;
+        }
+
+        .card-thumb {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .card-inner h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+            margin-top: 2px;
+        }
+
+        .card-inner p {
+            font-size: 0.7rem;
+            color: #666;
+            line-height: 1.2;
+        }
+
+        /* Hacemos que toda la tarjetita sea el enlace clickeable */
+        .card-link-wrapper {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Ajustes específicos de comportamiento en extremos */
+        .lightbox.next-end #nextBtn {
+            /* Mantenemos la flecha activa pero visualmente sutil en el último slide */
+            background-color: rgba(245, 245, 245, 0.4);
+        }
+
+        /* ----- RESPONSIVE ----- */
         @media (max-width: 768px) {
             .project-title { font-size: 1.8rem; }
             .project-gallery {
@@ -381,6 +455,8 @@
                 grid-row: span 1 !important;
             }
             .nav-links { display: none; }
+            /* Ocultar miniaturas flotantes en celulares para evitar superposición */
+            .adjacent-project-card { display: none !important; }
         }
 
         .img-3 img { object-position: 50% 20%; }
@@ -461,7 +537,7 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
 
-        /* ----- PANTALLA DE CARGA PREMIUM (PRELOADER) ----- */
+        /* ----- PANTALLA DE CARGA ----- */
         .preloader {
             position: fixed;
             top: 0;
@@ -491,8 +567,6 @@
             width: 200px;       
             height: auto;
             display: block;
-            
-            /* CORRECCIÓN: Se eliminó el filtro destructivo para respetar los colores nativos */
             filter: none; 
         }
 
@@ -510,14 +584,12 @@
 </head>
 <body>
 
-    <!-- Pantalla de Carga -->
     <div id="sitePreloader" class="preloader">
         <div class="preloader-wrapper">
             <img src="logo-texto.png" alt="is.Arch Volúmenes" class="preloader-logo-img">
         </div>
     </div>
 
-    <!-- Navegación -->
     <header>
         <a href="index.html" class="logo-container">
             <img src="logo-texto.png" alt="is.Arch Logo" class="logo-img">
@@ -531,7 +603,6 @@
         </nav>
     </header>
 
-    <!-- Encabezado -->
     <div class="project-header">
         <a href="index.html#obras" class="back-link">← Volver a Proyectos Destacados</a>
         <h1 class="project-title">Casa RM</h1>
@@ -563,7 +634,6 @@
         </div>
     </div>
 
-    <!-- Galería e info -->
     <main class="project-content">
         <p class="project-description">
             El diseño de Casa RM se estructuró a partir de la optimización del terreno y la búsqueda de luz natural constante. Con una fuerte impronta minimalista y el uso de materiales nobles como el hormigón visto, la madera y el vidrio, se logró articular un espacio fluido que conecta de manera directo el living principal con las áreas verdes exteriores.
@@ -588,7 +658,6 @@
         </div>
     </main>
 
-    <!-- Visor de Imágenes Unificado -->
     <div id="lightboxVisor" class="lightbox">
         <button class="lightbox-btn close-btn" id="closeBtn">✕</button>
         
@@ -601,11 +670,27 @@
             <img src="" alt="Visor de Obra" class="lightbox-img" id="lightboxImg">
             <button class="lightbox-btn next-btn" id="nextBtn">›</button>
 
+            <div id="prevProjectCard" class="adjacent-project-card prev-card-panel">
+                <div class="card-inner">
+                    <span class="card-tag">Obra Anterior</span>
+                </div>
+            </div>
+
+            <div id="nextProjectCard" class="adjacent-project-card next-card-panel">
+                <a href="casa-sc.html" class="card-link-wrapper">
+                    <div class="card-inner">
+                        <span class="card-tag">Próxima Obra</span>
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Casa SC" class="card-thumb">
+                        <h4>CASA SC</h4>
+                        <p>Punta del Este, Uruguay</p>
+                    </div>
+                </a>
+            </div>
+
             <div class="lightbox-counter" id="lightboxCounter">1 / 5</div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div>
             <h4>Filosofía</h4>
@@ -644,7 +729,6 @@
         </div>
     </footer>
 
-    <!-- Botón Flotante de WhatsApp -->
     <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." 
        target="_blank" 
        rel="noopener noreferrer" 
@@ -656,16 +740,21 @@
     </a>
 
     <script>
-        const galleryItems = document.querySelectorAll('.gallery-item img');
+         const galleryItems = document.querySelectorAll('.project-gallery .gallery-item img');
         const lightbox = document.getElementById('lightboxVisor');
         const lightboxImg = document.getElementById('lightboxImg');
         const closeBtn = document.getElementById('closeBtn');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const counter = document.getElementById('lightboxCounter');
+        const nextProjectCard = document.getElementById('nextProjectCard');
+        const prevProjectCard = document.getElementById('prevProjectCard');
 
         let currentImgIndex = 0;
         const totalImages = galleryItems.length;
+
+        // Cambiar a 'true' en casa-rm.html y a 'false' en casa-sc.html
+        const isFirstProject = true; 
 
         galleryItems.forEach((img, index) => {
             img.parentElement.addEventListener('click', () => {
@@ -673,6 +762,9 @@
                 updateVisorContent();
                 lightbox.className = 'lightbox active'; 
                 document.body.style.overflow = 'hidden'; 
+                
+                // Verificar si se abrió directamente en un extremo con el mouse encima
+                checkInstantHover();
             });
         });
 
@@ -680,23 +772,118 @@
             const srcOriginal = galleryItems[currentImgIndex].getAttribute('src');
             lightboxImg.setAttribute('src', srcOriginal);
             counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
+            
+            // Limpieza inicial de estados activos
+            nextProjectCard.classList.remove('visible');
+            prevProjectCard.classList.remove('visible');
+            lightbox.classList.remove('next-end', 'prev-end');
         }
 
         function nextImage() {
-            currentImgIndex = (currentImgIndex + 1) % totalImages;
+            // Si la tarjeta ya es visible y hacen clic, redirige
+            if (nextProjectCard.classList.contains('visible')) {
+                const targetUrl = document.querySelector('#nextProjectCard a')?.getAttribute('href') || "index.html";
+                window.location.href = targetUrl;
+                return;
+            }
+            if (currentImgIndex === totalImages - 1) return;
+            
+            currentImgIndex++;
             updateVisorContent();
+
+            // DETECCIÓN AUTOMÁTICA AL CLICKEAR: Si llegamos al final y el cursor sigue arriba, se muestra al instante
+            if (currentImgIndex === totalImages - 1 && nextBtn.matches(':hover')) {
+                nextProjectCard.classList.add('visible');
+                lightbox.classList.add('next-end');
+            }
         }
 
         function prevImage() {
-            currentImgIndex = (currentImgIndex - 1 + totalImages) % totalImages;
+            // Si la tarjeta ya es visible y hacen clic, redirige
+            if (prevProjectCard.classList.contains('visible')) {
+                const targetUrl = document.querySelector('#prevProjectCard a')?.getAttribute('href') || "index.html";
+                window.location.href = targetUrl;
+                return;
+            }
+            if (currentImgIndex === 0) return;
+
+            currentImgIndex--;
             updateVisorContent();
+
+            // DETECCIÓN AUTOMÁTICA AL CLICKEAR: Si llegamos al inicio y el cursor sigue arriba, se muestra al instante
+            if (currentImgIndex === 0 && !isFirstProject && prevBtn.matches(':hover')) {
+                prevProjectCard.classList.add('visible');
+                lightbox.classList.add('prev-end');
+            }
+        }
+
+        function checkInstantHover() {
+            if (currentImgIndex === totalImages - 1 && nextBtn.matches(':hover')) {
+                nextProjectCard.classList.add('visible');
+                lightbox.classList.add('next-end');
+            }
+            if (currentImgIndex === 0 && !isFirstProject && prevBtn.matches(':hover')) {
+                prevProjectCard.classList.add('visible');
+                lightbox.classList.add('prev-end');
+            }
         }
 
         function closeVisor() {
             lightbox.className = 'lightbox';
             document.body.style.overflow = 'auto'; 
+            nextProjectCard.classList.remove('visible');
+            prevProjectCard.classList.remove('visible');
+            lightbox.classList.remove('next-end', 'prev-end');
         }
 
+        /* ----- LISTENERS DE HOVER TRADICIONALES ----- */
+        nextBtn.addEventListener('mouseenter', () => {
+            if (currentImgIndex === totalImages - 1) {
+                nextProjectCard.classList.add('visible');
+                lightbox.classList.add('next-end');
+            }
+        });
+
+        nextBtn.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                if (!nextProjectCard.matches(':hover') && !nextBtn.matches(':hover')) {
+                    nextProjectCard.classList.remove('visible');
+                    lightbox.classList.remove('next-end');
+                }
+            }, 50);
+        });
+
+        nextProjectCard.addEventListener('mouseleave', () => {
+            if (!nextBtn.matches(':hover')) {
+                nextProjectCard.classList.remove('visible');
+                lightbox.classList.remove('next-end');
+            }
+        });
+
+        prevBtn.addEventListener('mouseenter', () => {
+            if (currentImgIndex === 0 && !isFirstProject) {
+                prevProjectCard.classList.add('visible');
+                lightbox.classList.add('prev-end');
+            }
+        });
+
+        prevBtn.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                if (!prevProjectCard.matches(':hover') && !prevBtn.matches(':hover')) {
+                    prevProjectCard.classList.remove('visible');
+                    lightbox.classList.remove('prev-end');
+                }
+            }, 50);
+        });
+
+        prevProjectCard.addEventListener('mouseleave', () => {
+            if (!prevBtn.matches(':hover')) {
+                prevProjectCard.classList.remove('visible');
+                lightbox.classList.remove('prev-end');
+            }
+        });
+
+        // Eventos de click e interacciones
         nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
         prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
         closeBtn.addEventListener('click', closeVisor);
@@ -706,22 +893,32 @@
 
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
-            if (e.key === 'ArrowRight') nextImage();
-            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') {
+                if (currentImgIndex === totalImages - 1) {
+                    const targetUrl = document.querySelector('#nextProjectCard a')?.getAttribute('href') || "index.html";
+                    window.location.href = targetUrl;
+                } else {
+                    nextImage();
+                }
+            }
+            if (e.key === 'ArrowLeft') {
+                if (currentImgIndex === 0 && !isFirstProject) {
+                    const targetUrl = document.querySelector('#prevProjectCard a')?.getAttribute('href') || "index.html";
+                    window.location.href = targetUrl;
+                } else {
+                    prevImage();
+                }
+            }
             if (e.key === 'Escape') closeVisor();
         });
 
         window.addEventListener('load', function() {
             const preloader = document.getElementById('sitePreloader');
-            
             setTimeout(() => {
                 preloader.classList.add('fade-out');
-                
-                setTimeout(() => {
-                    preloader.remove();
-                }, 800); 
+                setTimeout(() => { preloader.remove(); }, 800); 
             }, 400);
-        });   
+        }); 
     </script>
 </body>
 </html>
