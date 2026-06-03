@@ -70,8 +70,6 @@
             transition: var(--transition);
             transform: scale(2.2); 
             transform-origin: left center; 
-            
-            /* CORRECCIÓN: Eliminamos el filter destructivo para que se vea el color original */
             filter: none; 
         }
 
@@ -95,11 +93,28 @@
             color: #888;
         }
 
-        .menu-toggle {
+        /* Botón de Menú Móvil (Hamburguesa animada) */
+        .mobile-menu-btn {
             display: none;
-            font-size: 1.5rem;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
             cursor: pointer;
+            padding: 4px;
+            z-index: 1100;
         }
+
+        .mobile-menu-btn .bar {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .mobile-menu-btn.active .bar:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
         /* ----- SECCIÓN INICIO (HERO) ----- */
         .hero {
@@ -620,27 +635,50 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
 
-        /* ----- RESPONSIVE (MÓVIL) ----- */
+        /* ----- RESPONSIVE EXCLUSIVO (MÓVIL) ----- */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: #fff;
-                padding: 20px 5%;
-                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
-                z-index: 2000;
-            }
-            
-            .nav-links.active {
-                display: flex;
+            .mobile-menu-btn {
+                display: flex; 
             }
 
-            .menu-toggle {
-                display: block;
+            .nav-links {
+                position: absolute;
+                top: 80px; 
+                left: 0;
+                width: 100%;
+                height: auto;
+                background-color: #ffffff;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                gap: 0;
+                padding: 20px 5% 40px;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 15px 0;
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+                font-weight: 600;
+                border-bottom: 1px solid #f5f5f5;
+                color: var(--text-color);
+            }
+            
+            .nav-links a:last-child { 
+                border-bottom: none; 
             }
 
             .section {
@@ -719,8 +757,6 @@
             width: 200px;       
             height: auto;
             display: block;
-            
-            /* CORRECCIÓN: Quitamos el filter destructivo para que muestre el color real original */
             filter: none; 
         }
 
@@ -741,10 +777,7 @@
             height: auto;
             display: block;
             margin: 0 auto 25px auto; 
-            
-            /* Este se mantiene invertido a blanco puro porque el fondo de la foto es oscuro */
             filter: brightness(0) invert(1);  
-            
             user-select: none;
             pointer-events: none;     
             animation: heroLogoReveal 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -775,14 +808,20 @@
         <a href="#" class="logo-container">
             <img src="logo-texto.png" alt="is.Arch Logo" class="logo-img">
         </a>
-        <nav class="nav-links">
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="nav-links" id="navLinks">
             <a href="#inicio">Inicio</a>
             <a href="#especialidades">Especialidades</a>
             <a href="#obras">Proyectos Destacados</a>
             <a href="#nosotros">Nosotros</a>
             <a href="#contacto">Contacto</a>
         </nav>
-        <div class="menu-toggle">☰</div>
     </header>
 
     <section id="inicio" class="hero">
@@ -988,22 +1027,34 @@
     </a>
 
     <script>
-        // Menú Móvil
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        
-        menuToggle.addEventListener('click', () => {
+        /* ----- LÓGICA DEL MENÚ DESPLEGABLE MÓVIL ----- */
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        // Alternar el menú al hacer clic en el botón hamburguesa
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenuBtn.classList.toggle('active');
             navLinks.classList.toggle('active');
         });
 
-        const links = document.querySelectorAll('.nav-links a');
-        links.forEach(link => {
+        // Cerrar el menú si se hace clic afuera
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Cerrar el menú automáticamente al seleccionar un enlace
+        navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
                 navLinks.classList.remove('active');
             });
         });
 
-        // Efecto de Tipeo
+        /* ----- Efecto de Tipeo ----- */
         const texto = "Pensamos espacios funcionales y con un estilo propio. Acompañamos en todas las etapas del diseño, construcción y puesta a punto de proyectos de arquitectura.";
         const elementoTexto = document.getElementById("texto-tipeo");
         let indice = 0;
@@ -1019,7 +1070,7 @@
 
         window.addEventListener('load', efectoTipeo);
 
-        // Monitorea la carga total de recursos del navegador
+        /* ----- Preloader ----- */
         window.addEventListener('load', function() {
             const preloader = document.getElementById('sitePreloader');
             
