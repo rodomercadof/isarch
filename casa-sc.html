@@ -526,7 +526,14 @@
                 background: transparent !important;
             }
 
-            .lightbox-header-title { top: -50px; left: 5%; width: 90%; color: #1a1a1a; }
+            .lightbox-header-title {
+    top: -45px;
+    left: 2%;
+    width: 70%; /* Reducido de 90% a 75% para que no pise la X */
+    color: #1a1a1a;
+    line-height: 1.4; /* Mejora la lectura si el texto cae en dos líneas */
+    white-space: nowrap;
+}
             
             .lightbox-counter {
                 bottom: -35px !important; 
@@ -536,21 +543,28 @@
             }
 
             .mobile-adjacent-card-container {
-                display: block !important;
-                position: relative !important;
-                margin: 0 auto;
-                width: 90vw;
-                background-color: #ffffff;
-                border: 1px solid rgba(0,0,0,0.08);
-                border-radius: 0px; 
-                padding: 0;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(10px);
-                transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-                z-index: 10050;
-            }
+    display: none !important; /* CAMBIO CLAVE: Destruye el hueco físico fantasma */
+    position: relative !important;
+    margin: 45px auto 0 !important; /* Separación perfecta con el contador 5/5 */
+    width: 90vw;
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 0px; 
+    padding: 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    z-index: 10050;
+}
+
+.mobile-adjacent-card-container.active {
+    display: block !important; /* Solo existe físicamente cuando se activa */
+    animation: cardFadeUp 0.4s ease forwards;
+}
+
+/* Agrega esta animación justo debajo para mantener el efecto de aparición suave */
+@keyframes cardFadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
             .mobile-adjacent-card-container.active { opacity: 1; visibility: visible; transform: translateY(0); }
             .mobile-adjacent-card-container .card-inner { flex-direction: row !important; align-items: center; gap: 0; width: 100%; }
@@ -631,7 +645,7 @@
         
         <div class="lightbox-content">
             <div class="lightbox-header-title" id="lightboxProjectTitle">
-                Casa SC <span style="color: #888; font-weight: 300; margin-left: 10px;">· Punta del Este, Uruguay</span>
+                Casa SC<span style="color: #888; font-weight: 300; margin-left: 10px;">· Punta del Este, Uruguay</span>
             </div>
 
             <button class="lightbox-btn prev-btn" id="prevBtn">‹</button>
