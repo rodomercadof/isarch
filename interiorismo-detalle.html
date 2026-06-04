@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interiorismo Estratégico - is.Arch</title>
+    
+    <link rel="icon" type="image/png" href="logo-solo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ----- 0. PANTALLA DE CARGA ----- */
+        /* ----- PANTALLA DE CARGA (PRELOADER) ----- */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #fcfcfc; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            opacity: 1;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .preloader-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px; 
+            animation: preloaderReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .preloader-logo-img {
+            width: 200px;       
+            height: auto;
+            display: block;
+            filter: none; 
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+            transform: translateY(-30px);
+            pointer-events: none;
+        }
+
+        @keyframes preloaderReveal {
+            0% { opacity: 0; transform: scale(0.97) translateY(5px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        /* ----- 1. VARIABLES Y RESETEO ----- */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --accent-color: #000000;
+            --light-gray: #f5f5f5;
+            --border-color: #eaeaea;
+            --transition: all 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        a { text-decoration: none; color: var(--text-color); }
+
+        /* ----- 2. BARRA DE NAVEGACIÓN ----- */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: #fff; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo-container { display: flex; align-items: center; height: 100%; padding-left: 15px; }
+        .logo-img { height: 40px; width: auto; object-fit: contain; transition: var(--transition); transform: scale(2.2); transform-origin: left center; filter: none; }
+        .logo-container:hover .logo-img { opacity: 0.8; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; transition: var(--transition); }
+        .nav-links a:hover { color: #888; }
+        
+        .mobile-menu-btn { display: none; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 1100; }
+        .mobile-menu-btn .bar { width: 25px; height: 2px; background-color: var(--text-color); transition: var(--transition); }
+        .mobile-menu-btn.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .mobile-menu-btn.active .bar:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* ----- 3. ESTILOS GLOBALES Y ANIMACIONES SUAVES ----- */
+        .section { padding: 100px 5%; scroll-margin-top: 70px; }
+        .bg-light { background-color:  var(--light-gray); }
+        .section-title { text-align: center; font-size: 2rem; font-weight: 600; margin-bottom: 60px; text-transform: uppercase; letter-spacing: 3px; }
+        .about-intro { text-align: center; max-width: 750px; margin: 0 auto 40px; font-size: 1.05rem; color: #555; font-weight: 300; }
+        
+        /* Animación Fade-Up con curva suave (Cubic Bezier) */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        .btn { padding: 15px 35px; background-color: #fff; color: #000; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; border: none; cursor: pointer; transition: var(--transition); display: inline-block; text-align: center; }
+        .btn:hover { background-color: #000; color: #fff; }
+        .btn-dark { background-color: #000; color: #fff; border: 1px solid #000; }
+        .btn-dark:hover { background-color: #ffffff; color: #000; }
+
+        /* ----- 4. HERO SECTION ----- */
+        .hero { 
+            min-height: 100vh; 
+            padding: 80px 20px 0; 
+            margin-top: 0; 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            color: #fff; 
+        }
+        .hero h1 { font-size: 3.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        
+        /* Efecto Tipeo */
+        .typewriter-container {
+            font-size: 1.1rem; 
+            font-weight: 300; 
+            max-width: 650px; 
+            margin-bottom: 30px;
+            min-height: 60px;
+        }
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background-color: #fff;
+            vertical-align: text-bottom;
+            animation: blink 0.8s infinite;
+            margin-left: 3px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .team-signature { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 30px; }
+        .team-signature img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; filter: grayscale(100%); }
+        .team-signature p { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #1a1a1a; margin: 0;}
+        .team-signature span { font-size: 0.8rem; color: #888; font-style: italic; }
+
+        /* ----- 5. METODOLOGÍA ZIG-ZAG (DISEÑO EDITORIAL) ----- */
+        .step-by-step-section { padding: 100px 5%; background-color: var(--light-gray); overflow: hidden; }
+        .step-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 100px; }
+        
+        .step-row { display: flex; align-items: center; gap: 60px; position: relative; }
+        .step-row:nth-child(even) { flex-direction: row-reverse; }
+        
+        .step-image-wrapper { flex: 1; position: relative; overflow: hidden; aspect-ratio: 4/5; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.511); }
+        .step-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .step-row:hover .step-image-wrapper img { transform: scale(1.05); }
+        
+        .step-content { flex: 1; position: relative; padding: 40px 20px; }
+        
+        .step-big-num { position: absolute; top: -50px; left: 15px; font-size: 7.5rem; font-weight: 700; color: rgba(128, 120, 91, 0.15); line-height: 1; z-index: 0; user-select: none; letter-spacing: -2px; }
+        
+        .step-text-inner { position: relative; z-index: 1; }
+        .step-tag { display: inline-block; padding: 6px 16px; background-color: #80785b; color: #fff; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; font-weight: 600; }
+        
+        .step-text-inner h3 { font-size: 2rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; color: #000; display: flex; align-items: center; gap: 10px; }
+        .step-text-inner p { font-size: 1.05rem; color: #555; line-height: 1.8; margin-bottom: 15px; }
+        .entregable-destacado { color: #000; font-weight: 600; margin-top: 25px; border-left: 2px solid #000; padding-left: 15px; }
+
+        /* ----- 6. ENTREGABLES (TARJETAS PREMIUM CON SVG) ----- */
+        .deliverables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        
+        .deliverable-card { background: #fff; border: 1px solid var(--border-color); overflow: hidden; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease; display: flex; flex-direction: column; cursor: default; }
+        .deliverable-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: transparent; }
+        
+        .deliverable-img { width: 100%; height: 220px; overflow: hidden; position: relative; }
+        .deliverable-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .deliverable-card:hover .deliverable-img img { transform: scale(1.08); }
+        
+        .deliverable-text { padding: 35px 30px; display: flex; flex-direction: column; justify-content: center; flex: 1; }
+        .deliverable-text h4 { font-size: 1.15rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; color: #000; }
+        .deliverable-text h4 svg { width: 22px; height: 22px; flex-shrink: 0; stroke: #1a1a1a; }
+        .deliverable-text p { font-size: 0.95rem; color: #666; line-height: 1.7; margin-bottom: 0; }
+
+        /* ----- 7. PORTFOLIO ----- */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;}
+        .portfolio-item { display: flex; flex-direction: column; cursor: pointer; }
+        .portfolio-img-wrapper { position: relative; overflow: hidden; aspect-ratio: 4/3; width: 100%; }
+        .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .portfolio-hover-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); color: #fff; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: 0; transition: var(--transition); z-index: 2; }
+        .portfolio-hover-layer .quote { font-size: 0.95rem; font-style: italic; font-weight: 300; margin-bottom: 10px; max-width: 290px; line-height: 1.5; opacity: 0; transform: translateY(15px); transition: var(--transition); }
+        .portfolio-hover-layer p.quote:nth-of-type(2) { font-style: normal; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #bbb; margin-bottom: 25px; }
+        .btn-card { padding: 10px 25px; background-color: transparent; color: #fff; border: 1px solid #fff; text-transform: uppercase; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; margin-top: 5px; opacity: 0; transform: translateY(15px); transition: var(--transition); cursor: pointer; display: inline-block; }
+        .btn-card:hover { background-color: #fff; color: #000; }
+        .portfolio-info { padding: 15px 5px 0 5px; background-color: #fff; }
+        .portfolio-info h4 { font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .portfolio-info p { font-size: 0.85rem; color: #666; font-weight: 400; }
+        
+        .portfolio-item:hover img { transform: scale(1.05); }
+        .portfolio-item:hover .portfolio-hover-layer { opacity: 1; }
+        .portfolio-item:hover .quote, .portfolio-item:hover .btn-card { opacity: 1; transform: translateY(0); }
+        .portfolio-item:hover .btn-card { transition-delay: 0.1s; }
+
+        /* ----- 8. PREGUNTAS FRECUENTES ----- */
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #e0e0e0; }
+        .faq-question { width: 100%; text-align: left; padding: 25px 0; background: none; border: none; font-size: 1.05rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px;}
+        .faq-question:hover { color: #666; }
+        .faq-icon { font-size: 1.5rem; font-weight: 300; transition: transform 0.3s ease; }
+        .faq-question.active .faq-icon { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .faq-answer p { padding-bottom: 25px; color: #555; font-size: 0.95rem; line-height: 1.6; }
+
+        /* ----- 9. FOOTER & WHATSAPP ----- */
+        .whatsapp-floating-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #25d366; color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); z-index: 9999; transition: var(--transition); }
+        .whatsapp-floating-btn svg { width: 32px; height: 32px; fill: #fff; }
+        .whatsapp-floating-btn:hover { transform: scale(1.1); background-color: #20ba5a; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); }
+
+        footer { background-color: #000; color: #fff; padding: 80px 5% 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; font-size: 0.9rem; }
+        footer h4 { margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; }
+        footer p { color: #aaa; line-height: 1.8; }
+        footer ul { list-style: none; }
+        footer ul li { margin-bottom: 12px; }
+        footer ul li a { color: #aaa; transition: var(--transition); }
+        footer ul li a:hover { color: #fff; }
+        .footer-social-links li a { display: inline-flex; align-items: center; gap: 10px; }
+        .social-icon { width: 16px; height: 16px; fill: #aaa; transition: var(--transition); }
+        .footer-social-links li a:hover .social-icon { fill: #fff; transform: translateY(-1px); }
+
+        /* ----- 10. RESPONSIVE MÓVIL ----- */
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: flex; }
+            .nav-links { position: absolute; top: 80px; left: 0; width: 100%; height: auto; background-color: #ffffff; flex-direction: column; padding: 20px 5% 40px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; z-index: 999; gap: 0;}
+            .nav-links.active { opacity: 1; visibility: visible; transform: translateY(0); }
+            .nav-links a { width: 100%; padding: 15px 0; font-size: 1.1rem; border-bottom: 1px solid #f5f5f5; }
+            
+            .hero h1 { font-size: 2.2rem; }
+            .section, .step-by-step-section { padding: 60px 5%; }
+            
+            /* Ajustes del Zig-Zag para móvil */
+            .step-container { gap: 60px; }
+            .step-row, .step-row:nth-child(even) { flex-direction: column; gap: 30px; }
+            .step-image-wrapper { width: 100%; aspect-ratio: 16/10; }
+            
+            /* Corrección del espaciado para separar el número de la sombra de la imagen */
+            .step-content { padding: 75px 20px 20px; } 
+            .step-big-num { font-size: 5.5rem; top: 45px; left: 15px; }
+            
+            .step-text-inner h3 { font-size: 1.5rem; }
+
+            .portfolio-hover-layer { opacity: 1; background-color: rgba(0, 0, 0, 0.7); }
+            .portfolio-hover-layer .quote, .portfolio-hover-layer .btn-card { opacity: 1; transform: translateY(0); }
+            .whatsapp-floating-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
+            .whatsapp-floating-btn svg { width: 28px; height: 28px; }
+        }
+    </style>
+</head>
+<body>
+<div id="sitePreloader" class="preloader">
+        <div class="preloader-wrapper">
+            <img src="logo-texto.png" alt="is.Arch Volúmenes" class="preloader-logo-img">
+        </div>
+    </div>
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo-texto.png" alt="is.Arch Logo" class="logo-img">
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html#inicio">Inicio</a>
+            <a href="index.html#especialidades">Especialidades</a>
+            <a href="index.html#obras">Proyectos Destacados</a>
+            <a href="index.html#nosotros">Nosotros</a>
+            <a href="index.html#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <section class="hero fade-up">
+        <h1>Interiorismo Estratégico</h1>
+        
+        <div class="typewriter-container">
+            <span id="hero-typewriter"></span><span class="cursor"></span>
+        </div>
+
+        <a href="#contacto" class="btn">Diseñemos tu espacio</a>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title fade-up">Nuestra Visión</h2>
+        <p class="about-intro fade-up">
+            Habitar un espacio debe ser una experiencia inspiradora. Nos enfocamos en potenciar cada ambiente mediante el estudio detallado de la iluminación, el mobiliario, los colores y las texturas, logrando una armonía perfecta entre diseño estético y bienestar diario.
+        </p>
+        <div class="team-signature fade-up">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Dirección is.Arch" loading="lazy">
+            <p>El equipo de is.Arch</p>
+            <span>Dirección Creativa y Diseño Interior</span>
+        </div>
+    </section>
+
+    <section class="step-by-step-section">
+        <h2 class="section-title fade-up">El Paso a Paso</h2>
+        
+        <div class="step-container">
+            <div class="step-row fade-up">
+                <div class="step-image-wrapper">
+                    <img src="moodboard.png" alt="Muestras de materiales y Moodboard inicial" loading="lazy">
+                </div>
+                <div class="step-content">
+                    <div class="step-big-num">01</div>
+                    <div class="step-text-inner">
+                        <span class="step-tag">Fase Inicial</span>
+                        <h3>Requisitos & Espacio</h3>
+                        <p>El punto de partida. Realizamos una reunión profunda para entender tus necesidades, tu estilo de vida y tus gustos decorativos.</p>
+                        <p>Analizamos el espacio existente, la iluminación natural y las posibilidades de intervención para sacar su máximo potencial.</p>
+                        <p class="entregable-destacado">Entregable: Moodboard inspiracional y layout de distribución.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-row fade-up">
+                <div class="step-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Visualización 3D y Diseño Conceptual" loading="lazy">
+                </div>
+                <div class="step-content">
+                    <div class="step-big-num">02</div>
+                    <div class="step-text-inner">
+                        <span class="step-tag">Diseño</span>
+                        <h3>Diseño Conceptual</h3>
+                        <p>Definimos la paleta de colores, selección de mobiliario, texturas y materialidades que darán vida al lugar.</p>
+                        <p>Presentamos opciones visuales fotorrealistas en 3D para que experimentes cómo se sentirá tu nuevo ambiente antes de comprar un solo mueble.</p>
+                        <p class="entregable-destacado">Entregable: Renders de interiores y catálogo de mobiliario.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-row fade-up">
+                <div class="step-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1503945438517-f65904a52ce6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Planos constructivos y documentación técnica" loading="lazy">
+                </div>
+                <div class="step-content">
+                    <div class="step-big-num">03</div>
+                    <div class="step-text-inner">
+                        <span class="step-tag">Técnica</span>
+                        <h3>Documentación</h3>
+                        <p>Elaboramos los planos de detalle: diseño de muebles a medida, esquemas de iluminación y despiece de revestimientos.</p>
+                        <p>Cotizamos cada elemento con nuestros proveedores de confianza para ajustarnos de manera precisa a tu presupuesto de inversión.</p>
+                        <p class="entregable-destacado">Entregable: Planos de carpintería, luminotecnia y presupuesto.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-row fade-up">
+                <div class="step-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Montaje final y styling decorativo terminado" loading="lazy">
+                </div>
+                <div class="step-content">
+                    <div class="step-big-num">04</div>
+                    <div class="step-text-inner">
+                        <span class="step-tag">Ejecución</span>
+                        <h3>Montaje & Styling</h3>
+                        <p>Nos encargamos de las compras, la recepción de mobiliario y la coordinación de los gremios menores (pintores, electricistas, tapiceros).</p>
+                        <p>Realizamos el montaje final y el styling decorativo cuidando cada detalle para que tú solo tengas que disfrutar del nuevo espacio.</p>
+                        <p class="entregable-destacado">Entregable: Espacio terminado, decorado y listo para usar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- 
+    <section class="section">
+        <h2 class="section-title fade-up">Qué Incluye el Servicio</h2>
+        <div class="deliverables-grid">
+            
+            <div class="deliverable-card fade-up" style="transition-delay: 0.1s;">
+                <div class="deliverable-img">
+                    <img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Renders 3D de Interiores" loading="lazy">
+                </div>
+                <div class="deliverable-text">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                        Renders Fotorrealistas
+                    </h4>
+                    <p>Visualización 3D hiperrealista de los interiores. Te permite experimentar cómo interactúan la luz, los textiles y los colores de tu hogar o local antes de iniciar.</p>
+                </div>
+            </div>
+
+            <div class="deliverable-card fade-up" style="transition-delay: 0.2s;">
+                <div class="deliverable-img">
+                    <img src="https://images.unsplash.com/photo-1503694978374-8a2fa686963a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Planos de Diseño Interior" loading="lazy">
+                </div>
+                <div class="deliverable-text">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                        Planos de Detalle
+                    </h4>
+                    <p>Documentación precisa para ejecución: planos de mobiliario a medida (carpintería), distribución de tomacorrientes, esquemas de iluminación y cortes decorativos.</p>
+                </div>
+            </div>
+
+            <div class="deliverable-card fade-up" style="transition-delay: 0.3s;">
+                <div class="deliverable-img">
+                    <img src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gestión de Compras y Materiales" loading="lazy">
+                </div>
+                <div class="deliverable-text">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                            <line x1="9" y1="14" x2="15" y2="14"></line>
+                            <line x1="9" y1="18" x2="15" y2="18"></line>
+                            <line x1="9" y1="10" x2="15" y2="10"></line>
+                        </svg>
+                        Gestión de Compras
+                    </h4>
+                    <p>Organizamos el catálogo completo de elementos. Te ofrecemos acceso a nuestro listado de proveedores, gestión de cotizaciones y control de pedidos de decoración.</p>
+                </div>
+            </div>
+
+        </div>
+    </section> -->
+
+    <section class="section">
+        <h2 class="section-title fade-up">Proyectos de Interiorismo</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-up" style="transition-delay: 0.1s;">
+                <div class="portfolio-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="PENTHOUSE NVA CBA" loading="lazy">
+                    <div class="portfolio-hover-layer">
+                        <p class="quote">"Supieron darle exactamente la calidez y el estilo que le faltaba a nuestro departamento."</p>
+                        <p class="quote">Familia Gómez - Clientes</p>
+                        <a href="casa-rm1.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h4>PENTHOUSE NVA CBA</h4>
+                    <p>Diseño Interior y Styling | Córdoba, Arg</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-up" style="transition-delay: 0.2s;">
+                <div class="portfolio-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="OFICINAS TECH" loading="lazy">
+                    <div class="portfolio-hover-layer">
+                        <p class="quote">"Lograron un espacio de trabajo moderno y confortable que potenció la creatividad del equipo."</p>
+                        <p class="quote">Estudio Creativo - Clientes</p>
+                        <a href="casa-sc.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h4>OFICINAS TECH</h4>
+                    <p>Interiorismo Corporativo | Rosario, Arg</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-light">
+        <h2 class="section-title fade-up">Preguntas Frecuentes</h2>
+        <div class="faq-container fade-up">
+            <div class="faq-item">
+                <button class="faq-question">¿Cuánto tiempo demora el proyecto de interiorismo? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>La fase de diseño conceptual y entregas visuales toma aproximadamente entre 3 y 4 semanas. La etapa de compras y montaje dependerá fundamentalmente de los tiempos de fabricación del mobiliario a medida.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">¿Tengo que comprar los muebles donde ustedes me digan? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>No necesariamente. Nosotros preparamos un catálogo con sugerencias y enlaces de compra de nuestra confianza, pero tienes total libertad de adquirir piezas similares donde prefieras o integrar muebles que ya poseas.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">¿Hacen interiorismo online o a distancia? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>Sí. Ofrecemos un servicio de consultoría de diseño online donde te entregamos los renders fotorrealistas, paletas de colores, planos y la lista de compras detallada para que tú mismo ejecutes el montaje final a tu ritmo.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="section" style="text-align: center;">
+        <h2 class="section-title fade-up">Comenzá tu Proyecto</h2>
+        <p class="about-intro fade-up">Contactanos de forma directa para despejar dudas iniciales o agenda una entrevista para profundizar en tus ideas decorativas.</p>
+        
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;" class="fade-up">
+            <a href="https://wa.me/543517914897" target="_blank" class="btn btn-dark">WhatsApp Directo</a>
+            <a href="https://calendly.com/" target="_blank" class="btn" style="border: 1px solid #ccc;">Agendar Reunión</a>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <h4>Filosofía</h4>
+            <p>"Proyectando, tienes noción de las metas que puedes alcanzar, la idea es clara y sencilla. Partimos de tus ideas y las ajustamos hasta lograr el proyecto deseado".</p>
+        </div>
+        <div>
+            <h4>Especialidades</h4>
+            <ul>
+                <li><a href="arquitectura-detalle.html">Arquitectura</a></li>
+                <li><a href="interiorismo-detalle.html">Interiorismo</a></li>
+                <li><a href="paisajismo-detalle.html">Paisajismo</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Redes Sociales</h4>
+            <ul class="footer-social-links">
+                <li><a href="https://www.instagram.com/is.arch.arq" target="_blank"><svg class="social-icon" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg> Instagram</a></li>
+                <li><a href="https://www.facebook.com/share/1E7nk3VJ9i/" target="_blank"><svg class="social-icon" viewBox="0 0 512 512"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg> Facebook</a></li>
+                <li><a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20interiorismo." target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>WhatsApp</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/543517914897" target="_blank" class="whatsapp-floating-btn" title="Consultas por WhatsApp">
+        <svg viewBox="0 0 448 512">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+    </a>
+
+    <script>
+        // 1. Lógica del Menú Móvil
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // 2. Acordeón FAQ
+        const faqItems = document.querySelectorAll('.faq-question');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                const isActive = item.classList.contains('active');
+                
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    otherItem.nextElementSibling.style.maxHeight = null;
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                }
+            });
+        });
+
+        // 3. Animaciones al Scrollear (Fade-Up) AMBAS DIRECCIONES
+        const fadeUpElements = document.querySelectorAll('.fade-up');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+
+        fadeUpElements.forEach(el => observer.observe(el));
+
+        // 4. Efecto Tipeo para el texto del Hero
+        const textoTipeo = "Diseño de interiores con propósito. Creamos espacios que reflejan tu identidad, optimizando la estética, el confort y la funcionalidad.";
+        const elementoTipeo = document.getElementById('hero-typewriter');
+        let indexTipeo = 0;
+
+        function escribirTexto() {
+            if (indexTipeo < textoTipeo.length) {
+                elementoTipeo.innerHTML += textoTipeo.charAt(indexTipeo);
+                indexTipeo++;
+                setTimeout(escribirTexto, 35); 
+            }
+        }
+        
+        setTimeout(escribirTexto, 800);
+
+        /* ----- Preloader ----- */
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('sitePreloader');
+            
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    preloader.remove();
+                }, 800); 
+            }, 400);
+        });  
+    </script>
+</body>
+</html>
