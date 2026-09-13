@@ -845,14 +845,24 @@
         bottom: auto; 
         left: auto;
         width: 100%;
-        /* Este margen separa el botón del borde inferior del video */
-        margin-top: 40px; 
+        margin-top: 25px; /* Reducimos la distancia entre video y botón */
         padding: 0 20px 40px 20px; 
         display: flex;
         justify-content: center;
         animation: aparecerBotonMovil 5s ease forwards;
         animation-delay: 7s; 
     }
+    /* Agregamos una regla específica para el botón en móviles */
+    .hero-content .btn {
+        width: 100%;
+        max-width: 320px; /* Evita que se estire demasiado */
+        padding: 16px 20px;
+        font-size: 0.85rem; /* Ajusta el tamaño de la fuente para que respire */
+        text-align: center;
+        border-radius: 4px; /* Suaviza las esquinas */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sutil sombra para darle relieve de botón */
+    }
+}
 
     /* Animación exclusiva para celular (sin el -50% horizontal) */
     @keyframes aparecerBotonMovil {
