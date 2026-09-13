@@ -13,7 +13,7 @@
         /* Variables de colores */
         :root {
             --bg-color: #ffffff;
-            --text-color: #1a1a1a;
+            --text-color: #635847;
             --accent-color: #000000;
             --light-gray: #f5f5f5;
             --transition: all 0.4s ease;
@@ -90,7 +90,7 @@
         }
 
         .nav-links a:hover {
-            color: #888;
+            color: #e0ceb7;
         }
 
         /* Botón de Menú Móvil (Hamburguesa animada) */
@@ -155,30 +155,23 @@
 }
 
 .hero-content {
-    /* Mantené tu posicionamiento actual (absolute, relative, bottom, etc.) */
     position: absolute;
     z-index: 3;
     bottom: 205px;
     left: 23%;
-    transform: translateX(-50%);
-    
-    /* Nuevas reglas para el retraso */
-    opacity: 0; /* Arranca invisible */
-    animation: aparecerBoton 5s ease forwards;
-    animation-delay: 7s; /* Tiempo que espera (2 segundos). Modificalo a tu gusto */
+    transform: translate(-50%, 20px);
+    opacity: 0;
+    transition: opacity 1.2s ease, transform 1.2s ease;
+    pointer-events: none;
 }
 
-/* Animación para que suba suavemente */
-@keyframes aparecerBoton {
-    from { 
-        opacity: 0; 
-        transform: translate(-50%, 20px); /* Nota: si no estabas usando left: 50%, borrá el -50% */
-    }
-    to { 
-        opacity: 1; 
-        transform: translate(-50%, 0); 
-    }
+.hero-content.hero-visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
 }
+
+
 
         .hero p {
             font-size: 1.1rem;
@@ -207,7 +200,7 @@
         .btn {
             padding: 15px 35px;
             background-color: #f6e5d6;
-            color: rgb(99, 88, 71);
+            color: #635847;
             text-transform: uppercase;
             font-weight: 600;
             letter-spacing: 1px;
@@ -464,13 +457,14 @@
 
         /* ----- NOSOTROS ----- */
         .about-intro {
-            text-align: center;
-            max-width: 750px;
-            margin: 0 auto 60px;
-            font-size: 1.05rem;
-            color: #555;
-            font-weight: 300;
-        }
+    text-align: center;
+    max-width: 800px; /* Ajustado para coincidir con el bloque de texto */
+    margin: 0 auto 30px auto; /* Agregamos 50px de separación abajo */
+    font-size: 1.05rem;
+    color: #635847;
+    font-weight: 300;
+    line-height: 1.8;
+}
 
         .team-grid {
             display: grid;
@@ -546,7 +540,7 @@
         .contact-info p {
             margin-bottom: 25px;
             font-weight: 400;
-            color: #555;
+            color: #635847;
             font-size: 1rem;
         }
 
@@ -557,7 +551,7 @@
         .contact-details p {
             font-size: 0.9rem;
             margin-bottom: 10px;
-            color: #333;
+            color: #635847;
         }
 
         .contact-channels {
@@ -573,7 +567,7 @@
             flex-direction: column;
             justify-content: center;
             padding: 30px;
-            background-color: var(--light-gray);
+            background-color: #f6e5d6;
             border: 1px solid transparent;
             transition: var(--transition);
             cursor: pointer;
@@ -590,25 +584,25 @@
 
         .channel-card p {
             font-size: 0.85rem;
-            color: #666;
+            color: #635847;
             margin-bottom: 0;
         }
 
         .channel-card:hover {
-            background-color: #fff;
-            border-color: #000;
+            background-color: #e0ceb7;
+            border-color: #635847;
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
         /* ----- FOOTER ----- */
         footer {
-            background-color: #000;
-            color: #fff;
+            background-color: #635847;
+            color: #f6e5d6;
             padding: 80px 5% 40px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            grid-template-columns: 1.2fr 1.6fr 0.9fr;
+            gap: 24px;
             font-size: 0.9rem;
         }
 
@@ -620,43 +614,79 @@
         }
 
         footer p {
-            color: #aaa;
+            color: #f6e5d6;
             line-height: 1.8;
         }
 
         footer ul {
-            list-style: none;
-        }
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-right: 96px;
+}
 
         footer ul li {
-            margin-bottom: 12px;
-        }
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
 
         footer ul li a {
-            color: #aaa;
+            color: #f6e5d6;
             transition: var(--transition);
         }
 
         footer ul li a:hover {
-            color: #fff;
+            color: #d0bfbf;
         }
 
+        /* Nuestros Servicios: 2 columnas más pegadas */
+        .footer-col:nth-child(2) ul {
+            column-count: 2;
+            column-gap: 5px; /* Más pegadas horizontalmente */
+        }
+        .footer-col:nth-child(2) ul li a {
+    font-size: 0.82rem; 
+    white-space: nowrap;
+}
+.footer-col:nth-child(2) ul li a,
+.footer-social-links li a {
+    font-size: 0.9rem; /* Cambiá 0.9rem por el tamaño que prefieras (ej. 0.85rem) */
+}
+
+        /* Redes Sociales: 1 sola columna vertical estricta */
+        .footer-col:nth-child(3) .footer-social-links {
+    display: flex;
+    flex-direction: column;
+    /* Ajustamos el espacio vertical para que coincida exactamente con la altura de las 3 filas de servicios */
+    gap: 12px; 
+}
+
         /* ----- LOGOS EN REDES SOCIALES ----- */
+
+        .footer-social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Modificá este valor (ej. 4px, 6px, 8px) para regular la distancia */
+}
+
+.footer-social-links li {
+    margin-bottom: 0; /* Anula los 12px generales del footer para esta lista */
+}
         .footer-social-links li a {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
         }
 
         .social-icon {
             width: 16px;  
             height: 16px;
-            fill: #aaa;   
+            fill: #f6e5d6;   
             transition: var(--transition);
         }
 
         .footer-social-links li a:hover .social-icon {
-            fill: #fff;
+            fill: #d0bfbf;
             transform: translateY(-1px);
         }
 
@@ -845,12 +875,17 @@
         bottom: auto; 
         left: auto;
         width: 100%;
-        margin-top: 55px; /* Reducimos la distancia entre video y botón */
+        margin-top: 25px;
         padding: 0 20px 40px 20px; 
         display: flex;
         justify-content: center;
-        animation: aparecerBotonMovil 5s ease forwards;
-        animation-delay: 7s; 
+        transform: translateY(20px);
+    }
+    
+    .hero-content.hero-visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
     }
     /* Agregamos una regla específica para el botón en móviles */
     .hero-content .btn {
@@ -865,16 +900,7 @@
 }
 
     /* Animación exclusiva para celular (sin el -50% horizontal) */
-    @keyframes aparecerBotonMovil {
-        from { 
-            opacity: 0; 
-            transform: translateY(20px); 
-        }
-        to { 
-            opacity: 1; 
-            transform: translateY(0); 
-        }
-    }
+  
     /* ... (mantené el resto de tu código móvil igual) ... */
 }
 }
@@ -991,7 +1017,7 @@
 
     <!-- Contenido (Solo el botón) -->
     <div class="hero-content">
-        <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="btn">HABLEMOS DE TU PROYECTO</a>
+        <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="btn">HABLEMOS DE TU IDEA</a>
     </div>
 </section>
 
@@ -1029,25 +1055,17 @@
                 </div>
             </div>
 
-            <div class="service-card">
-                <div class="service-bg" style="background-image: url('RELEVAMIENTOSYTRANSCIPRIONES.jpg');"></div>
-                <div class="service-overlay"></div>
-                <div class="service-content">
-                    <h3>RELEVAMIENTOS Y TRANSCIPCIONES</h3>
-                    <p>Digitalización 2D precisa y armado de legajos técnicos para resolver trámites y regularizaciones normativas.</p>
-                    <a href="relevamientos-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
-                </div>
-            </div>
+            
 
             <div class="service-card">
-                <div class="service-bg" style="background-image: url('IMG_4065.PNG');"></div>
-                <div class="service-overlay"></div>
-                <div class="service-content">
-                    <h3>PROYECTOS COMERCIALES</h3>
-                    <p>Espacios con identidad para marcas que buscan una arquitectura que refleje su identidad y la potencie a través del diseño.</p>
-                    <a href="comercial-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
-                </div>
-            </div>
+    <div class="service-bg" style="background-image: url('IMG_4065.PNG'); background-position: 30% center;"></div>
+    <div class="service-overlay"></div>
+    <div class="service-content">
+        <h3>PROYECTOS COMERCIALES</h3>
+        <p>Espacios con identidad para marcas que buscan una arquitectura que refleje su identidad y la potencie a través del diseño.</p>
+        <a href="comercial-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+    </div>
+</div>
 
             <div class="service-card">
                 <div class="service-bg" style="background-image: url('ARQUITECTURA-RESIDENCIAL.jpg');"></div>
@@ -1056,6 +1074,16 @@
                     <h3>PROYECTOS RESIDENCIALES</h3>
                     <p>Diseños integrales y conscientes para que tu hogar funcione a la perfección desde el primer día.</p>
                     <a href="residencial-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-bg" style="background-image: url('RELEVAMIENTOSYTRANSCIPRIONES.jpg');"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <h3>RELEVAMIENTOS Y TRANSCIPCIONES</h3>
+                    <p>Digitalización 2D precisa y armado de legajos técnicos para resolver trámites y regularizaciones normativas.</p>
+                    <a href="relevamientos-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                 </div>
             </div>
 
@@ -1117,13 +1145,29 @@
     <section id="nosotros" class="section">
         <h2 class="section-title">NUESTRO EQUIPO
 </h2>
-        <p class="about-intro">
-            Somos un grupo de profesionales que entiende el diseño como un servicio al cuidado de las necesidades de cada cliente. Desde una mirada colaborativa, diseñamos espacios pensados para aportar bienestar a tu forma de habitar. Nuestro enfoque cercano y amigable, respaldado por un criterio técnico, nos permite materializar proyectos conscientes y cargados de identidad que responden con fluidez a la rutina diaria de cada persona.
-        </p>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 50px auto; line-height: 1.8; color: #635847;">
+    No creemos en borrar todo para empezar de cero.<br>
+    Creemos en mirar.<br>
+    En entender qué vale la pena conservar, qué necesita transformarse y qué todavía no existe.<br>
+    Un proyecto no empieza cuando llegamos.<br><br>
+    
+    A veces, su historia vive en los hábitos que alguien trae de otra casa.<br>
+    A veces, en un árbol que ya le da carácter a un terreno vacío.<br>
+    En una casa que fue habitada y que hoy necesita acompañar una vida distinta.<br>
+    O en un mueble heredado que puede convertirse en el corazón de un nuevo espacio.<br><br>
+    
+    Nos interesa el diálogo entre lo que estaba, lo que permanece y lo que empieza ahora.<br>
+    <strong>La arquitectura como continuidad de un relato.</strong>
+</p>
+
+
+
+    </p>
+</p>
         <div class="team-grid">
             <div class="team-member">
                 <div class="member-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arq. Micaela Budano">
+                    <img src="mica.jpg" alt="Arq. Micaela Budano">
                 </div>
                 <h4>Arq. Micaela Budano</h4>
                 <p>Dirección de proyectos, acompañamiento al cliente, interiorismo & visualizaciones. </p>
@@ -1138,13 +1182,12 @@
             </div>
 
             <div class="team-member">
-                <div class="member-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arq. Emilia De La Fuente">
-                </div>
-                <h4>Arq. Emilia De La Fuente</h4>
-                <p>Dirección de proyectos, acompañamiento al cliente, interiorismo & visualizaciones. </p>
-            </div>
-        </div>
+    <div class="member-img-wrapper">
+        <img src="emi.jpg" alt="Arq. Emilia De La Fuente" style="object-position: center 32.5%;">
+    </div>
+    <h4>Arq. Emilia De La Fuente</h4>
+    <p>Dirección de proyectos, acompañamiento al cliente, interiorismo & visualizaciones. </p>
+</div>
     </section>
 
     <section id="contacto" class="section">
@@ -1181,42 +1224,45 @@ Elegí la opción que te resulte más cómoda para que tengamos esa primera char
     </section>
 
     <footer>
-        <div>
-            <h4>Filosofía</h4>
-            <p>"Proyectando, tienes noción de las metas que puedes alcanzar, la idea es clara y sencilla. Partimos de tus ideas y las ajustamos hasta lograr el proyecto deseado".</p>
-        </div>
-        <div>
-            <h4>Áreas de Diseño</h4>
-            <ul>
-                <li><a href="#especialidades">Arquitectura</a></li>
-                <li><a href="#especialidades">Interiorismo</a></li>
-                <li><a href="#especialidades">Paisajismo</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4>Redes Sociales</h4>
-            <ul class="footer-social-links">
-                <li>
-                    <a href="https://www.instagram.com/is.arch.arq?igsh=ZHJudjh1MG43Zm1m" target="_blank" rel="noopener noreferrer">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-                        Instagram
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.facebook.com/share/1E7nk3VJ9i/" target="_blank" rel="noopener noreferrer">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="social-icon"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
-                        Facebook
-                    </a>
-                </li>
-                <li>
-                    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-                        WhatsApp
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </footer>
+    <div class="footer-col">
+        <h4>Filosofía</h4>
+        <p>"Proyectando, tienes noción de las metas que puedes alcanzar, la idea es clara y sencilla. Partimos de tus ideas y las ajustamos hasta lograr el proyecto deseado".</p>
+    </div>
+    <div class="footer-col">
+        <h4>Nuestros Servicios</h4>
+        <ul>
+            <li><a href="#especialidades">Remodelaciones</a></li>
+            <li><a href="#especialidades">Interiorismo</a></li>
+            <li><a href="#especialidades">Paisajismo</a></li>
+            <li><a href="#especialidades">Proyectos Comerciales</a></li>
+            <li><a href="#especialidades">Proyectos Residenciales</a></li>
+            <li><a href="#especialidades">Relevamientos y Transcipciones</a></li>
+        </ul>
+    </div>
+    <div class="footer-col">
+        <h4>Redes Sociales</h4>
+        <ul class="footer-social-links">
+            <li>
+                <a href="https://www.instagram.com/is.arch.arq?igsh=ZHJudjh1MG43Zm1m" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                    Instagram
+                </a>
+            </li>
+            <li>
+                <a href="https://www.facebook.com/share/1E7nk3VJ9i/" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="social-icon"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+                    Facebook
+                </a>
+            </li>
+            <li>
+                <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                    WhatsApp
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
 
     <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." 
        target="_blank" 
@@ -1270,6 +1316,26 @@ Elegí la opción que te resulte más cómoda para que tengamos esa primera char
                 }, 800); 
             }, 400);
         });   
+
+        /* ----- Sincronizar aparición del botón con el video ----- */
+const heroVideo = document.querySelector('.hero-video');
+const heroContentBlock = document.querySelector('.hero-content');
+
+if (heroVideo && heroContentBlock) {
+    heroVideo.addEventListener('play', () => {
+        // Opcional: un pequeño retraso de 1 segundo desde que arranca el video para que respire
+        setTimeout(() => {
+            heroContentBlock.classList.add('hero-visible');
+        }, 7000);
+    });
+
+    // Si el video ya está reproduciéndose al cargar (por políticas de autoplay del navegador)
+    if (!heroVideo.paused) {
+        setTimeout(() => {
+            heroContentBlock.classList.add('hero-visible');
+        }, 7000);
+    }
+}
     </script>
 </body>
 </html>
