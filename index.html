@@ -814,27 +814,42 @@
     @media (max-width: 768px) {
     /* ... (tu código móvil anterior) ... */
 
+   @media (max-width: 768px) {
+    /* ... (mantené las reglas de tu menú hamburguesa igual) ... */
+
     .hero {
         height: auto;
-        min-height: auto;
-        aspect-ratio: auto;
-        padding-top: 85px; /* Empuja la portada hacia abajo para que el menú no la tape */
-        display: block; /* Permite que el video dicte la altura total */
+        padding: 80px 0 0 0; /* 80px superior para no tapar el menú, 0px a los lados para usar el 100% del ancho */
+        display: flex;
+        flex-direction: column; /* Apila el video arriba y el contenido abajo */
+        background-color: var(--bg-color); /* Fondo blanco en lugar de negro */
     }
 
     .hero-video {
-        position: relative; /* Al dejar de ser absoluto, arma el rectángulo perfecto del video */
+        position: relative; /* Deja de ser un elemento flotante */
         width: 100%;
-        height: auto;
-        object-position: center; /* Reiniciamos el encuadre al medio para evitar pantallas negras */
+        height: auto; /* Mantiene la proporción natural del video (ej. 16:9) */
+        object-fit: cover; /* Asegura que no queden huecos libres */
+        background-color: transparent;
+    }
+
+    .hero-overlay {
+        display: none; /* Ocultamos el oscurecimiento porque el botón ya no está encima del video */
     }
 
     .hero-content {
-        bottom: 10px; /* Despega el botón un poco de la línea inferior */
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
+        position: relative;
+        bottom: auto; /* Anula la posición anclada de la computadora */
+        left: auto;
+        transform: none;
+        width: 100%;
+        padding: 40px 20px; /* Genera espacio blanco alrededor del botón */
+        display: flex;
+        justify-content: center;
     }
+
+    /* ... (mantené el resto de tu código móvil igual) ... */
+}
 }
 }
 
