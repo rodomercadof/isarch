@@ -815,19 +815,22 @@
     /* ... (tu código móvil anterior) ... */
 
     .hero {
-        /* Fuerza al contenedor a tener proporción de video horizontal (16:9) */
-        aspect-ratio: 16 / 9; 
         height: auto;
-        min-height: 250px; /* Evita que quede demasiado miniatura */
+        min-height: auto;
+        aspect-ratio: auto;
+        padding-top: 85px; /* Empuja la portada hacia abajo para que el menú no la tape */
+        display: block; /* Permite que el video dicte la altura total */
     }
 
     .hero-video {
-        object-fit: cover;
+        position: relative; /* Al dejar de ser absoluto, arma el rectángulo perfecto del video */
+        width: 100%;
+        height: auto;
+        object-position: center; /* Reiniciamos el encuadre al medio para evitar pantallas negras */
     }
 
-    /* Ajustamos el botón para este nuevo espacio más reducido */
     .hero-content {
-        bottom: 20px; 
+        bottom: 10px; /* Despega el botón un poco de la línea inferior */
         left: 50%;
         transform: translateX(-50%);
         width: 90%;
