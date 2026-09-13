@@ -811,6 +811,28 @@
         width: 28px;
         height: 28px;
     }
+    @media (max-width: 768px) {
+    /* ... (tu código móvil anterior) ... */
+
+    .hero {
+        /* Fuerza al contenedor a tener proporción de video horizontal (16:9) */
+        aspect-ratio: 16 / 9; 
+        height: auto;
+        min-height: 250px; /* Evita que quede demasiado miniatura */
+    }
+
+    .hero-video {
+        object-fit: cover;
+    }
+
+    /* Ajustamos el botón para este nuevo espacio más reducido */
+    .hero-content {
+        bottom: 20px; 
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+    }
+}
 }
 
         /* ----- PANTALLA DE CARGA (PRELOADER) ----- */
@@ -912,7 +934,7 @@
 
     <section id="inicio" class="hero">
     <!-- Video de fondo -->
-  <video autoplay muted playsinline loop class="hero-video">
+  <video autoplay muted playsinline class="hero-video">
     <!-- Carga el video vertical si la pantalla es de celular (hasta 768px) -->
     <source media="(max-width: 768px)" src="video-movil.mp4" type="video/mp4">
     <!-- Carga el video horizontal para tablets y PC -->
