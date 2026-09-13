@@ -826,6 +826,7 @@
     }
 
     .hero-video {
+        top: 40px;
         position: relative; /* Deja de ser un elemento flotante */
         width: 100%;
         height: auto; /* Mantiene la proporción natural del video (ej. 16:9) */
@@ -839,15 +840,28 @@
 
     .hero-content {
         position: relative;
-        bottom: auto; /* Anula la posición anclada de la computadora */
+        bottom: auto; 
         left: auto;
-        transform: none;
         width: 100%;
-        padding: 40px 20px; /* Genera espacio blanco alrededor del botón */
+        padding: 40px 20px; 
         display: flex;
         justify-content: center;
+        /* Llamamos a la nueva animación corregida para móviles */
+        animation: aparecerBotonMovil 5s ease forwards;
+        animation-delay: 7s; 
     }
 
+    /* Animación exclusiva para celular (sin el -50% horizontal) */
+    @keyframes aparecerBotonMovil {
+        from { 
+            opacity: 0; 
+            transform: translateY(20px); 
+        }
+        to { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+    }
     /* ... (mantené el resto de tu código móvil igual) ... */
 }
 }
@@ -954,7 +968,7 @@
     <!-- Video de fondo -->
   <video autoplay muted playsinline class="hero-video">
     <!-- Carga el video vertical si la pantalla es de celular (hasta 768px) -->
-    <source media="(max-width: 768px)" src="video-movil.mp4" type="video/mp4">
+    <source media="(max-width: 768px)" src="video-portada.mp4" type="video/mp4">
     <!-- Carga el video horizontal para tablets y PC -->
     <source src="video-portada.mp4" type="video/mp4">
 </video>
