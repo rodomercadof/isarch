@@ -117,17 +117,68 @@
         .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
         /* ----- SECCIÓN INICIO (HERO) ----- */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-            padding: 0 20px;
-        }
+     /* ----- SECCIÓN INICIO (HERO) CON VIDEO ----- */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden; /* Evita que el video se desborde */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    padding: 0 20px;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    
+    /* Agregá esta línea: el primer valor es Horizontal (X), el segundo Vertical (Y) */
+    object-position: center 100%; 
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0); /* Oscurece el video al 50%. Podés cambiar el 0.5 */
+    z-index: 2;
+}
+
+.hero-content {
+    /* Mantené tu posicionamiento actual (absolute, relative, bottom, etc.) */
+    position: absolute;
+    z-index: 3;
+    bottom: 205px;
+    left: 23%;
+    transform: translateX(-50%);
+    
+    /* Nuevas reglas para el retraso */
+    opacity: 0; /* Arranca invisible */
+    animation: aparecerBoton 5s ease forwards;
+    animation-delay: 7s; /* Tiempo que espera (2 segundos). Modificalo a tu gusto */
+}
+
+/* Animación para que suba suavemente */
+@keyframes aparecerBoton {
+    from { 
+        opacity: 0; 
+        transform: translate(-50%, 20px); /* Nota: si no estabas usando left: 50%, borrá el -50% */
+    }
+    to { 
+        opacity: 1; 
+        transform: translate(-50%, 0); 
+    }
+}
 
         .hero p {
             font-size: 1.1rem;
@@ -155,8 +206,8 @@
         /* ----- BOTONES GENERALES ----- */
         .btn {
             padding: 15px 35px;
-            background-color: #fff;
-            color: #000;
+            background-color: #f6e5d6;
+            color: rgb(99, 88, 71);
             text-transform: uppercase;
             font-weight: 600;
             letter-spacing: 1px;
@@ -166,8 +217,8 @@
         }
 
         .btn:hover {
-            background-color: #000;
-            color: #fff;
+            background-color: rgb(99, 88, 71);
+            color: #f6e5d6;
         }
 
         /* ----- ESTILOS GENERALES SECCIONES ----- */
@@ -186,11 +237,11 @@
         }
 
         /* ----- ESPECIALIDADES INTERACTIVAS ----- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
+       .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Fuerza exactamente 3 columnas */
+    gap: 30px;
+}
 
         .service-card {
             position: relative;
@@ -231,7 +282,7 @@
         .service-content {
             position: relative;
             z-index: 3;
-            color: #fff;
+            color: #f6e5d6;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -240,13 +291,14 @@
         }
 
         .service-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-        }
-
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    transform: translateY(55px); /* Empuja el título hacia el centro */
+    transition: var(--transition); /* Suaviza el movimiento */
+}
         .service-card p {
             font-size: 0.95rem;
             font-weight: 400;
@@ -259,7 +311,7 @@
         .btn-card {
             padding: 10px 25px;
             background-color: transparent;
-            color: #fff;
+            color: #f6e5d6;
             border: 1px solid #fff;
             text-transform: uppercase;
             font-size: 0.8rem;
@@ -274,7 +326,7 @@
         }
 
         .btn-card:hover {
-            background-color: #fff;
+            background-color: #f6e5d6;
             color: #000;
         }
 
@@ -295,6 +347,9 @@
         .service-card:hover .btn-card {
             transition-delay: 0.1s;
         }
+        .service-card:hover h3 {
+    transform: translateY(0); /* El título sube para dejar lugar al texto */
+}
 
         /* ----- OBRAS (PORTFOLIO) ----- */
         .portfolio-grid {
@@ -640,7 +695,9 @@
             .mobile-menu-btn {
                 display: flex; 
             }
-
+.services-grid {
+    grid-template-columns: 1fr; /* 1 tarjeta por fila en celulares */
+}
             .nav-links {
                 position: absolute;
                 top: 80px; 
@@ -817,7 +874,7 @@
 
         <nav class="nav-links" id="navLinks">
             <a href="#inicio">Inicio</a>
-            <a href="#especialidades">Especialidades</a>
+            <a href="#especialidades">Nuestros Servicios</a>
             <a href="#obras">Proyectos Destacados</a>
             <a href="#nosotros">Nosotros</a>
             <a href="#contacto">Contacto</a>
@@ -825,43 +882,84 @@
     </header>
 
     <section id="inicio" class="hero">
-        <img src="logo-solo2.png" alt="is.Arch Studio" class="hero-logo-img">
-        <p id="texto-tipeo" class="cursor"></p>
-        <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="btn">HABLEMOS DE TU PROYECTO</a>
-    </section>
+    <!-- Video de fondo -->
+    <video autoplay muted playsinline class="hero-video">
+        <source src="video-portada.mp4" type="video/mp4">
+    </video>
+    
+    <!-- Capa oscura -->
+    <div class="hero-overlay"></div>
 
-    <section id="especialidades" class="section">
-        <h2 class="section-title">Especialidades</h2>
+    <!-- Contenido (Solo el botón) -->
+    <div class="hero-content">
+        <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="btn">HABLEMOS DE TU PROYECTO</a>
+    </div>
+</section>
+
+   <section id="especialidades" class="section">
+        <h2 class="section-title">NUESTROS SERVICIOS</h2>
         <div class="services-grid">
+            
             <div class="service-card">
-                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="service-bg" style="background-image: url('REMODELACIONES.jpg');"></div>
                 <div class="service-overlay"></div>
                 <div class="service-content">
-                    <h3>Arquitectura</h3>
-                    <p>Ejecución de obra asegurando la máxima calidad en cada detalle constructivo.</p>
-                    <a href="arquitectura-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    <h3>REMODELACIONES</h3>
+                    <p>Leemos la historia de tu espacio para transformarlo y adaptarlo a tu nueva forma de habitar.</p>
+                    <a href="remodelaciones-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                 </div>
             </div>
 
             <div class="service-card">
-                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="service-bg" style="background-image: url('INTERIORISMO.jpg');"></div>
                 <div class="service-overlay"></div>
                 <div class="service-content">
-                    <h3>Interiorismo</h3>
-                    <p>Renovamos espacios existentes para dotarlos de nueva vida y funcionalidad.</p>
+                    <h3>INTERIORISMO</h3>
+                    <p>Damos carácter a tus espacios para adaptarlos a tu rutina y hacer especial cada rincón.</p>
                     <a href="interiorismo-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                 </div>
             </div>
 
             <div class="service-card">
-                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="service-bg" style="background-image: url('PAISAJISMO\ \(1\).jpg');"></div>
                 <div class="service-overlay"></div>
                 <div class="service-content">
-                    <h3>Paisajismo</h3>
-                    <p>Arquitectura corporativa y locales comerciales enfocados en la identidad de marca.</p>
+                    <h3>PAISAJISMO</h3>
+                    <p>Diseñamos espacios exteriores y su vegetación para potenciar tus experiencias al aire libre.</p>
                     <a href="paisajismo-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                 </div>
             </div>
+
+            <div class="service-card">
+                <div class="service-bg" style="background-image: url('RELEVAMIENTOSYTRANSCIPRIONES.jpg');"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <h3>RELEVAMIENTOS Y TRANSCIPCIONES</h3>
+                    <p>Digitalización 2D precisa y armado de legajos técnicos para resolver trámites y regularizaciones normativas.</p>
+                    <a href="relevamientos-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-bg" style="background-image: url('IMG_4065.PNG');"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <h3>PROYECTOS COMERCIALES</h3>
+                    <p>Espacios con identidad para marcas que buscan una arquitectura que refleje su identidad y la potencie a través del diseño.</p>
+                    <a href="comercial-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-bg" style="background-image: url('ARQUITECTURA-RESIDENCIAL.jpg');"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <h3>PROYECTOS RESIDENCIALES</h3>
+                    <p>Diseños integrales y conscientes para que tu hogar funcione a la perfección desde el primer día.</p>
+                    <a href="residencial-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -918,9 +1016,10 @@
     </section>
 
     <section id="nosotros" class="section">
-        <h2 class="section-title">Nosotros</h2>
+        <h2 class="section-title">NUESTRO EQUIPO
+</h2>
         <p class="about-intro">
-            Somos un grupo de arquitectos apasionados por los procesos integrales. Creemos en una arquitectura consciente, funcional y con una identidad estética definida para cada cliente.
+            Somos un grupo de profesionales que entiende el diseño como un servicio al cuidado de las necesidades de cada cliente. Desde una mirada colaborativa, diseñamos espacios pensados para aportar bienestar a tu forma de habitar. Nuestro enfoque cercano y amigable, respaldado por un criterio técnico, nos permite materializar proyectos conscientes y cargados de identidad que responden con fluidez a la rutina diaria de cada persona.
         </p>
         <div class="team-grid">
             <div class="team-member">
@@ -928,15 +1027,15 @@
                     <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arq. Micaela Budano">
                 </div>
                 <h4>Arq. Micaela Budano</h4>
-                <p>Co-Fundadora / Especialista en Paisajismo</p>
+                <p>Dirección de proyectos, acompañamiento al cliente, interiorismo & visualizaciones. </p>
             </div>
 
             <div class="team-member">
                 <div class="member-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arq. Francisco Tamantini">
                 </div>
-                <h4>Arq. Francisco Tamantini</h4>
-                <p>Co-Fundador / Director de Obra</p>
+                <h4>Arq. Francisco Tamantini Z</h4>
+                <p>Desarrollo Técnico, Infraestructura y Diseño de Instalaciones.</p>
             </div>
 
             <div class="team-member">
@@ -944,7 +1043,7 @@
                     <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arq. Emilia De La Fuente">
                 </div>
                 <h4>Arq. Emilia De La Fuente</h4>
-                <p>Líder de Proyectos / Especialista en Interiorismo</p>
+                <p>Dirección de proyectos, acompañamiento al cliente, interiorismo & visualizaciones. </p>
             </div>
         </div>
     </section>
@@ -954,8 +1053,11 @@
         <div class="contact-container">
             
             <div class="contact-info">
-                <h3>¿Hablamos?</h3>
-                <p>Elegí la opción que te resulte más cómoda. Podés escribirnos directamente para resolver dudas inmediatas o agendar una entrevista formal en nuestro calendario para presentar tu idea.</p>
+                <h3>¿HABLAMOS DE TU PROYECTO?
+</h3>
+                <p>Queremos conocer tu idea, evaluar las necesidades de tu espacio y contarte cómo trabajamos. El primer paso es coordinar una entrevista virtual para definir el alcance del proyecto; a partir de ese encuentro, te enviaremos un presupuesto detallado, sin cargo y a la medida de tu caso.
+Elegí la opción que te resulte más cómoda para que tengamos esa primera charla:
+</p>
                 
                 <div class="contact-details">
                     <p><strong>Teléfono:</strong> +54 9 351 791-4897</p>
@@ -965,13 +1067,14 @@
 
             <div class="contact-channels">
                 <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="channel-card">
-                    <h4>WhatsApp Directo</h4>
-                    <p>Chateá con un arquitecto ahora mismo para consultas rápidas y presupuestos preliminares.</p>
+                    <h4>Escribinos por WhatsApp</h4>
+                    <p>Para que charlemos de tu propuesta de forma directa y coordinemos juntos una primera videollamada. </p>
                 </a>
 
                 <a href="https://calendly.com/tu-usuario-aqui" target="_blank" rel="noopener noreferrer" class="channel-card">
-                    <h4>Agendar Reunión (Calendly)</h4>
-                    <p>Reservá una videollamada de 30 minutos directamente en nuestro calendario para repasar tu caso.</p>
+                    <h4>Agendá tu reunión en Calendly</h4>
+                    <p>Si ya tenés claro lo que necesitás,seleccioná el día y horario que prefieras para nuestra primera entrevista virtual.
+</p>
                 </a>
             </div>
 
@@ -984,7 +1087,7 @@
             <p>"Proyectando, tienes noción de las metas que puedes alcanzar, la idea es clara y sencilla. Partimos de tus ideas y las ajustamos hasta lograr el proyecto deseado".</p>
         </div>
         <div>
-            <h4>Especialidades</h4>
+            <h4>Áreas de Diseño</h4>
             <ul>
                 <li><a href="#especialidades">Arquitectura</a></li>
                 <li><a href="#especialidades">Interiorismo</a></li>
@@ -1054,21 +1157,7 @@
             });
         });
 
-        /* ----- Efecto de Tipeo ----- */
-        const texto = "Pensamos espacios funcionales y con un estilo propio. Acompañamos en todas las etapas del diseño, construcción y puesta a punto de proyectos de arquitectura.";
-        const elementoTexto = document.getElementById("texto-tipeo");
-        let indice = 0;
-        const velocidad = 40;
-
-        function efectoTipeo() {
-            if (indice < texto.length) {
-                elementoTexto.innerHTML += texto.charAt(indice);
-                indice++;
-                setTimeout(efectoTipeo, velocidad);
-            }
-        }
-
-        window.addEventListener('load', efectoTipeo);
+        
 
         /* ----- Preloader ----- */
         window.addEventListener('load', function() {
