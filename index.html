@@ -6,7 +6,6 @@
     <title>Is.Arch Arquitecture & Design</title>
     
     <link rel="icon" type="image/png" href="logo-solo.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -116,62 +115,57 @@
         .mobile-menu-btn.active .bar:nth-child(2) { opacity: 0; }
         .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* ----- SECCIÓN INICIO (HERO) ----- */
-     /* ----- SECCIÓN INICIO (HERO) CON VIDEO ----- */
-.hero {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden; /* Evita que el video se desborde */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #fff;
-    padding: 0 20px;
-}
+        /* ----- SECCIÓN INICIO (HERO) CON VIDEO ----- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
 
-.hero-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-    
-    /* Agregá esta línea: el primer valor es Horizontal (X), el segundo Vertical (Y) */
-    object-position: center 100%; 
-}
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            object-position: center 100%; 
+        }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0); /* Oscurece el video al 50%. Podés cambiar el 0.5 */
-    z-index: 2;
-}
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            z-index: 2;
+        }
 
-.hero-content {
-    position: absolute;
-    z-index: 3;
-    bottom: 205px;
-    left: 23%;
-    transform: translate(-50%, 20px);
-    opacity: 0;
-    transition: opacity 1.2s ease, transform 1.2s ease;
-    pointer-events: none;
-}
+        .hero-content {
+            position: absolute;
+            z-index: 3;
+            bottom: 205px;
+            left: 23%;
+            transform: translate(-50%, 20px);
+            opacity: 0;
+            transition: opacity 1.2s ease, transform 1.2s ease;
+            pointer-events: none;
+        }
 
-.hero-content.hero-visible {
-    opacity: 1;
-    transform: translate(-50%, 0);
-    pointer-events: auto;
-}
-
-
+        .hero-content.hero-visible {
+            opacity: 1;
+            transform: translate(-50%, 0);
+            pointer-events: auto;
+        }
 
         .hero p {
             font-size: 1.1rem;
@@ -183,17 +177,6 @@
         /* ----- EFECTO DE TIPEO ----- */
         #texto-tipeo {
             min-height: 80px;
-        }
-
-        .cursor::after {
-            content: '|';
-            font-weight: 300;
-            animation: parpadeo 1s infinite;
-        }
-
-        @keyframes parpadeo {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
         }
 
         /* ----- BOTONES GENERALES ----- */
@@ -230,11 +213,11 @@
         }
 
         /* ----- ESPECIALIDADES INTERACTIVAS ----- */
-       .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Fuerza exactamente 3 columnas */
-    gap: 30px;
-}
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
 
         .service-card {
             position: relative;
@@ -284,14 +267,15 @@
         }
 
         .service-card h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    transform: translateY(55px); /* Empuja el título hacia el centro */
-    transition: var(--transition); /* Suaviza el movimiento */
-}
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            transform: translateY(55px);
+            transition: var(--transition);
+        }
+
         .service-card p {
             font-size: 0.95rem;
             font-weight: 400;
@@ -340,16 +324,17 @@
         .service-card:hover .btn-card {
             transition-delay: 0.1s;
         }
+
         .service-card:hover h3 {
-    transform: translateY(0); /* El título sube para dejar lugar al texto */
-}
+            transform: translateY(0);
+        }
 
         /* ----- OBRAS (PORTFOLIO) ----- */
         .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
 
         .portfolio-item {
             display: flex;
@@ -456,16 +441,6 @@
         }
 
         /* ----- NOSOTROS ----- */
-        .about-intro {
-    text-align: center;
-    max-width: 800px; /* Ajustado para coincidir con el bloque de texto */
-    margin: 0 auto 30px auto; /* Agregamos 50px de separación abajo */
-    font-size: 1.05rem;
-    color: #635847;
-    font-weight: 300;
-    line-height: 1.8;
-}
-
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -619,63 +594,45 @@
         }
 
         footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-right: 96px;
-}
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
         footer ul li {
-    margin-bottom: 12px;
-    line-height: 1.4;
-}
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
 
         footer ul li a {
             color: #f6e5d6;
             transition: var(--transition);
+            font-size: 0.9rem;
         }
 
         footer ul li a:hover {
             color: #d0bfbf;
         }
 
-        /* Nuestros Servicios: 2 columnas más pegadas */
         .footer-col:nth-child(2) ul {
             column-count: 2;
-            column-gap: 5px; /* Más pegadas horizontalmente */
+            column-gap: 8px;
         }
-        .footer-col:nth-child(2) ul li a {
-    font-size: 0.82rem; 
-    white-space: nowrap;
-}
-.footer-col:nth-child(2) ul li a,
-.footer-social-links li a {
-    font-size: 0.9rem; /* Cambiá 0.9rem por el tamaño que prefieras (ej. 0.85rem) */
-}
-
-        /* Redes Sociales: 1 sola columna vertical estricta */
-        .footer-col:nth-child(3) .footer-social-links {
-    display: flex;
-    flex-direction: column;
-    /* Ajustamos el espacio vertical para que coincida exactamente con la altura de las 3 filas de servicios */
-    gap: 12px; 
-}
-
-        /* ----- LOGOS EN REDES SOCIALES ----- */
 
         .footer-social-links {
-    display: flex;
-    flex-direction: column;
-    gap: 5px; /* Modificá este valor (ej. 4px, 6px, 8px) para regular la distancia */
-}
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
 
-.footer-social-links li {
-    margin-bottom: 0; /* Anula los 12px generales del footer para esta lista */
-}
+        .footer-social-links li {
+            margin-bottom: 0;
+        }
+
         .footer-social-links li a {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .social-icon {
@@ -720,191 +677,171 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
 
-        /* ----- RESPONSIVE EXCLUSIVO (MÓVIL) ----- */
+        /* ----- RESPONSIVE / MÓVIL ----- */
         @media (max-width: 1024px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
-    .mobile-menu-btn {
-        display: flex; 
-    }
+            .mobile-menu-btn {
+                display: flex; 
+            }
 
-    .nav-links {
-        position: absolute;
-        top: 80px; 
-        left: 0;
-        width: 100%;
-        height: auto;
-        background-color: #ffffff;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        gap: 0;
-        padding: 20px 5% 40px;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-        z-index: 999;
-    }
+            .nav-links {
+                position: absolute;
+                top: 80px; 
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                gap: 0;
+                padding: 20px 5% 40px;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+                z-index: 999;
+            }
 
-    .nav-links.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
+            .nav-links.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
 
-    .nav-links a {
-        width: 100%;
-        padding: 15px 0;
-        font-size: 1.1rem;
-        letter-spacing: 1px;
-        font-weight: 600;
-        border-bottom: 1px solid #f5f5f5;
-        color: var(--text-color);
-    }
-    
-    .nav-links a:last-child { 
-        border-bottom: none; 
-    }
+            .nav-links a {
+                width: 100%;
+                padding: 15px 0;
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+                font-weight: 600;
+                border-bottom: 1px solid #f5f5f5;
+                color: var(--text-color);
+            }
+            
+            .nav-links a:last-child { 
+                border-bottom: none; 
+            }
 
-    .section {
-        padding: 60px 5%;
-    }
+            .section {
+                padding: 60px 5%;
+            }
 
-    /* Centra el botón de la portada en móviles */
-    .hero-content {
-        left: 50%;
-        bottom: 15%;
-        width: 90%;
-    }
+            .hero {
+                height: auto;
+                padding: 130px 20px 40px 20px; 
+                display: flex;
+                flex-direction: column;
+                background-color: #ffffff; 
+                color: var(--text-color);
+            }
 
-    /* Ajuste de tarjetas de servicios para pantallas táctiles */
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .service-card .service-overlay {
-        background-color: rgba(0, 0, 0, 0.65);
-    }
+            .hero-video {
+                position: relative;
+                top: 0;
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16/9;
+                object-fit: cover;
+                margin-top: 20px;
+            }
 
-    .service-card h3 {
-        transform: translateY(0); /* Sube el título permanentemente en móvil */
-    }
+            .hero-overlay {
+                display: none;
+            }
 
-    .service-card p,
-    .service-card .btn-card {
-        opacity: 1;
-        transform: translateY(0);
-    }
+            .hero-content {
+                position: relative;
+                bottom: auto; 
+                left: auto;
+                width: 100%;
+                margin-top: 25px;
+                display: flex;
+                justify-content: center;
+                transform: translateY(20px);
+            }
+            
+            .hero-content.hero-visible {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
 
-    /* Portfolio móvil */
-    .portfolio-hover-layer {
-        opacity: 1;
-        background-color: rgba(0, 0, 0, 0.7);
-    }
-    .portfolio-hover-layer .quote,
-    .portfolio-hover-layer .btn-card {
-        opacity: 1;
-        transform: translateY(0);
-    }
+            .hero-content .btn {
+                width: 100%;
+                max-width: 320px;
+                padding: 16px 20px;
+                font-size: 0.85rem;
+                text-align: center;
+                border-radius: 4px;
+            }
 
-    .team-member img {
-        filter: grayscale(0%);
-    }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-card .service-overlay {
+                background-color: rgba(0, 0, 0, 0.65);
+            }
 
-    /* Ajustes Sección Contacto */
-    .contact-container {
-        gap: 40px;
-    }
-    
-    .contact-info, 
-    .contact-channels {
-        min-width: 100%; /* Evita scroll horizontal */
-    }
+            .service-card h3 {
+                transform: translateY(0);
+            }
 
-    .channel-card {
-        padding: 20px;
-    }
+            .service-card p,
+            .service-card .btn-card {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
-    /* Botón WhatsApp */
-    .whatsapp-floating-btn {
-        bottom: 20px;
-        right: 20px;
-        width: 55px;
-        height: 55px;
-    }
-    .whatsapp-floating-btn svg {
-        width: 28px;
-        height: 28px;
-    }
-    @media (max-width: 768px) {
-    /* ... (tu código móvil anterior) ... */
+            .portfolio-hover-layer {
+                opacity: 1;
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+            .portfolio-hover-layer .quote,
+            .portfolio-hover-layer .btn-card {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
-   @media (max-width: 768px) {
-    /* ... (mantené las reglas de tu menú hamburguesa igual) ... */
+            .team-member img {
+                filter: grayscale(0%);
+            }
 
-    .hero {
-        height: auto;
-        /* Aumentamos de 80px a 130px para bajar el video y separarlo del menú */
-        padding: 130px 0 0 0; 
-        display: flex;
-        flex-direction: column;
-        /* Aseguramos el blanco puro para que se funda con el resto de la página */
-        background-color: #ffffff; 
-    }
+            .contact-container {
+                gap: 40px;
+            }
+            
+            .contact-info, 
+            .contact-channels {
+                min-width: 100%;
+            }
 
-    .hero-video {
-        top: 40px;
-        position: relative; /* Deja de ser un elemento flotante */
-        width: 100%;
-        height: auto; /* Mantiene la proporción natural del video (ej. 16:9) */
-        object-fit: cover; /* Asegura que no queden huecos libres */
-        background-color: transparent;
-    }
+            .channel-card {
+                padding: 20px;
+            }
 
-    .hero-overlay {
-        display: none; /* Ocultamos el oscurecimiento porque el botón ya no está encima del video */
-    }
+            footer {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
 
-    .hero-content {
-        position: relative;
-        bottom: auto; 
-        left: auto;
-        width: 100%;
-        margin-top: 25px;
-        padding: 0 20px 40px 20px; 
-        display: flex;
-        justify-content: center;
-        transform: translateY(20px);
-    }
-    
-    .hero-content.hero-visible {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-    }
-    /* Agregamos una regla específica para el botón en móviles */
-    .hero-content .btn {
-        width: 100%;
-        max-width: 320px; /* Evita que se estire demasiado */
-        padding: 16px 20px;
-        font-size: 0.85rem; /* Ajusta el tamaño de la fuente para que respire */
-        text-align: center;
-        border-radius: 4px; /* Suaviza las esquinas */
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sutil sombra para darle relieve de botón */
-    }
-}
-
-    /* Animación exclusiva para celular (sin el -50% horizontal) */
-  
-    /* ... (mantené el resto de tu código móvil igual) ... */
-}
-}
-
+            .whatsapp-floating-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 55px;
+                height: 55px;
+            }
+            .whatsapp-floating-btn svg {
+                width: 28px;
+                height: 28px;
+            }
+        }
 
         /* ----- PANTALLA DE CARGA (PRELOADER) ----- */
         .preloader {
@@ -949,30 +886,6 @@
             0% { opacity: 0; transform: scale(0.97) translateY(5px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-
-        /* ----- LOGO BLANCO EN PORTADA (HERO) ----- */
-        .hero-logo-img {
-            width: 180px;      
-            height: auto;
-            display: block;
-            margin: 0 auto 25px auto; 
-            filter: brightness(0) invert(1);  
-            user-select: none;
-            pointer-events: none;     
-            animation: heroLogoReveal 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
-        @media (max-width: 768px) {
-            .hero-logo-img {
-                width: 140px;
-                margin-bottom: 20px;
-            }
-        }
-
-        @keyframes heroLogoReveal {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 <body>
@@ -1004,27 +917,18 @@
     </header>
 
     <section id="inicio" class="hero">
-    <!-- Video de fondo -->
-  <video autoplay muted playsinline class="hero-video">
-    <!-- Carga el video vertical si la pantalla es de celular (hasta 768px) -->
-    <source media="(max-width: 768px)" src="video-portada.mp4" type="video/mp4">
-    <!-- Carga el video horizontal para tablets y PC -->
-    <source src="video-portada.mp4" type="video/mp4">
-</video>
-    
-    <!-- Capa oscura -->
-    <div class="hero-overlay"></div>
+        <video autoplay muted playsinline class="hero-video">
+            <source src="video-portada.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="btn">HABLEMOS DE TU IDEA</a>
+        </div>
+    </section>
 
-    <!-- Contenido (Solo el botón) -->
-    <div class="hero-content">
-        <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="btn">HABLEMOS DE TU IDEA</a>
-    </div>
-</section>
-
-   <section id="especialidades" class="section">
+    <section id="especialidades" class="section">
         <h2 class="section-title">NUESTROS SERVICIOS</h2>
         <div class="services-grid">
-            
             <div class="service-card">
                 <div class="service-bg" style="background-image: url('REMODELACIONES.jpg');"></div>
                 <div class="service-overlay"></div>
@@ -1046,7 +950,7 @@
             </div>
 
             <div class="service-card">
-                <div class="service-bg" style="background-image: url('PAISAJISMO\ \(1\).jpg');"></div>
+                <div class="service-bg" style="background-image: url('PAISAJISMOO.jpg');"></div>
                 <div class="service-overlay"></div>
                 <div class="service-content">
                     <h3>PAISAJISMO</h3>
@@ -1055,17 +959,15 @@
                 </div>
             </div>
 
-            
-
             <div class="service-card">
-    <div class="service-bg" style="background-image: url('IMG_4065.PNG'); background-position: 30% center;"></div>
-    <div class="service-overlay"></div>
-    <div class="service-content">
-        <h3>PROYECTOS COMERCIALES</h3>
-        <p>Espacios con identidad para marcas que buscan una arquitectura que refleje su identidad y la potencie a través del diseño.</p>
-        <a href="comercial-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
-    </div>
-</div>
+                <div class="service-bg" style="background-image: url('IMG_4065.PNG'); background-position: 30% center;"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <h3>PROYECTOS COMERCIALES</h3>
+                    <p>Espacios con identidad para marcas que buscan una arquitectura que refleje su identidad y la potencie a través del diseño.</p>
+                    <a href="comercial-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                </div>
+            </div>
 
             <div class="service-card">
                 <div class="service-bg" style="background-image: url('ARQUITECTURA-RESIDENCIAL.jpg');"></div>
@@ -1086,14 +988,12 @@
                     <a href="relevamientos-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                 </div>
             </div>
-
         </div>
     </section>
 
     <section id="obras" class="section">
         <h2 class="section-title">Proyectos Destacados</h2>
         <div class="portfolio-grid">
-            
             <div class="portfolio-item">
                 <div class="portfolio-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CASA RM">
@@ -1138,39 +1038,31 @@
                     <p>Mendoza, Argentina | 2026</p>
                 </div>
             </div>
-
         </div>
     </section>
 
     <section id="nosotros" class="section">
-        <h2 class="section-title">NUESTRO EQUIPO
-</h2>
+        <h2 class="section-title">NUESTRO EQUIPO</h2>
         <p style="text-align: center; max-width: 800px; margin: 0 auto 50px auto; line-height: 1.8; color: #635847;">
-    No creemos en borrar todo para empezar de cero.<br>
-    Creemos en mirar.<br>
-    En entender qué vale la pena conservar, qué necesita transformarse y qué todavía no existe.<br>
-    Un proyecto no empieza cuando llegamos.<br><br>
-    
-    A veces, su historia vive en los hábitos que alguien trae de otra casa.<br>
-    A veces, en un árbol que ya le da carácter a un terreno vacío.<br>
-    En una casa que fue habitada y que hoy necesita acompañar una vida distinta.<br>
-    O en un mueble heredado que puede convertirse en el corazón de un nuevo espacio.<br><br>
-    
-    Nos interesa el diálogo entre lo que estaba, lo que permanece y lo que empieza ahora.<br>
-    <strong>La arquitectura como continuidad de un relato.</strong>
-</p>
+            No creemos en borrar todo para empezar de cero.<br>
+            Creemos en mirar.<br>
+            En entender qué vale la pena conservar, qué necesita transformarse y qué todavía no existe.<br>
+            Un proyecto no empieza cuando llegamos.<br><br>
+            A veces, su historia vive en los hábitos que alguien trae de otra casa.<br>
+            A veces, en un árbol que ya le da carácter a un terreno vacío.<br>
+            En una casa que fue habitada y que hoy necesita acompañar una vida distinta.<br>
+            O en un mueble heredado que puede convertirse en el corazón de un nuevo espacio.<br><br>
+            Nos interesa el diálogo entre lo que estaba, lo que permanece y lo que empieza ahora.<br>
+            <strong>La arquitectura como continuidad de un relato.</strong>
+        </p>
 
-
-
-    </p>
-</p>
         <div class="team-grid">
             <div class="team-member">
                 <div class="member-img-wrapper">
                     <img src="mica.jpg" alt="Arq. Micaela Budano">
                 </div>
                 <h4>Arq. Micaela Budano</h4>
-                <p>Dirección de proyectos, acompañamiento al cliente, interiorismo & visualizaciones. </p>
+                <p>Dirección de proyectos, acompañamiento al cliente, interiorismo & visualizaciones.</p>
             </div>
 
             <div class="team-member">
@@ -1182,25 +1074,21 @@
             </div>
 
             <div class="team-member">
-    <div class="member-img-wrapper">
-        <img src="emi.jpg" alt="Arq. Emilia De La Fuente" style="object-position: center 32.5%;">
-    </div>
-    <h4>Arq. Emilia De La Fuente</h4>
-    <p>Dirección de proyectos, acompañamiento al cliente, interiorismo & visualizaciones. </p>
-</div>
+                <div class="member-img-wrapper">
+                    <img src="emi.jpg" alt="Arq. Emilia De La Fuente" style="object-position: center 32.5%;">
+                </div>
+                <h4>Arq. Emilia De La Fuente</h4>
+                <p>Dirección de proyectos, acompañamiento al cliente, interiorismo & visualizaciones.</p>
+            </div>
+        </div>
     </section>
 
     <section id="contacto" class="section">
         <h2 class="section-title">Comenzá tu Proyecto</h2>
         <div class="contact-container">
-            
             <div class="contact-info">
-                <h3>¿HABLAMOS DE TU PROYECTO?
-</h3>
-                <p>Queremos conocer tu idea, evaluar las necesidades de tu espacio y contarte cómo trabajamos. El primer paso es coordinar una entrevista virtual para definir el alcance del proyecto; a partir de ese encuentro, te enviaremos un presupuesto detallado, sin cargo y a la medida de tu caso.
-Elegí la opción que te resulte más cómoda para que tengamos esa primera charla:
-</p>
-                
+                <h3>¿HABLAMOS DE TU PROYECTO?</h3>
+                <p>Queremos conocer tu idea, evaluar las necesidades de tu espacio y contarte cómo trabajamos. El primer paso es coordinar una entrevista virtual para definir el alcance del proyecto; a partir de ese encuentro, te enviaremos un presupuesto detallado, sin cargo y a la medida de tu caso. Elegí la opción que te resulte más cómoda para que tengamos esa primera charla:</p>
                 <div class="contact-details">
                     <p><strong>Teléfono:</strong> +54 9 351 791-4897</p>
                     <p><strong>Email:</strong> hola@gmail.com</p>
@@ -1210,59 +1098,57 @@ Elegí la opción que te resulte más cómoda para que tengamos esa primera char
             <div class="contact-channels">
                 <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="channel-card">
                     <h4>Escribinos por WhatsApp</h4>
-                    <p>Para que charlemos de tu propuesta de forma directa y coordinemos juntos una primera videollamada. </p>
+                    <p>Para que charlemos de tu propuesta de forma directa y coordinemos juntos una primera videollamada.</p>
                 </a>
 
                 <a href="https://calendly.com/tu-usuario-aqui" target="_blank" rel="noopener noreferrer" class="channel-card">
                     <h4>Agendá tu reunión en Calendly</h4>
-                    <p>Si ya tenés claro lo que necesitás,seleccioná el día y horario que prefieras para nuestra primera entrevista virtual.
-</p>
+                    <p>Si ya tenés claro lo que necesitás, seleccioná el día y horario que prefieras para nuestra primera entrevista virtual.</p>
                 </a>
             </div>
-
         </div>
     </section>
 
     <footer>
-    <div class="footer-col">
-        <h4>Filosofía</h4>
-        <p>"Proyectando, tienes noción de las metas que puedes alcanzar, la idea es clara y sencilla. Partimos de tus ideas y las ajustamos hasta lograr el proyecto deseado".</p>
-    </div>
-    <div class="footer-col">
-        <h4>Nuestros Servicios</h4>
-        <ul>
-            <li><a href="#especialidades">Remodelaciones</a></li>
-            <li><a href="#especialidades">Interiorismo</a></li>
-            <li><a href="#especialidades">Paisajismo</a></li>
-            <li><a href="#especialidades">Proyectos Comerciales</a></li>
-            <li><a href="#especialidades">Proyectos Residenciales</a></li>
-            <li><a href="#especialidades">Relevamientos y Transcipciones</a></li>
-        </ul>
-    </div>
-    <div class="footer-col">
-        <h4>Redes Sociales</h4>
-        <ul class="footer-social-links">
-            <li>
-                <a href="https://www.instagram.com/is.arch.arq?igsh=ZHJudjh1MG43Zm1m" target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-                    Instagram
-                </a>
-            </li>
-            <li>
-                <a href="https://www.facebook.com/share/1E7nk3VJ9i/" target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="social-icon"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
-                    Facebook
-                </a>
-            </li>
-            <li>
-                <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-                    WhatsApp
-                </a>
-            </li>
-        </ul>
-    </div>
-</footer>
+        <div class="footer-col">
+            <h4>Filosofía</h4>
+            <p>"Proyectando, tienes noción de las metas que puedes alcanzar, la idea es clara y sencilla. Partimos de tus ideas y las ajustamos hasta lograr el proyecto deseado".</p>
+        </div>
+        <div class="footer-col">
+            <h4>Nuestros Servicios</h4>
+            <ul>
+                <li><a href="#especialidades">Remodelaciones</a></li>
+                <li><a href="#especialidades">Interiorismo</a></li>
+                <li><a href="#especialidades">Paisajismo</a></li>
+                <li><a href="#especialidades">Proyectos Comerciales</a></li>
+                <li><a href="#especialidades">Proyectos Residenciales</a></li>
+                <li><a href="#especialidades">Relevamientos y Transcripciones</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Redes Sociales</h4>
+            <ul class="footer-social-links">
+                <li>
+                    <a href="https://www.instagram.com/is.arch.arq?igsh=ZHJudjh1MG43Zm1m" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                        Instagram
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/share/1E7nk3VJ9i/" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="social-icon"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+                        Facebook
+                    </a>
+                </li>
+                <li>
+                    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                        WhatsApp
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
 
     <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." 
        target="_blank" 
@@ -1270,23 +1156,20 @@ Elegí la opción que te resulte más cómoda para que tengamos esa primera char
        class="whatsapp-floating-btn" 
        title="Escribinos por WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
         </svg>
     </a>
 
     <script>
-        /* ----- LÓGICA DEL MENÚ DESPLEGABLE MÓVIL ----- */
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
 
-        // Alternar el menú al hacer clic en el botón hamburguesa
         mobileMenuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             mobileMenuBtn.classList.toggle('active');
             navLinks.classList.toggle('active');
         });
 
-        // Cerrar el menú si se hace clic afuera
         document.addEventListener('click', (e) => {
             if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
                 mobileMenuBtn.classList.remove('active');
@@ -1294,7 +1177,6 @@ Elegí la opción que te resulte más cómoda para que tengamos esa primera char
             }
         });
 
-        // Cerrar el menú automáticamente al seleccionar un enlace
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenuBtn.classList.remove('active');
@@ -1302,40 +1184,30 @@ Elegí la opción que te resulte más cómoda para que tengamos esa primera char
             });
         });
 
-        
-
-        /* ----- Preloader ----- */
         window.addEventListener('load', function() {
             const preloader = document.getElementById('sitePreloader');
-            
             setTimeout(() => {
                 preloader.classList.add('fade-out');
-                
-                setTimeout(() => {
-                    preloader.remove();
-                }, 800); 
+                setTimeout(() => { preloader.remove(); }, 800); 
             }, 400);
         });   
 
-        /* ----- Sincronizar aparición del botón con el video ----- */
-const heroVideo = document.querySelector('.hero-video');
-const heroContentBlock = document.querySelector('.hero-content');
+        const heroVideo = document.querySelector('.hero-video');
+        const heroContentBlock = document.querySelector('.hero-content');
 
-if (heroVideo && heroContentBlock) {
-    heroVideo.addEventListener('play', () => {
-        // Opcional: un pequeño retraso de 1 segundo desde que arranca el video para que respire
-        setTimeout(() => {
-            heroContentBlock.classList.add('hero-visible');
-        }, 7000);
-    });
+        if (heroVideo && heroContentBlock) {
+            heroVideo.addEventListener('play', () => {
+                setTimeout(() => {
+                    heroContentBlock.classList.add('hero-visible');
+                }, 7000);
+            });
 
-    // Si el video ya está reproduciéndose al cargar (por políticas de autoplay del navegador)
-    if (!heroVideo.paused) {
-        setTimeout(() => {
-            heroContentBlock.classList.add('hero-visible');
-        }, 7000);
-    }
-}
+            if (!heroVideo.paused) {
+                setTimeout(() => {
+                    heroContentBlock.classList.add('hero-visible');
+                }, 7000);
+            }
+        }
     </script>
 </body>
 </html>
