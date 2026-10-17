@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Consultorios RIE - is.Arch">
+    <title>Consultorios RIE - is.Arch</title>
+    
+    <link rel="icon" type="image/png" href="logo-solo3.png">
+    
+    <!-- Optimización de carga de fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ----- 1. VARIABLES Y RESETEO ----- */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #635847;
+            --accent-color: #000000;
+            --light-gray: #f5f5f5;
+            --transition: all 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: var(--text-color); }
+
+        /* ----- 2. PANTALLA DE CARGA ----- */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .preloader-wrapper { display: flex; flex-direction: column; align-items: center; gap: 24px; animation: preloaderReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .preloader-logo-img { width: 200px; height: auto; display: block; }
+        .preloader.fade-out { opacity: 0; transform: translateY(-30px); pointer-events: none; }
+        @keyframes preloaderReveal { 0% { opacity: 0; transform: scale(0.97) translateY(5px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+
+        /* ----- 3. BARRA DE NAVEGACIÓN ----- */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: #fff; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo-container { display: flex; align-items: center; height: 100%; padding-left: 15px; }
+        .logo-img { height: 40px; width: auto; object-fit: contain; transition: var(--transition); transform: scale(2.2); transform-origin: left center; }
+        .logo-container:hover .logo-img { opacity: 0.8; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; transition: var(--transition); }
+        .nav-links a:hover { color: #e0ceb7; }
+        
+        .mobile-menu-btn { display: none; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 1100; }
+        .mobile-menu-btn .bar { width: 25px; height: 2px; background-color: var(--text-color); transition: var(--transition); }
+        .mobile-menu-btn.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .mobile-menu-btn.active .bar:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* ----- 4. DETALLE DEL PROYECTO ----- */
+        .project-header { padding: 120px 5% 20px; max-width: 1200px; margin: 0 auto; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 30px; color: #777; transition: var(--transition); }
+        .back-link:hover { color: #000; transform: translateX(-5px); }
+        .project-title { font-size: 2.5rem; font-weight: 300; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; }
+
+        .project-meta-grid { display: grid; grid-template-columns: 1fr 1.5fr 0.8fr; gap: 30px; padding: 25px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-bottom: 40px; }
+        .meta-item { display: flex; align-items: center; gap: 15px; }
+        .meta-header-icon { width: 15px; height: 15px; fill: #666; flex-shrink: 0; }
+        .meta-item h5 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 2px; }
+        .meta-item p { font-size: 0.95rem; font-weight: 600; color: var(--text-color); white-space: nowrap; }
+
+        .project-content { max-width: 1200px; margin: 0 auto; padding: 0 5% 100px; }
+        .project-description { font-size: 1.05rem; font-weight: 300; color: #444; margin-bottom: 40px; max-width: 100%; }
+        .project-description p { margin-bottom: 10px; line-height: 1.7; }
+        .project-description p:last-child {margin-bottom: 0;}
+
+        /* ----- 5. GALERÍA ----- */
+        .project-gallery { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 150px; gap: 3px; }
+        .gallery-item { overflow: hidden; cursor: pointer; position: relative; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.03); }
+
+        .img-1 { grid-column: span 9; grid-row: span 4; }
+        .img-2 { grid-column: span 3; grid-row: span 4; }
+        .img-3 { grid-column: span 4; grid-row: span 3; }
+        .img-4 { grid-column: span 5; grid-row: span 3; }
+        .img-5 { grid-column: span 3; grid-row: span 3; }
+
+        .hidden-gallery-item { display: none !important; }
+        
+        /* ----- 6. LIGHTBOX / VISOR ----- */
+        .lightbox { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            z-index: 10000; display: none; justify-content: center; align-items: center; user-select: none; 
+        }
+        .lightbox.active { display: flex; }
+
+        .lightbox-content { 
+            position: relative; width: 100vw; height: 100vh; display: flex; 
+            justify-content: center; align-items: center; background-color: transparent; padding: 90px 100px; 
+        }
+        
+        .lightbox-img { 
+            max-width: 100%; max-height: 100%; width: auto; height: auto; 
+            object-fit: contain; box-shadow: 0 15px 50px rgba(0,0,0,0.12); 
+        }
+
+        .lightbox-header-title { 
+            position: fixed; top: 35px; left: 50%; transform: translateX(-50%); 
+            text-align: center; font-size: 0.78rem; font-weight: 400; text-transform: uppercase; 
+            letter-spacing: 4px; color: #1a1a1a; z-index: 10030; user-select: none; transition: opacity 0.3s ease;
+        }
+
+        .lightbox-btn { 
+            position: fixed; top: 0; height: 100vh; width: 80px; background-color: transparent; 
+            color: #1a1a1a; border: none; display: flex; justify-content: center; align-items: center; 
+            font-size: 2.2rem; font-weight: 300; cursor: pointer; z-index: 10020; transition: background-color 0.4s ease; 
+        }
+        
+        .lightbox-btn:hover { background-color: rgba(0, 0, 0, 0.03); }
+        .prev-btn { left: 0; }
+        .next-btn { right: 0; }
+
+        .close-btn { 
+            position: fixed; top: 25px; right: 3%; width: 50px; height: 50px; background: none; 
+            box-shadow: none; color: #1a1a1a; font-size: 2rem; z-index: 10040; display: flex; justify-content: center; align-items: center;
+        }
+        .close-btn:hover { background: none; color: #888; }
+        
+        .lightbox-counter { 
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
+            color: #666; font-size: 0.85rem; letter-spacing: 2px; font-weight: 600; z-index: 10030; user-select: none; 
+        }
+
+        /* ----- TARJETAS EDITORIALES BLANCAS (FLOTANTES EN PC) ----- */
+        .prev-project-preview-floating,
+        .next-project-preview-floating {
+            position: absolute; top: 50%; opacity: 0; visibility: hidden; 
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+            z-index: 10025; pointer-events: none; 
+        }
+
+        .prev-project-preview-floating {
+            left: 80px; transform: translateY(-50%) translateX(-15px);
+        }
+
+        .next-project-preview-floating {
+            right: 80px; transform: translateY(-50%) translateX(15px);
+        }
+
+        .next-project-card-white {
+            background-color: #ffffff; border-radius: 8px; padding: 25px 25px 20px; width: 320px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12); text-decoration: none; display: flex; flex-direction: column;
+            transition: transform 0.4s ease, box-shadow 0.4s ease; pointer-events: auto;
+        }
+
+        .next-project-card-white:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.18); }
+        .next-label { font-size: 0.75rem; font-weight: 600; color: #888888; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; text-align: left; }
+        .next-img-wrapper { width: 100%; height: 180px; border-radius: 6px; overflow: hidden; margin-bottom: 18px; }
+        .next-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        .next-project-card-white:hover .next-img-wrapper img { transform: scale(1.04); }
+        .next-info { text-align: left; }
+        .next-info h5 { font-size: 1.3rem; font-weight: 600; color: #1a1a1a; margin-bottom: 5px; letter-spacing: 1px; }
+        .next-info p { font-size: 0.95rem; font-weight: 300; color: #777777; margin: 0; }
+
+        /* MAGIA DEL TOOLTIP: Aparecen si los botones son el "primero" o "último" */
+        .prev-btn.is-first:hover ~ .prev-project-preview-floating,
+        .prev-project-preview-floating:hover {
+            opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); pointer-events: auto;
+        }
+
+        .next-btn.is-last:hover ~ .next-project-preview-floating,
+        .next-project-preview-floating:hover {
+            opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); pointer-events: auto;
+        }
+
+        /* ----- 7. FOOTER & WHATSAPP ----- */
+        footer { background-color: var(--text-color); color: #f6e5d6; padding: 70px 5% 40px; display: grid; grid-template-columns: 1.2fr 1.6fr 0.9fr; gap: 24px; font-size: 0.9rem; }
+        footer h4 { margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; }
+        footer p { line-height: 1.8; }
+        footer ul { list-style: none; }
+        footer ul li { margin-bottom: 10px; line-height: 1.4; }
+        footer ul li a { color: #f6e5d6; transition: var(--transition); }
+        footer ul li a:hover { color: #d0bfbf; }
+        .footer-col:nth-child(2) ul { column-count: 2; column-gap: 8px; }
+        .footer-social-links { display: flex; flex-direction: column; gap: 6px; }
+        .footer-social-links li a { display: inline-flex; align-items: center; gap: 8px; }
+        .social-icon { width: 16px; height: 16px; fill: #f6e5d6; transition: var(--transition); }
+        .footer-social-links li a:hover .social-icon { fill: #d0bfbf; transform: translateY(-1px); }
+
+        .whatsapp-floating-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #25d366; color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); z-index: 9999; transition: var(--transition); }
+        .whatsapp-floating-btn svg { width: 32px; height: 32px; fill: #fff; }
+        .whatsapp-floating-btn:hover { transform: scale(1.1); background-color: #20ba5a; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); }
+
+        /* ----- 8. RESPONSIVE MÓVIL ----- */
+        @media (max-width: 900px) {
+            .lightbox-content { width: 100vw; height: 100vh; padding: 0; }
+            .lightbox-header-title { width: 90vw; top: 35px; letter-spacing: 3px; }
+            .lightbox-btn { width: 50px; font-size: 1.8rem; }
+            
+            /* Comportamiento de tarjetas en Móvil (Slides extras centrales) */
+            .prev-project-preview-floating,
+            .next-project-preview-floating {
+                position: relative; left: auto; right: auto; top: auto; transform: none;
+                opacity: 1; visibility: visible; display: none; 
+            }
+            
+            .prev-project-preview-floating.active-mobile,
+            .next-project-preview-floating.active-mobile {
+                display: flex; align-items: center; justify-content: center;
+                width: 100%; height: 100%; animation: fadeIn 0.4s ease;
+            }
+            .next-project-card-white { width: 85vw; }
+        }
+
+        @media (max-width: 768px) {
+            .project-meta-grid { grid-template-columns: 1fr; gap: 20px; }
+            .meta-item p { white-space: normal; }
+            .mobile-menu-btn { display: flex; }
+            .nav-links { position: absolute; top: 80px; left: 0; width: 100%; background-color: #ffffff; flex-direction: column; padding: 20px 5% 40px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 999; gap: 0; }
+            .nav-links.active { opacity: 1; visibility: visible; transform: translateY(0); }
+            .nav-links a { width: 100%; padding: 15px 0; font-size: 1.1rem; border-bottom: 1px solid #f5f5f5; }
+
+            .project-title { font-size: 1.8rem; }
+            .project-gallery { grid-template-columns: 1fr; grid-auto-rows: 250px; }
+            .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+
+            footer { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .footer-col:nth-child(2) ul { column-count: 1; }
+            .footer-social-links { align-items: center; }
+
+            .whatsapp-floating-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
+            .whatsapp-floating-btn svg { width: 28px; height: 28px; }
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <!-- PANTALLA DE CARGA -->
+    <div id="sitePreloader" class="preloader">
+        <div class="preloader-wrapper">
+            <img src="LogoR-Beige.png" alt="is.Arch Volúmenes" class="preloader-logo-img">
+        </div>
+    </div>
+    
+    <!-- NAVBAR -->
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo-texto1.png" alt="is.Arch Logo" class="logo-img">
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html#inicio">Inicio</a>
+            <a href="index.html#especialidades">Nuestros Servicios</a>
+            <a href="index.html#obras">Proyectos Destacados</a>
+            <a href="index.html#nosotros">Nosotros</a>
+            <a href="index.html#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Encabezado -->
+    <div class="project-header">
+        <a href="index.html#obras" class="back-link">← Volver a Proyectos Destacados</a>
+        <h1 class="project-title">CONSULTORIOS RIE - Diseño e innovación al servicio de la salud</h1>
+        
+        <div class="project-meta-grid">
+            <div class="meta-item">
+                <svg class="meta-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384 128 128H288v128H224V256H128L256 128z"/></svg>
+                <div>
+                    <h5>Proyecto</h5>
+                    <p>Proyecto de arquitectura</p>
+                </div>
+            </div>
+
+            <div class="meta-item">
+                <svg class="meta-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+                <div>
+                    <h5>Ubicación</h5>
+                    <p>Barrio Centro, Villa María, Argentina.</p>
+                </div>
+            </div>
+            
+            <div class="meta-item">
+                <svg class="meta-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H48C21.5 64 0 85.5 0 112v32 24 288c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V168v-24v-32c0-26.5-21.5-48-48-48h-56V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 144H400v32H48V144zm0 80H400V464H48V224z"/></svg>
+                <div>
+                    <h5>Año</h5>
+                    <p>2018</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Galería e info -->
+    <main class="project-content">
+        <div class="project-description">
+            <p>En un momento donde los espacios de salud aún se aferraban a la clásica estética clínica de blanco y turquesa, este proyecto nació con la premisa de crear una experiencia más cercana. El objetivo fue concebir un espacio de impronta profesional y pulcra, incorporando gestos de diseño que aporten calidez para que los pacientes se sientan más relajados, alejándose de la habitual frialdad de estos ambientes.</p>
+            <p>Ingresar al proyecto mientras el edificio aún se encontraba en obra nos permitió diseñar íntegramente las instalaciones bajo piso, creando espacios técnicos que no interfieren ni funcional ni estéticamente con el trabajo diario. A partir de un gran local en bruto, se sectorizó la planta para dar lugar a cinco consultorios independientes y un recinto privado exclusivo para el equipo profesional, pensado como un área de descanso, almuerzo y reuniones.</p>
+            <p>La recepción necesitaba equilibrar esa búsqueda de calidez y alta funcionalidad. Para optimizar la circulación, se diseñó un gran banco lineal sobre uno de los muros nuevos, maximizando la capacidad de asiento de manera mucho más eficiente que con sillas individuales. A su vez, el área de escritorio se ubicó aprovechando dos columnas existentes para enmarcar el sector y focalizar la atención. En este espacio se incorporó un muro de madera compuesto por placas que juegan con diferentes volúmenes y profundidades, aportando textura y movimiento. Finalmente, este tono cálido se replicó a través de pequeños y sutiles gestos en el resto de los consultorios, logrando un lenguaje armónico e integral en toda la clínica.</p>
+        </div>
+
+        <div class="project-gallery">
+            <div class="gallery-item img-1">
+                <img src="ComercialCRIE/1.png" alt="Fachada Principal e Integración del Parque">
+            </div>
+            <div class="gallery-item img-2">
+                <img src="ComercialCRIE/2.png" alt="Galería Exterior y Área de Piscina">
+            </div>
+            <div class="gallery-item img-3">
+                <img src="ComercialCRIE/3.png" alt="Diseño de Interiores y Comedor Integrado">
+            </div>
+            <div class="gallery-item img-4">
+                <img src="ComercialCRIE/4.png" alt="Detalle de Escalera Cemento y Madera">
+            </div>
+            <div class="gallery-item img-5">
+                <img src="ComercialCRIE/5.png" alt="Estudio de Iluminación Cenital">
+            </div>
+
+            <!-- Tus imágenes extra ocultas -->
+            <div class="gallery-item hidden-gallery-item">
+                <img src="ComercialCRIE/6.jpg" alt="Detalle extra 2">
+            </div>
+        </div>
+    </main>
+
+    <!-- Visor de Imágenes Unificado -->
+    <div id="lightboxVisor" class="lightbox">
+        <button class="lightbox-btn close-btn" id="closeBtn">✕</button>
+        <div class="lightbox-header-title">
+            is.Arch — CONSULTORIOS RIE <span style="color: #888; font-weight: 300; margin-left: 10px;">· Barrio Centro, Villa María, Argentina.</span>
+        </div>
+        
+        <div class="lightbox-content">
+            <!-- Botón Anterior -->
+            <button class="lightbox-btn prev-btn" id="prevBtn">‹</button>
+
+            <!-- TARJETA FLOTANTE (PROYECTO ANTERIOR) -->
+            <div class="prev-project-preview-floating" id="prevProjectPreview">
+                <a href="casa-cb.html" class="next-project-card-white"> 
+                    <h4 class="next-label">Proyecto Anterior</h4>
+                    <div class="next-img-wrapper">
+                        <img src="CasaCB/1.png" alt="Casa CB">
+                    </div>
+                    <div class="next-info">
+                        <h5>CASA CB</h5>
+                        <p>Barrio Sierra Nueva, Mendiolaza, Argentina.</p>
+                    </div>
+                </a>
+            </div>
+
+            <img src="" alt="Visor de Obra" class="lightbox-img" id="lightboxImg">
+            
+            <!-- Botón Siguiente -->
+            <button class="lightbox-btn next-btn" id="nextBtn">›</button>
+
+            <!-- TARJETA FLOTANTE (PROYECTO SIGUIENTE) -->
+            <div class="next-project-preview-floating" id="nextProjectPreview">
+                <!-- Se actualizó a casasc.html como corresponde para el siguiente proyecto -->
+                <a href="casa-ft.html" class="next-project-card-white"> 
+                    <h4 class="next-label">Próximo Proyecto</h4>
+                    <div class="next-img-wrapper">
+                        <img src="CasaFT/1.png" alt="Casa FT">
+                    </div>
+                    <div class="next-info">
+                        <h5>CASA FT</h5>
+                        <p>Barrio El Terrón, Mendiolaza, Argentina.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="lightbox-counter" id="lightboxCounter">1 / 8</div>
+    </div>
+
+    <!-- FOOTER GENERAL -->
+    <footer>
+        <div class="footer-col">
+            <h4>Filosofía</h4>
+            <p>"Proyectando, tienes noción de las metas que puedes alcanzar, la idea es clara y sencilla. Partimos de tus ideas y las ajustamos hasta lograr el proyecto deseado".</p>
+        </div>
+        <div class="footer-col">
+            <h4>Nuestros Servicios</h4>
+            <ul>
+                <li><a href="remodelaciones.html">Remodelaciones</a></li>
+                <li><a href="interiorismo.html">Interiorismo</a></li>
+                <li><a href="paisajismo.html">Paisajismo Arquitectónico</a></li>
+                <li><a href="arquitectura-para-marcas-y-empresas.html">Proyectos para Marcas y Empresas</a></li>
+                <li><a href="proyectos-residenciales.html">Proyectos Residenciales</a></li>
+                <li><a href="relevamientos-y-transcripciones.html">Relevamientos y Transcripciones</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Redes Sociales</h4>
+            <ul class="footer-social-links">
+                <li>
+                    <a href="https://www.instagram.com/is.arch.arq?igsh=ZHJudjh1MG43Zm1m" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                        Instagram
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/share/1E7nk3VJ9i/" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="social-icon"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+                        Facebook
+                    </a>
+                </li>
+                <li>
+                    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                        WhatsApp
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="whatsapp-floating-btn" 
+       title="Escribinos por WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+    </a>
+
+    <script>
+        // Visor de Galería (Lightbox) Inteligente con Doble Navegación (Anterior / Siguiente)
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+        const lightbox = document.getElementById('lightboxVisor');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeBtn = document.getElementById('closeBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('lightboxCounter');
+        const lightboxTitle = document.querySelector('.lightbox-header-title');
+        
+        const prevProjectPreview = document.getElementById('prevProjectPreview');
+        const nextProjectPreview = document.getElementById('nextProjectPreview');
+
+        let currentImgIndex = 0;
+        const totalImages = galleryItems.length;
+
+        galleryItems.forEach((img, index) => {
+            img.parentElement.addEventListener('click', () => {
+                currentImgIndex = index;
+                updateVisorContent();
+                lightbox.classList.add('active'); 
+                document.body.style.overflow = 'hidden'; 
+            });
+        });
+
+        function updateVisorContent() {
+            // Reiniciamos todas las visibilidades
+            lightboxImg.style.display = 'none';
+            prevProjectPreview.classList.remove('active-mobile');
+            nextProjectPreview.classList.remove('active-mobile');
+            prevBtn.classList.remove('is-first');
+            nextBtn.classList.remove('is-last');
+
+            if (currentImgIndex === -1) {
+                // Modo Celular: Tarjeta Proyecto Anterior
+                prevProjectPreview.classList.add('active-mobile');
+                counter.innerText = `Proyecto Anterior`;
+                if(lightboxTitle) lightboxTitle.style.opacity = '0';
+                prevBtn.classList.add('is-first'); // Mantiene consistencia de estado
+            } else if (currentImgIndex === totalImages) {
+                // Modo Celular: Tarjeta Proyecto Siguiente
+                nextProjectPreview.classList.add('active-mobile');
+                counter.innerText = `Próximo Proyecto`;
+                if(lightboxTitle) lightboxTitle.style.opacity = '0';
+                nextBtn.classList.add('is-last');
+            } else {
+                // Modo Foto Normal
+                lightboxImg.style.display = 'block';
+                lightboxImg.src = galleryItems[currentImgIndex].src;
+                counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
+                if(lightboxTitle) lightboxTitle.style.opacity = '1';
+                
+                // Asignamos clases para disparar los tooltips flotantes en PC
+                if (currentImgIndex === 0) prevBtn.classList.add('is-first');
+                if (currentImgIndex === totalImages - 1) nextBtn.classList.add('is-last');
+            }
+        }
+
+        function nextImage() {
+            const isMobile = window.matchMedia("(max-width: 900px)").matches;
+            
+            if (!isMobile) {
+                // En PC: Clic en Siguiente en la última foto va al próximo proyecto
+                if (currentImgIndex === totalImages - 1) {
+                    window.location.href = 'casa-ft.html';
+                } else {
+                    currentImgIndex++;
+                    updateVisorContent();
+                }
+            } else {
+                // En Celular: Avanza a la diapositiva central, y luego al proyecto
+                if (currentImgIndex === totalImages) {
+                    window.location.href = 'casa-ft.html';
+                } else {
+                    currentImgIndex++;
+                    updateVisorContent();
+                }
+            }
+        }
+
+        function prevImage() {
+            const isMobile = window.matchMedia("(max-width: 900px)").matches;
+            
+            if (!isMobile) {
+                // En PC: Clic en Anterior en la primera foto va al proyecto anterior
+                if (currentImgIndex === 0) {
+                    window.location.href = 'casa-cb.html';
+                } else {
+                    currentImgIndex--;
+                    updateVisorContent();
+                }
+            } else {
+                // En Celular: Retrocede a la diapositiva central, y luego al proyecto
+                if (currentImgIndex === -1) {
+                    window.location.href = 'casa-cb.html';
+                } else {
+                    currentImgIndex--;
+                    updateVisorContent();
+                }
+            }
+        }
+
+        function closeVisor() {
+            // Reiniciamos al cerrar para que no quede guardado un estado de tarjeta
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+            if (currentImgIndex === -1) currentImgIndex = 0;
+            if (currentImgIndex === totalImages) currentImgIndex = totalImages - 1;
+        }
+
+        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+        closeBtn.addEventListener('click', closeVisor);
+        lightbox.addEventListener('click', closeVisor);
+        lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'Escape') closeVisor();
+        });
+
+        // Menú Móvil
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('sitePreloader');
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+                setTimeout(() => preloader.remove(), 800); 
+            }, 400);
+        });  
+    </script>
+</body>
+</html>

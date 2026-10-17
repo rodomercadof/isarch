@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arquitectura para Marcas y Empresas - is.Arch Arquitectura">
+    <title>Arquitectura para Marcas y Empresas - is.Arch</title>
+    
+    <link rel="icon" type="image/png" href="logo-solo3.png">
+    
+    <!-- Optimización de carga de fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ----- 1. VARIABLES Y RESETEO ----- */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #635847;
+            --accent-color: #000000;
+            --light-gray: #f5f5f5;
+            --transition: all 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: var(--text-color); }
+
+        /* ----- 2. PANTALLA DE CARGA ----- */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .preloader-wrapper { display: flex; flex-direction: column; align-items: center; gap: 24px; animation: preloaderReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .preloader-logo-img { width: 200px; height: auto; display: block; }
+        .preloader.fade-out { opacity: 0; transform: translateY(-30px); pointer-events: none; }
+        @keyframes preloaderReveal { 0% { opacity: 0; transform: scale(0.97) translateY(5px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+
+        /* ----- 3. BARRA DE NAVEGACIÓN ----- */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: #fff; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo-container { display: flex; align-items: center; height: 100%; padding-left: 15px; }
+        .logo-img { height: 40px; width: auto; object-fit: contain; transition: var(--transition); transform: scale(2.2); transform-origin: left center; }
+        .logo-container:hover .logo-img { opacity: 0.8; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; transition: var(--transition); }
+        .nav-links a:hover { color: #e0ceb7; }
+        
+        .mobile-menu-btn { display: none; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 1100; }
+        .mobile-menu-btn .bar { width: 25px; height: 2px; background-color: var(--text-color); transition: var(--transition); }
+        .mobile-menu-btn.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .mobile-menu-btn.active .bar:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* ----- 4. ESTILOS GLOBALES Y ANIMACIONES ----- */
+        .section { padding: 70px 3%; scroll-margin-top: 60px; }
+        .bg-light { background-color: var(--light-gray); }
+        .section-title { text-align: center; font-size: 2rem; font-weight: 600; margin-bottom: 60px; text-transform: uppercase; letter-spacing: 3px; }
+        
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        .btn { padding: 15px 35px; background-color: transparent; color: #f6e5d6; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; border: 1px solid #f6e5d6; cursor: pointer; transition: var(--transition); display: inline-block; text-align: center; }
+        .btn:hover { background-color: #f6e5d6; color: var(--text-color); }
+        .btn-dark { background-color: var(--text-color); color: #f6e5d6; border: 1px solid var(--text-color); padding: 15px 35px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: var(--transition); display: inline-block; text-align: center; }
+        .btn-dark:hover { background-color: #f6e5d6; color: var(--text-color); }
+        .btn-a { padding: 15px 35px; background-color: transparent; color: var(--text-color); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; border: 1px solid var(--text-color); cursor: pointer; transition: var(--transition); display: inline-block; text-align: center; }
+        .btn-a:hover { background-color: #f6e5d6; border-color: #f6e5d6; }
+
+        /* ----- 5. HERO SECTION ----- */
+        .hero { min-height: 65vh; padding: 100px 20px 60px; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('IMG_4065.PNG') center/cover no-repeat; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #f6e5d6; }
+        .hero-content { margin-bottom: 30px; }
+        .hero h1 { font-size: 3rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .hero h2 { font-size: 2.2rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; color: #f6e5d6; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+
+        /* ----- 6. SECCIÓN ENFOQUE (ABOUT) ----- */
+        .about-container { max-width: 1100px; margin: 0 auto; text-align: left; }
+        .about-editorial-title { font-size: 1.1rem; font-style: italic; font-weight: 600; color: #9e9589; margin-bottom: 17px; line-height: 1.5; max-width: 510px; }
+        .about-grid-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .about-text-block p { font-size: 1.05rem; color: var(--text-color); font-weight: 300; margin-bottom: 20px; line-height: 1.8; }
+        
+        .team-signature-centered { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 60px; text-align: center; }
+        .team-signature-centered p { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+        
+        .team-avatar-container { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; display: inline-block; }
+        .team-avatar-container img { width: 95%; height: 100%; object-fit: cover; transform: scale(1.4); object-position: 34% -25%; display: block; }
+
+        /* ----- 7. PREGUNTAS FRECUENTES ----- */
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #e0e0e0; }
+        .faq-question { width: 100%; text-align: left; padding: 25px 0; color: var(--text-color); background: none; border: none; font-size: 1.05rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px; }
+        .faq-question:hover { color: #8a7f6f; }
+        .faq-icon { font-size: 1.5rem; font-weight: 300; transition: transform 0.3s ease; }
+        .faq-question.active .faq-icon { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; color: var(--text-color); }
+        .faq-answer p { padding-bottom: 25px; font-size: 0.95rem; line-height: 1.6; }
+
+        /* ----- 8. CONTACTO ----- */
+        .contact-section { text-align: center; padding-bottom: 40px; }
+        .contact-text { max-width: 600px; margin: 0 auto 30px; font-size: 1.05rem; font-weight: 300; color: var(--text-color); }
+        .contact-btn-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+        /* ----- 9. FOOTER & WHATSAPP ----- */
+        footer { background-color: var(--text-color); color: #f6e5d6; padding: 70px 5% 40px; display: grid; grid-template-columns: 1.2fr 1.6fr 0.9fr; gap: 24px; font-size: 0.9rem; }
+        footer h4 { margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; }
+        footer p { line-height: 1.8; }
+        footer ul { list-style: none; }
+        footer ul li { margin-bottom: 10px; line-height: 1.4; }
+        footer ul li a { color: #f6e5d6; transition: var(--transition); }
+        footer ul li a:hover { color: #d0bfbf; }
+        .footer-col:nth-child(2) ul { column-count: 2; column-gap: 8px; }
+        .footer-social-links { display: flex; flex-direction: column; gap: 6px; }
+        .footer-social-links li a { display: inline-flex; align-items: center; gap: 8px; }
+        .social-icon { width: 16px; height: 16px; fill: #f6e5d6; transition: var(--transition); }
+        .footer-social-links li a:hover .social-icon { fill: #d0bfbf; transform: translateY(-1px); }
+
+        .whatsapp-floating-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #25d366; color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); z-index: 9999; transition: var(--transition); }
+        .whatsapp-floating-btn svg { width: 32px; height: 32px; fill: #fff; }
+        .whatsapp-floating-btn:hover { transform: scale(1.1); background-color: #20ba5a; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); }
+
+        /* ----- 10. RESPONSIVE MÓVIL ----- */
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: flex; }
+            .nav-links { position: absolute; top: 80px; left: 0; width: 100%; background-color: #ffffff; flex-direction: column; padding: 20px 5% 40px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 999; gap: 0;}
+            .nav-links.active { opacity: 1; visibility: visible; transform: translateY(0); }
+            .nav-links a { width: 100%; padding: 15px 0; font-size: 1.1rem; border-bottom: 1px solid #f5f5f5; }
+            
+            .hero { min-height: 100vh; padding-top: 100px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero h2 { font-size: 1.8rem; }
+            .section { padding: 60px 5%; }
+            
+            .about-grid-columns { grid-template-columns: 1fr; gap: 30px; }
+            .about-editorial-title { max-width: 100%; font-size: 1.15rem; }
+            
+            footer { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .footer-col:nth-child(2) ul { column-count: 1; }
+            .footer-social-links { align-items: center; }
+
+            .whatsapp-floating-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
+            .whatsapp-floating-btn svg { width: 28px; height: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- PANTALLA DE CARGA -->
+    <div id="sitePreloader" class="preloader">
+        <div class="preloader-wrapper">
+            <img src="LogoR-Beige.png" alt="is.Arch Volúmenes" class="preloader-logo-img">
+        </div>
+    </div>
+    
+    <!-- NAVBAR -->
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo-texto1.png" alt="is.Arch Logo" class="logo-img">
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html#inicio">Inicio</a>
+            <a href="index.html#especialidades">Nuestros Servicios</a>
+            <a href="index.html#obras">Proyectos Destacados</a>
+            <a href="index.html#nosotros">Nosotros</a>
+            <a href="index.html#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- 1. HERO -->
+    <section class="hero fade-up">
+        <div class="hero-content">
+            <h1>ARQUITECTURA</h1>
+            <h2>PARA MARCAS Y EMPRESAS</h2>
+        </div>
+        <a href="#contacto" class="btn">Diseñemos tu comercio</a>
+    </section>
+
+    <!-- 2. EL ENFOQUE -->
+    <section class="section">
+        <div class="about-container fade-up">
+            <h3 class="about-editorial-title">Espacios que comunican tu esencia y buscan transformar la visita en una experiencia memorable.</h3>
+            
+            <div class="about-grid-columns">
+                <div class="about-col-left">
+                    <div class="about-text-block">
+                        <p>Entendemos que la arquitectura es una herramienta fundamental para contar la historia de tu empresa. Nos alejamos del diseño comercial genérico: nuestro desafío es crear lugares únicos para marcas que buscan diferenciarse. Sabemos que un espacio comercial debe incentivar la rentabilidad, pero priorizamos que la experiencia siempre esté a la par.</p>
+                        <p>Llevamos a tus proyectos la misma sensibilidad que define nuestra arquitectura residencial: diseñamos atmósferas inmersivas donde el usuario viva una experiencia sensorial que quede en su memoria, eligiendo volver por cómo se sintió al habitar tu marca.</p>
+                    </div>
+                </div>
+                
+                <div class="about-col-right">
+                    <div class="about-text-block">
+                        <p>Esta visión integral se sostiene con nuestro riguroso criterio técnico. Afrontamos estos desafíos resolviendo requerimientos operativos complejos, como la logística de circulaciones cruzadas, la climatización de grandes volúmenes y la integración de infraestructura específica. Trabajamos junto a especialistas para asegurar un desarrollo constructivo seguro, garantizando absoluta coherencia entre la funcionalidad que tu empresa exige y el diseño del espacio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Firma Centrada -->
+        <div class="team-signature-centered fade-up">
+            <div class="team-avatar-container">
+                <img src="IMG_9630.jpg" alt="Dirección is.Arch" loading="lazy">
+            </div>
+            <p>El equipo de is.Arch</p>
+        </div>
+    </section>
+
+    <!-- 3. PREGUNTAS FRECUENTES -->
+    <section class="section">
+        <h2 class="section-title fade-up">Preguntas Frecuentes</h2>
+        <div class="faq-container fade-up">
+            <div class="faq-item">
+                <button class="faq-question">¿Cómo impacta el diseño arquitectónico en la identidad y las ventas de mi marca? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>Un espacio comercial bien diseñado no solo comunica la esencia y los valores de tu marca de forma visual, sino que optimiza la circulación y la experiencia del cliente. Esto genera mayor permanencia en el lugar, fortalece el posicionamiento y se traduce directamente en un incremento del valor percibido y de las conversiones de tu negocio.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">¿Trabajan en proyectos corporativos desde cero o remodelan espacios comerciales existentes? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>Nos encargamos de ambas modalidades. Realizamos intervenciones integrales desde la etapa de obra gris o terreno, así como también remodelaciones estratégicas y renovación de locales en funcionamiento u oficinas ya establecidas, adaptándonos a los tiempos operativos de tu empresa.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">¿Cómo se gestionan los plazos de obra para no afectar la operatoria de mi negocio? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>Planificamos cada fase mediante un legajo técnico detallado y un cómputo preciso de materiales y tiempos. En proyectos de remodelación comercial, estructuramos el cronograma y las intervenciones por etapas para minimizar el impacto en tu operatoria diaria o coordinar los trabajos fuera de los horarios comerciales habituales.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. CONTACTO -->
+    <section id="contacto" class="section bg-light contact-section">
+        <h2 class="section-title fade-up">Comenzá tu Proyecto</h2>
+        <p class="contact-text fade-up">Contactanos de forma directa para despejar dudas iniciales o agenda una entrevista para profundizar en tus ideas.</p>
+        
+        <div class="contact-btn-group fade-up">
+            <a href="https://wa.me/543517914897" target="_blank" class="btn-dark">WhatsApp Directo</a>
+            <a href="https://calendly.com/" target="_blank" class="btn-a">Agendar Reunión</a>
+        </div>
+    </section>
+
+    <!-- FOOTER GENERAL -->
+    <footer>
+        <div class="footer-col">
+            <h4>Filosofía</h4>
+            <p>"Proyectando, tienes noción de las metas que puedes alcanzar, la idea es clara y sencilla. Partimos de tus ideas y las ajustamos hasta lograr el proyecto deseado".</p>
+        </div>
+        <div class="footer-col">
+            <h4>Nuestros Servicios</h4>
+            <ul>
+                <li><a href="remodelaciones.html">Remodelaciones</a></li>
+                <li><a href="interiorismo.html">Interiorismo</a></li>
+                <li><a href="paisajismo.html">Paisajismo Arquitectónico</a></li>
+                <li><a href="arquitectura-para-marcas-y-empresas.html">Proyectos para Marcas y Empresas</a></li>
+                <li><a href="proyectos-residenciales.html">Proyectos Residenciales</a></li>
+                <li><a href="relevamientos-y-transcripciones.html">Relevamientos y Transcripciones</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Redes Sociales</h4>
+            <ul class="footer-social-links">
+                <li>
+                    <a href="https://www.instagram.com/is.arch.arq?igsh=ZHJudjh1MG43Zm1m" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                        Instagram
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/share/1E7nk3VJ9i/" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="social-icon"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+                        Facebook
+                    </a>
+                </li>
+                <li>
+                    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                        WhatsApp
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="whatsapp-floating-btn" 
+       title="Escribinos por WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+    </a>
+
+    <script>
+        // Menú Móvil
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Acordeón FAQ
+        const faqItems = document.querySelectorAll('.faq-question');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                const isActive = item.classList.contains('active');
+                
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    otherItem.nextElementSibling.style.maxHeight = null;
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                }
+            });
+        });
+
+        // Animaciones al Scrollear
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('visible', entry.isIntersecting);
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('sitePreloader');
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+                setTimeout(() => preloader.remove(), 800); 
+            }, 400);
+        });  
+    </script>
+</body>
+</html>

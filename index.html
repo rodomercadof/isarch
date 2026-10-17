@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Is.Arch Arquitecture & Design</title>
     
-    <link rel="icon" type="image/png" href="logo-solo.png">
+    <link rel="icon" type="image/png" href="logo-solo3.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -331,9 +331,9 @@
 
         /* ----- OBRAS (PORTFOLIO) ----- */
         .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px; /* Mantén el espacio que ya tenías o ajústalo a tu gusto */
         }
 
         .portfolio-item {
@@ -683,8 +683,16 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+        @media (max-width: 900px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
         @media (max-width: 768px) {
+            .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
             .mobile-menu-btn {
                 display: flex; 
             }
@@ -892,13 +900,13 @@
 
     <div id="sitePreloader" class="preloader">
         <div class="preloader-wrapper">
-            <img src="logo-texto.png" alt="is.Arch Volúmenes" class="preloader-logo-img">
+            <img src="LogoR-Beige.png" alt="is.Arch Volúmenes" class="preloader-logo-img">
         </div>
     </div>
 
     <header>
         <a href="#" class="logo-container">
-            <img src="logo-texto.png" alt="is.Arch Logo" class="logo-img">
+            <img src="logo-texto1.png" alt="is.Arch Logo" class="logo-img">
         </a>
         
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">
@@ -945,7 +953,7 @@
                 <div class="service-content">
                     <h3>INTERIORISMO</h3>
                     <p>Damos carácter a tus espacios para adaptarlos a tu rutina y hacer especial cada rincón.</p>
-                    <a href="interiorismo-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    <a href="interiorismo1-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                 </div>
             </div>
 
@@ -953,9 +961,9 @@
                 <div class="service-bg" style="background-image: url('PAISAJISMOO.jpg');"></div>
                 <div class="service-overlay"></div>
                 <div class="service-content">
-                    <h3>PAISAJISMO</h3>
+                    <h3>PAISAJISMO ARQUITECTÓNICO</h3>
                     <p>Diseñamos espacios exteriores y su vegetación para potenciar tus experiencias al aire libre.</p>
-                    <a href="paisajismo-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    <a href="paisajismo1-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                 </div>
             </div>
 
@@ -963,9 +971,9 @@
                 <div class="service-bg" style="background-image: url('IMG_4065.PNG'); background-position: 30% center;"></div>
                 <div class="service-overlay"></div>
                 <div class="service-content">
-                    <h3>PROYECTOS COMERCIALES</h3>
+                    <h3>ARQUITECTURA PARA MARCAS Y EMPRESAS</h3>
                     <p>Espacios con identidad para marcas que buscan una arquitectura que refleje su identidad y la potencie a través del diseño.</p>
-                    <a href="comercial-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    <a href="arquitectura-para-marcas-y-empresas.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                 </div>
             </div>
 
@@ -974,8 +982,8 @@
                 <div class="service-overlay"></div>
                 <div class="service-content">
                     <h3>PROYECTOS RESIDENCIALES</h3>
-                    <p>Diseños integrales y conscientes para que tu hogar funcione a la perfección desde el primer día.</p>
-                    <a href="residencial-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    <p>Planificación funcional, constructiva y diseño integral  para que tu hogar funcione a la perfección desde el primer día.</p>
+                    <a href="proyectos-residenciales.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                 </div>
             </div>
 
@@ -983,9 +991,9 @@
                 <div class="service-bg" style="background-image: url('RELEVAMIENTOSYTRANSCIPRIONES.jpg');"></div>
                 <div class="service-overlay"></div>
                 <div class="service-content">
-                    <h3>RELEVAMIENTOS Y TRANSCIPCIONES</h3>
+                    <h3>RELEVAMIENTOS Y TRANSCRPICIONES</h3>
                     <p>Digitalización 2D precisa y armado de legajos técnicos para resolver trámites y regularizaciones normativas.</p>
-                    <a href="relevamientos-detalle.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    <a href="relevamientos-y-transcripciones.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                 </div>
             </div>
         </div>
@@ -996,50 +1004,124 @@
         <div class="portfolio-grid">
             <div class="portfolio-item">
                 <div class="portfolio-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CASA RM">
+                    <img src="CasaCJ/casaco-frente.png" alt="CASA CJ">
                     <div class="portfolio-hover-layer">
-                        <p class="quote">"Superó todas nuestras expectativas. Lograron captar la luz natural ideal para el living."</p>
-                        <p class="quote">Roberto Martinez - Dueño de casa</p>
-                        <a href="casa-rm1.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                        <p class="quote">"Superó todas nuestras expectativas."</p>
+                        <p class="quote">Jere Gonzalez Ferioli - Dueño de casa</p>
+                        <a href="casa-cj.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                     </div>
                 </div>
                 <div class="portfolio-info">
-                    <h4>CASA RM</h4>
-                    <p>Córdoba, Argentina | 2022</p>
+                    <h4>CASA CJ</h4>
+                    <p>Barrio Jockey Club, Córdoba, Argentina | 2025</p>
                 </div>
             </div>
 
             <div class="portfolio-item">
                 <div class="portfolio-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CASA SC">
+                    <img src="CasaAJ/AJ-frente.png" alt="CASA AJ">
                     <div class="portfolio-hover-layer">
-                        <p class="quote">"Excelente optimización de la circulación y una identidad visual corporativa impecable."</p>
-                        <p class="quote">Silvina Chiara - Dueña de casa</p>
-                        <a href="casa-sc.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                        <p class="quote">"Excelente trabajo."</p>
+                        <p class="quote">Nombre - Dueña de casa</p>
+                        <a href="casa-aj.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                     </div>
                 </div>
                 <div class="portfolio-info">
-                    <h4>CASA SC</h4>
-                    <p>Punta del Este, Uruguay | 2024</p>
+                    <h4>CASA AJ</h4>
+                    <p>Barrio Sierra Nueva, Mendiolaza, Argentina | 2023</p>
                 </div>
             </div>
 
             <div class="portfolio-item">
                 <div class="portfolio-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="BODEGA MERTENS">
+                    <img src="CasaFM/1.jpg" alt="CASA FM">
                     <div class="portfolio-hover-layer">
-                        <p class="quote">"Un diseño disruptivo que transformó por completo la experiencia de los clientes."</p>
-                        <p class="quote">Martín Mertens - Dueño de bodega</p>
-                        <a href="bodega-mertens.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                        <p class="quote">"Gran trabajo. Muy contentos con el resultado."</p>
+                        <p class="quote">Micaela Budano - Dueña de casa</p>
+                        <a href="casa-fm.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
                     </div>
                 </div>
                 <div class="portfolio-info">
-                    <h4>BODEGA MERTENS</h4>
-                    <p>Mendoza, Argentina | 2026</p>
+                    <h4>CASA FM</h4>
+                    <p>Barrio Sierra Nueva, Mendiolaza, Argentina | 2024</p>
                 </div>
             </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img-wrapper">
+                    <img src="CasaCB/1.png" alt="CASA CB">
+                    <div class="portfolio-hover-layer">
+                        <p class="quote">"Superó todas nuestras expectativas."</p>
+                        <p class="quote">Nombre - Dueño de casa</p>
+                        <a href="casa-cb.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h4>CASA CB</h4>
+                    <p>Barrio Sierra Nueva, Mendiolaza, Argentina | 2025</p>
+                </div>
+            </div>
+           
+            <div class="portfolio-item">
+                <div class="portfolio-img-wrapper">
+                    <img src="ComercialCRIE/1.png" alt="Consultorios RIE">
+                    <div class="portfolio-hover-layer">
+                        <p class="quote">"Superó todas nuestras expectativas."</p>
+                        <p class="quote">Nombre - Dueño de consultorio</p>
+                        <a href="comercial-crie.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h4>Consultorios RIE</h4>
+                    <p>Barrio Centro, Villa María, Argentina | 2018</p>
+                </div>
+            </div>
+            <!---
+            <div class="portfolio-item">
+                <div class="portfolio-img-wrapper">
+                    <img src="CasaCJ/casaco-frente.png" alt="CASA CJ">
+                    <div class="portfolio-hover-layer">
+                        <p class="quote">"Superó todas nuestras expectativas."</p>
+                        <p class="quote">Jere Gonzalez Ferioli - Dueño de casa</p>
+                        <a href="casa-cj.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    </div>
+                </div>
+                 
+                <div class="portfolio-info">
+                    <h4>CASA CJ</h4>
+                    <p>Barrio Jockey Club, Córdoba, Argentina | 2025</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img-wrapper">
+                    <img src="CasaCJ/casaco-frente.png" alt="CASA CJ">
+                    <div class="portfolio-hover-layer">
+                        <p class="quote">"Superó todas nuestras expectativas."</p>
+                        <p class="quote">Jere Gonzalez Ferioli - Dueño de casa</p>
+                        <a href="casa-cj.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h4>CASA CJ</h4>
+                    <p>Barrio Jockey Club, Córdoba, Argentina | 2025</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img-wrapper">
+                    <img src="CasaCJ/casaco-frente.png" alt="CASA CJ">
+                    <div class="portfolio-hover-layer">
+                        <p class="quote">"Superó todas nuestras expectativas."</p>
+                        <p class="quote">Jere Gonzalez Ferioli - Dueño de casa</p>
+                        <a href="casa-cj.html" target="_blank" rel="noopener noreferrer" class="btn-card">Ver más</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h4>CASA CJ</h4>
+                    <p>Barrio Jockey Club, Córdoba, Argentina | 2025</p>
+                </div>
+            </div> -->
         </div>
     </section>
+    
 
     <section id="nosotros" class="section">
         <h2 class="section-title">NUESTRO EQUIPO</h2>
@@ -1067,7 +1149,7 @@
 
             <div class="team-member">
                 <div class="member-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arq. Francisco Tamantini">
+                    <img src="IMG_4346.JPG" alt="Arq. Francisco Tamantini" style="object-position: center 32.5%;">
                 </div>
                 <h4>Arq. Francisco Tamantini Z</h4>
                 <p>Desarrollo Técnico, Infraestructura y Diseño de Instalaciones.</p>
@@ -1117,12 +1199,12 @@
         <div class="footer-col">
             <h4>Nuestros Servicios</h4>
             <ul>
-                <li><a href="#especialidades">Remodelaciones</a></li>
-                <li><a href="#especialidades">Interiorismo</a></li>
-                <li><a href="#especialidades">Paisajismo</a></li>
-                <li><a href="#especialidades">Proyectos Comerciales</a></li>
-                <li><a href="#especialidades">Proyectos Residenciales</a></li>
-                <li><a href="#especialidades">Relevamientos y Transcripciones</a></li>
+                <li><a href="remodelaciones.html">Remodelaciones</a></li>
+                <li><a href="interiorismo.html">Interiorismo</a></li>
+                <li><a href="paisajismo.html">Paisajismo Arquitectónico</a></li>
+                <li><a href="arquitectura-para-marcas-y-empresas.html">Proyectos para Marcas y Empresas</a></li>
+                <li><a href="proyectos-residenciales.html">Proyectos Residenciales</a></li>
+                <li><a href="relevamientos-y-transcripciones.html">Relevamientos y Transcripciones</a></li>
             </ul>
         </div>
         <div class="footer-col">
