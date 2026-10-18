@@ -84,7 +84,7 @@
         /* ----- 6. LIGHTBOX / VISOR ----- */
         .lightbox { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            background-color: rgba(255, 255, 255, 0.96); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
             z-index: 10000; display: none; justify-content: center; align-items: center; user-select: none; 
             touch-action: pan-y;
         }
@@ -92,21 +92,26 @@
 
         .lightbox-content { 
             position: relative; width: 100vw; height: 100vh; display: flex; 
-            justify-content: center; align-items: center; background-color: transparent; padding: 90px 100px; 
+            justify-content: center; align-items: center; background-color: transparent; padding: 110px 80px 70px 80px; 
             overflow: hidden;
         }
         
         .lightbox-img { 
             max-width: 100%; max-height: 100%; width: auto; height: auto; 
-            object-fit: contain; box-shadow: 0 15px 50px rgba(0,0,0,0.12); 
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            object-fit: contain; box-shadow: 0 15px 50px rgba(0,0,0,0.08); 
+            opacity: 1; transform: scale(1);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .lightbox-header-title { 
-            position: fixed; top: 35px; left: 50%; transform: translateX(-50%); 
-            text-align: center; font-size: 0.78rem; font-weight: 400; text-transform: uppercase; 
-            letter-spacing: 3px; color: #1a1a1a; z-index: 10030; user-select: none; transition: opacity 0.3s ease;
-            max-width: 75%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            position: fixed; top: 22px; left: 50%; transform: translateX(-50%); 
+            text-align: center; font-size: 0.72rem; font-weight: 500; text-transform: uppercase; 
+            letter-spacing: 2px; color: #1a1a1a; z-index: 10030; user-select: none; 
+            width: 88vw; max-width: 600px; line-height: 1.4;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .lightbox-btn { 
@@ -120,14 +125,14 @@
         .next-btn { right: 0; }
 
         .close-btn { 
-            position: fixed; top: 25px; right: 3%; width: 50px; height: 50px; background: none; 
-            box-shadow: none; color: #1a1a1a; font-size: 2rem; z-index: 10040; display: flex; justify-content: center; align-items: center;
+            position: fixed; top: 20px; right: 4%; width: 45px; height: 45px; background: none; 
+            box-shadow: none; color: #1a1a1a; font-size: 1.8rem; z-index: 10040; display: flex; justify-content: center; align-items: center;
         }
         .close-btn:hover { background: none; color: #888; }
         
         .lightbox-counter { 
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
-            color: #666; font-size: 0.85rem; letter-spacing: 2px; font-weight: 600; z-index: 10030; user-select: none; 
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
+            color: #666; font-size: 0.8rem; letter-spacing: 2px; font-weight: 600; z-index: 10030; user-select: none; 
         }
 
         /* ----- TARJETAS EDITORIALES BLANCAS (FLOTANTES EN PC) ----- */
@@ -185,33 +190,18 @@
             .lightbox-content { 
                 width: 100vw; 
                 height: 100vh; 
-                padding: 100px 15px 70px 15px; /* Espacio seguro superior e inferior para título y contador */
+                padding: 90px 12px 60px 12px; 
             }
             
             .lightbox-header-title { 
-                position: fixed;
-                top: 25px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 82vw; 
+                top: 15px;
                 font-size: 0.65rem; 
-                letter-spacing: 1.5px; 
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                background: rgba(255, 255, 255, 0.85);
-                padding: 6px 12px;
-                border-radius: 20px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+                letter-spacing: 1px; 
+                width: 78vw;
+                padding: 5px 10px;
             }
 
-            .lightbox-img {
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: contain;
-            }
-
-            .lightbox-btn { width: 50px; font-size: 1.8rem; }
+            .lightbox-btn { width: 45px; font-size: 1.6rem; }
             
             .prev-project-preview-floating,
             .next-project-preview-floating {
@@ -353,7 +343,7 @@
     <div id="lightboxVisor" class="lightbox">
         <button class="lightbox-btn close-btn" id="closeBtn">✕</button>
         <div class="lightbox-header-title">
-            is.Arch — CASA AJ <span style="color: #888; font-weight: 300; margin-left: 5px;">· Barrio Sierra Nueva, Mendiolaza</span>
+            is.Arch — CASA AJ <span style="color: #888; font-weight: 300;">· Barrio Sierra Nueva, Mendiolaza</span>
         </div>
         
         <div class="lightbox-content" id="lightboxContentContainer">
@@ -468,14 +458,13 @@
         galleryItems.forEach((img, index) => {
             img.parentElement.addEventListener('click', () => {
                 currentImgIndex = index;
-                updateVisorContent();
+                updateVisorContent(false);
                 lightbox.classList.add('active'); 
                 document.body.style.overflow = 'hidden'; 
             });
         });
 
-        function updateVisorContent(animationDirection = 'none') {
-            lightboxImg.style.display = 'none';
+        function updateVisorContent(animate = true) {
             prevProjectPreview.classList.remove('active-mobile');
             nextProjectPreview.classList.remove('active-mobile');
             prevBtn.classList.remove('is-first');
@@ -484,6 +473,7 @@
             const isMobile = window.matchMedia("(max-width: 900px)").matches;
 
             if (currentImgIndex === -1) {
+                lightboxImg.style.display = 'none';
                 if (isMobile) {
                     prevProjectPreview.classList.add('active-mobile');
                     counter.innerText = `Proyecto Anterior`;
@@ -491,6 +481,7 @@
                 }
                 prevBtn.classList.add('is-first');
             } else if (currentImgIndex === totalImages) {
+                lightboxImg.style.display = 'none';
                 if (isMobile) {
                     nextProjectPreview.classList.add('active-mobile');
                     counter.innerText = `Próximo Proyecto`;
@@ -499,25 +490,30 @@
                 nextBtn.classList.add('is-last');
             } else {
                 lightboxImg.style.display = 'block';
-                lightboxImg.src = galleryItems[currentImgIndex].src;
-                counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
-                if(lightboxTitle) lightboxTitle.style.opacity = '1';
+                
+                if (animate) {
+                    // Transición suave de desvanecimiento absoluto
+                    lightboxImg.style.opacity = '0';
+                    lightboxImg.style.transform = 'scale(0.97)';
+                    
+                    setTimeout(() => {
+                        lightboxImg.src = galleryItems[currentImgIndex].src;
+                        counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
+                        if(lightboxTitle) lightboxTitle.style.opacity = '1';
+                        
+                        lightboxImg.style.opacity = '1';
+                        lightboxImg.style.transform = 'scale(1)';
+                    }, 200);
+                } else {
+                    lightboxImg.src = galleryItems[currentImgIndex].src;
+                    counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
+                    if(lightboxTitle) lightboxTitle.style.opacity = '1';
+                    lightboxImg.style.opacity = '1';
+                    lightboxImg.style.transform = 'scale(1)';
+                }
                 
                 if (currentImgIndex === 0) prevBtn.classList.add('is-first');
                 if (currentImgIndex === totalImages - 1) nextBtn.classList.add('is-last');
-            }
-
-            // Transición suave de entrada para la nueva imagen
-            if (animationDirection !== 'none' && lightboxImg.style.display === 'block') {
-                const startTransform = animationDirection === 'left' ? 'translateX(25px)' : 'translateX(-25px)';
-                lightboxImg.style.opacity = '0';
-                lightboxImg.style.transform = startTransform;
-                
-                requestAnimationFrame(() => {
-                    lightboxImg.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease';
-                    lightboxImg.style.opacity = '1';
-                    lightboxImg.style.transform = 'translateX(0)';
-                });
             }
         }
 
@@ -529,14 +525,14 @@
                     window.location.href = 'casa-fm.html';
                 } else {
                     currentImgIndex++;
-                    updateVisorContent('left');
+                    updateVisorContent(true);
                 }
             } else {
                 if (currentImgIndex === totalImages) {
                     window.location.href = 'casa-fm.html';
                 } else {
                     currentImgIndex++;
-                    updateVisorContent('left');
+                    updateVisorContent(true);
                 }
             }
         }
@@ -549,14 +545,14 @@
                     window.location.href = 'casa-cj.html';
                 } else {
                     currentImgIndex--;
-                    updateVisorContent('right');
+                    updateVisorContent(true);
                 }
             } else {
                 if (currentImgIndex === -1) {
                     window.location.href = 'casa-cj.html';
                 } else {
                     currentImgIndex--;
-                    updateVisorContent('right');
+                    updateVisorContent(true);
                 }
             }
         }
@@ -574,21 +570,13 @@
         lightbox.addEventListener('click', closeVisor);
         lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); });
 
-        // Gesto táctil (Swipe) fluido con el dedo
+        // Gesto táctil (Swipe) fluido
         let touchStartX = 0;
         let touchEndX = 0;
         const lightboxContentContainer = document.getElementById('lightboxContentContainer');
 
         lightboxContentContainer.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
-            lightboxImg.style.transition = 'none';
-        }, {passive: true});
-
-        lightboxContentContainer.addEventListener('touchmove', (e) => {
-            if (lightboxImg.style.display !== 'block') return;
-            const currentX = e.changedTouches[0].screenX;
-            const diffX = currentX - touchStartX;
-            lightboxImg.style.transform = `translateX(${diffX * 0.35}px)`;
         }, {passive: true});
 
         lightboxContentContainer.addEventListener('touchend', (e) => {
@@ -604,9 +592,6 @@
                 nextImage();
             } else if (diff > threshold) {
                 prevImage();
-            } else {
-                lightboxImg.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-                lightboxImg.style.transform = 'translateX(0)';
             }
         }
 
