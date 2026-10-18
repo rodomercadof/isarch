@@ -56,36 +56,39 @@
         .back-link:hover { color: #000; transform: translateX(-5px); }
         .project-title { font-size: 2.5rem; font-weight: 300; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; }
 
-        .project-meta-grid { display: grid; grid-template-columns: 1fr 1.5fr 0.8fr; gap: 30px; padding: 25px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-bottom: 40px; }
-        .meta-item { display: flex; align-items: center; gap: 15px; }
-        .meta-header-icon { width: 15px; height: 15px; fill: #666; flex-shrink: 0; }
+        .project-meta-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; padding: 25px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-bottom: 40px; }
+        .meta-item { display: flex; align-items: flex-start; gap: 12px; }
+        .meta-header-icon { width: 15px; height: 15px; fill: #666; flex-shrink: 0; margin-top: 3px; }
         .meta-item h5 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 2px; }
         .meta-item p { font-size: 0.95rem; font-weight: 600; color: var(--text-color); white-space: nowrap; }
 
         .project-content { max-width: 1200px; margin: 0 auto; padding: 0 5% 100px; }
         .project-description { font-size: 1.05rem; font-weight: 300; color: #444; margin-bottom: 40px; max-width: 100%; }
         .project-description p { margin-bottom: 10px; line-height: 1.7; }
-        .project-description p:last-child {margin-bottom: 0;}
+        .project-description p:last-child { margin-bottom: 0; }
 
-        /* ----- 5. GALERÍA ----- */
+        /* ----- 5. GALERÍA MOSAICO DINÁMICO ----- */
         .project-gallery { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 150px; gap: 3px; }
         .gallery-item { overflow: hidden; cursor: pointer; position: relative; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; }
         .gallery-item:hover img { transform: scale(1.03); }
 
-        .img-1 { grid-column: span 9; grid-row: span 4; }
-        .img-2 { grid-column: span 3; grid-row: span 4; }
-        .img-3 { grid-column: span 4; grid-row: span 3; }
-        .img-4 { grid-column: span 5; grid-row: span 3; }
-        .img-5 { grid-column: span 3; grid-row: span 3; }
+        .gallery-item:nth-child(5n + 1) { grid-column: span 9; grid-row: span 4; } 
+        .gallery-item:nth-child(5n + 2) { grid-column: span 3; grid-row: span 4; } 
+        .gallery-item:nth-child(5n + 3) { grid-column: span 4; grid-row: span 3; } 
+        .gallery-item:nth-child(5n + 4) { grid-column: span 5; grid-row: span 3; } 
+        .gallery-item:nth-child(5n + 5) { grid-column: span 3; grid-row: span 3; } 
 
-        .hidden-gallery-item { display: none !important; }
+        .gallery-item:nth-child(5n + 1):last-child { grid-column: span 12; }
+        .gallery-item:nth-child(5n + 3):last-child { grid-column: span 12; }
+        .gallery-item:nth-child(5n + 4):last-child { grid-column: span 8; }
         
         /* ----- 6. LIGHTBOX / VISOR ----- */
         .lightbox { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
             z-index: 10000; display: none; justify-content: center; align-items: center; user-select: none; 
+            touch-action: pan-y;
         }
         .lightbox.active { display: flex; }
 
@@ -97,6 +100,7 @@
         .lightbox-img { 
             max-width: 100%; max-height: 100%; width: auto; height: auto; 
             object-fit: contain; box-shadow: 0 15px 50px rgba(0,0,0,0.12); 
+            transition: transform 0.2s ease-out;
         }
 
         .lightbox-header-title { 
@@ -157,7 +161,6 @@
         .next-info h5 { font-size: 1.3rem; font-weight: 600; color: #1a1a1a; margin-bottom: 5px; letter-spacing: 1px; }
         .next-info p { font-size: 0.95rem; font-weight: 300; color: #777777; margin: 0; }
 
-        /* MAGIA DEL TOOLTIP: Aparecen si los botones son el "primero" o "último" */
         .prev-btn.is-first:hover ~ .prev-project-preview-floating,
         .prev-project-preview-floating:hover {
             opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); pointer-events: auto;
@@ -192,7 +195,6 @@
             .lightbox-header-title { width: 90vw; top: 35px; letter-spacing: 3px; }
             .lightbox-btn { width: 50px; font-size: 1.8rem; }
             
-            /* Comportamiento de tarjetas en Móvil (Slides extras centrales) */
             .prev-project-preview-floating,
             .next-project-preview-floating {
                 position: relative; left: auto; right: auto; top: auto; transform: none;
@@ -202,13 +204,13 @@
             .prev-project-preview-floating.active-mobile,
             .next-project-preview-floating.active-mobile {
                 display: flex; align-items: center; justify-content: center;
-                width: 100%; height: 100%; animation: fadeIn 0.4s ease;
+                width: 100%; height: 100%; animation: fadeIn 0.4s ease; padding: 20px;
             }
-            .next-project-card-white { width: 85vw; }
+            .next-project-card-white { width: 100%; max-width: 340px; margin: 0 auto; }
         }
 
         @media (max-width: 768px) {
-            .project-meta-grid { grid-template-columns: 1fr; gap: 20px; }
+            .project-meta-grid { flex-direction: column; gap: 20px; }
             .meta-item p { white-space: normal; }
             .mobile-menu-btn { display: flex; }
             .nav-links { position: absolute; top: 80px; left: 0; width: 100%; background-color: #ffffff; flex-direction: column; padding: 20px 5% 40px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 999; gap: 0; }
@@ -221,7 +223,7 @@
 
             footer { grid-template-columns: 1fr; gap: 40px; text-align: center; }
             .footer-col:nth-child(2) ul { column-count: 1; }
-            .footer-social-links { align-items: center; }
+            .footer-social-links { align-items: center; justify-content: center; }
 
             .whatsapp-floating-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
             .whatsapp-floating-btn svg { width: 28px; height: 28px; }
@@ -289,37 +291,35 @@
     <!-- Galería e info -->
     <main class="project-content">
         <div class="project-description">
-            <p>El proyecto planteó como primer desafío un terreno con un marcado desnivel negativo hacia el fondo del lote. Para mantener un diálogo fluido con el jardín sin sacrificar las inmejorables vistas a las montañas, la vivienda se planteó estratégicamente en tres niveles. El acceso se diseñó resguardado de la calle, enmarcado por dos planos de piedra que dan paso hacia el interior, donde los estucados grises funcionan como un lienzo neutro. Esto permite que la piedra, la madera y, por sobre todo, la vista directa hacia la naturaleza, aporten una profunda calidez espacial.</p>
+            <p>El proyecto planteó como primer desafío un terreno con un marcado desnivel negativo hacia el fondo del lote. Para mantener un diálogo fluido con el jardín sin sacrificar las inmejorables vistas a las montañas, la vivienda se planteó estratégicamente en tres niveles. El acceso se diseñó resguardado de la calle, enmarcado por two planos de piedra que dan paso hacia el interior, donde los estucados grises funcionan como un lienzo neutro. Esto permite que la piedra, la madera y, por sobre todo, la vista directa hacia la naturaleza, aporten una profunda calidez espacial.</p>
             <p>La planta alta se reservó para las áreas privadas, mientras que la planta baja concentra la dinámica compartida. Allí, un patio central actúa como corazón del proyecto, dividiendo espacialmente el uso diario —cocina y comedor de diario— del área social plena. Este último sector, que tiene un imponente muro de piedra de doble altura como protagonista, está compuesto por un gran estar-comedor cuya mesa se transforma en mesa de pool; un espacio diseñado a medida para acompañar la activa vida de reuniones que caracteriza a los clientes.</p>
             <p>Finalmente, en el nivel inferior se incorporó un quincho independiente que se funde con el jardín, garantizando grandes espacios de encuentro sin interferir con la intimidad del resto del hogar. Contemplando además el futuro crecimiento familiar, cada gesto de diseño buscó potenciar la funcionalidad, asegurando que la conexión constante con el entorno natural siga siendo el eje rector de la vivienda.</p>
         </div>
 
         <div class="project-gallery">
-            <div class="gallery-item img-1">
-                <img src="CasaAJ/AJ-frente.png" alt="Fachada Principal e Integración del Parque">
+            <div class="gallery-item">
+                <img src="CasaAJ/AJ-frente.png" alt="Fachada Principal e Integración del Parque" loading="lazy">
             </div>
-            <div class="gallery-item img-2">
-                <img src="CasaAJ/AJ-1.png" alt="Galería Exterior y Área de Piscina">
+            <div class="gallery-item">
+                <img src="CasaAJ/AJ-1.png" style="object-position: 40% 50%;" alt="Galería Exterior y Área de Piscina" loading="lazy">
             </div>
-            <div class="gallery-item img-3">
-                <img src="CasaAJ/AJ-2.png" alt="Diseño de Interiores y Comedor Integrado">
+            <div class="gallery-item">
+                <img src="CasaAJ/AJ-2.png" alt="Diseño de Interiores y Comedor Integrado" loading="lazy">
             </div>
-            <div class="gallery-item img-4">
-                <img src="CasaAJ/AJ-3.png" alt="Detalle de Escalera Cemento y Madera">
+            <div class="gallery-item">
+                <img src="CasaAJ/AJ-escalera.jpg" alt="Detalle de Escalera Cemento y Madera" loading="lazy">
             </div>
-            <div class="gallery-item img-5">
-                <img src="CasaAJ/AJ-cocina.png" alt="Estudio de Iluminación Cenital">
+            <div class="gallery-item">
+                <img src="CasaAJ/AJ-cocina.png" alt="Estudio de Iluminación Cenital" loading="lazy">
             </div>
-
-            <!-- Tus imágenes extra ocultas -->
-            <div class="gallery-item hidden-gallery-item">
-                <img src="CasaAJ/AJ-escalera.jpg" alt="Detalle extra 2">
+            <div class="gallery-item">
+                <img src="CasaAJ/AJ-guarderia.png" alt="Detalle extra 2" loading="lazy">
             </div>
-            <div class="gallery-item hidden-gallery-item">
-                <img src="CasaAJ/AJ-ingreso.png" alt="Detalle extra 3">
+            <div class="gallery-item">
+                <img src="CasaAJ/AJ-ingreso.png" alt="Detalle extra 3" loading="lazy">
             </div>
-            <div class="gallery-item hidden-gallery-item">
-                <img src="CasaAJ/AJ-guarderia.png" alt="Detalle extra 1">
+            <div class="gallery-item">
+                <img src="CasaAJ/AJ-3.png" style="object-position: 50% 85%;" alt="Detalle extra 1" loading="lazy">
             </div>
         </div>
     </main>
@@ -356,7 +356,6 @@
 
             <!-- TARJETA FLOTANTE (PROYECTO SIGUIENTE) -->
             <div class="next-project-preview-floating" id="nextProjectPreview">
-                <!-- Se actualizó a casasc.html como corresponde para el siguiente proyecto -->
                 <a href="casa-fm.html" class="next-project-card-white"> 
                     <h4 class="next-label">Próximo Proyecto</h4>
                     <div class="next-img-wrapper">
@@ -426,7 +425,7 @@
     </a>
 
     <script>
-        // Visor de Galería (Lightbox) Inteligente con Doble Navegación (Anterior / Siguiente)
+        // Visor de Galería (Lightbox) Inteligente con Doble Navegación y Soporte Táctil (Swipe)
         const galleryItems = document.querySelectorAll('.gallery-item img');
         const lightbox = document.getElementById('lightboxVisor');
         const lightboxImg = document.getElementById('lightboxImg');
@@ -452,33 +451,34 @@
         });
 
         function updateVisorContent() {
-            // Reiniciamos todas las visibilidades
             lightboxImg.style.display = 'none';
             prevProjectPreview.classList.remove('active-mobile');
             nextProjectPreview.classList.remove('active-mobile');
             prevBtn.classList.remove('is-first');
             nextBtn.classList.remove('is-last');
 
+            const isMobile = window.matchMedia("(max-width: 900px)").matches;
+
             if (currentImgIndex === -1) {
-                // Modo Celular: Tarjeta Proyecto Anterior
-                prevProjectPreview.classList.add('active-mobile');
-                counter.innerText = `Proyecto Anterior`;
-                if(lightboxTitle) lightboxTitle.style.opacity = '0';
-                prevBtn.classList.add('is-first'); // Mantiene consistencia de estado
+                if (isMobile) {
+                    prevProjectPreview.classList.add('active-mobile');
+                    counter.innerText = `Proyecto Anterior`;
+                    if(lightboxTitle) lightboxTitle.style.opacity = '0';
+                }
+                prevBtn.classList.add('is-first');
             } else if (currentImgIndex === totalImages) {
-                // Modo Celular: Tarjeta Proyecto Siguiente
-                nextProjectPreview.classList.add('active-mobile');
-                counter.innerText = `Próximo Proyecto`;
-                if(lightboxTitle) lightboxTitle.style.opacity = '0';
+                if (isMobile) {
+                    nextProjectPreview.classList.add('active-mobile');
+                    counter.innerText = `Próximo Proyecto`;
+                    if(lightboxTitle) lightboxTitle.style.opacity = '0';
+                }
                 nextBtn.classList.add('is-last');
             } else {
-                // Modo Foto Normal
                 lightboxImg.style.display = 'block';
                 lightboxImg.src = galleryItems[currentImgIndex].src;
                 counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
                 if(lightboxTitle) lightboxTitle.style.opacity = '1';
                 
-                // Asignamos clases para disparar los tooltips flotantes en PC
                 if (currentImgIndex === 0) prevBtn.classList.add('is-first');
                 if (currentImgIndex === totalImages - 1) nextBtn.classList.add('is-last');
             }
@@ -488,7 +488,6 @@
             const isMobile = window.matchMedia("(max-width: 900px)").matches;
             
             if (!isMobile) {
-                // En PC: Clic en Siguiente en la última foto va al próximo proyecto
                 if (currentImgIndex === totalImages - 1) {
                     window.location.href = 'casa-fm.html';
                 } else {
@@ -496,7 +495,6 @@
                     updateVisorContent();
                 }
             } else {
-                // En Celular: Avanza a la diapositiva central, y luego al proyecto
                 if (currentImgIndex === totalImages) {
                     window.location.href = 'casa-fm.html';
                 } else {
@@ -510,7 +508,6 @@
             const isMobile = window.matchMedia("(max-width: 900px)").matches;
             
             if (!isMobile) {
-                // En PC: Clic en Anterior en la primera foto va al proyecto anterior
                 if (currentImgIndex === 0) {
                     window.location.href = 'casa-cj.html';
                 } else {
@@ -518,7 +515,6 @@
                     updateVisorContent();
                 }
             } else {
-                // En Celular: Retrocede a la diapositiva central, y luego al proyecto
                 if (currentImgIndex === -1) {
                     window.location.href = 'casa-cj.html';
                 } else {
@@ -529,7 +525,6 @@
         }
 
         function closeVisor() {
-            // Reiniciamos al cerrar para que no quede guardado un estado de tarjeta
             lightbox.classList.remove('active');
             document.body.style.overflow = 'auto'; 
             if (currentImgIndex === -1) currentImgIndex = 0;
@@ -541,6 +536,29 @@
         closeBtn.addEventListener('click', closeVisor);
         lightbox.addEventListener('click', closeVisor);
         lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); });
+
+        // Eventos táctiles (Swipe) para dispositivos móviles
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipeGesture();
+        }, {passive: true});
+
+        function handleSwipeGesture() {
+            const threshold = 50;
+            if (touchEndX < touchStartX - threshold) {
+                nextImage();
+            }
+            if (touchEndX > touchStartX + threshold) {
+                prevImage();
+            }
+        }
 
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
