@@ -11,7 +11,7 @@
     <!-- Optimización de carga de fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* ----- 1. VARIABLES Y RESETEO ----- */
@@ -103,15 +103,34 @@
             transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* TÍTULO ESTRUCTURADO EN 2 LÍNEAS FIJAS */
         .lightbox-header-title { 
-            position: fixed; top: 22px; left: 50%; transform: translateX(-50%); 
-            text-align: center; font-size: 0.72rem; font-weight: 500; text-transform: uppercase; 
-            letter-spacing: 2px; color: #1a1a1a; z-index: 10030; user-select: none; 
-            width: 88vw; max-width: 600px; line-height: 1.4;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 6px 14px;
-            border-radius: 20px;
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%); 
+            text-align: center; z-index: 10030; user-select: none; 
+            width: 90vw; max-width: 650px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 6px 15px;
+            border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .title-line-1 {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #1a1a1a;
+        }
+
+        .title-line-2 {
+            font-size: 0.65rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #777777;
         }
 
         .lightbox-btn { 
@@ -190,16 +209,17 @@
             .lightbox-content { 
                 width: 100vw; 
                 height: 100vh; 
-                padding: 90px 12px 60px 12px; 
+                padding: 100px 12px 60px 12px; 
             }
             
             .lightbox-header-title { 
                 top: 15px;
-                font-size: 0.65rem; 
-                letter-spacing: 1px; 
-                width: 78vw;
-                padding: 5px 10px;
+                width: 85vw;
+                padding: 6px 12px;
             }
+
+            .title-line-1 { font-size: 0.65rem; }
+            .title-line-2 { font-size: 0.58rem; }
 
             .lightbox-btn { width: 45px; font-size: 1.6rem; }
             
@@ -342,8 +362,11 @@
     <!-- Visor de Imágenes Unificado -->
     <div id="lightboxVisor" class="lightbox">
         <button class="lightbox-btn close-btn" id="closeBtn">✕</button>
+        
+        <!-- TÍTULO EN 2 LÍNEAS ESTRUCTURADAS -->
         <div class="lightbox-header-title">
-            is.Arch — CASA AJ <span style="color: #888; font-weight: 300;">· Barrio Sierra Nueva, Mendiolaza</span>
+            <span class="title-line-1">is.Arch — CASA AJ</span>
+            <span class="title-line-2">Barrio Sierra Nueva, Mendiolaza</span>
         </div>
         
         <div class="lightbox-content" id="lightboxContentContainer">
@@ -492,9 +515,9 @@
                 lightboxImg.style.display = 'block';
                 
                 if (animate) {
-                    // Transición suave de desvanecimiento absoluto
+                    // Transición ultra suave de desvanecimiento con ligera escala
                     lightboxImg.style.opacity = '0';
-                    lightboxImg.style.transform = 'scale(0.97)';
+                    lightboxImg.style.transform = 'scale(0.96)';
                     
                     setTimeout(() => {
                         lightboxImg.src = galleryItems[currentImgIndex].src;
@@ -503,7 +526,7 @@
                         
                         lightboxImg.style.opacity = '1';
                         lightboxImg.style.transform = 'scale(1)';
-                    }, 200);
+                    }, 220);
                 } else {
                     lightboxImg.src = galleryItems[currentImgIndex].src;
                     counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
