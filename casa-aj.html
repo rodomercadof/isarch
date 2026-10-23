@@ -67,8 +67,10 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        html { scroll-behavior: smooth; }
-        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
+        
+        /* Prevención estricta de scroll horizontal */
+        html, body { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
         a { text-decoration: none; color: var(--text-color); }
 
         /* ----- 2. PANTALLA DE CARGA ----- */
@@ -233,15 +235,21 @@
         .next-project-preview-floating:hover { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); pointer-events: auto; }
 
         /* ----- 8. FOOTER & WHATSAPP ----- */
-        footer { background-color: var(--text-color); color: #f6e5d6; padding: 70px 5% 40px; display: grid; grid-template-columns: 1.2fr 1.6fr 0.9fr; gap: 24px; font-size: 0.9rem; }
-        footer h4 { margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; }
-        footer p { line-height: 1.8; }
-        footer ul { list-style: none; }
-        footer ul li { margin-bottom: 10px; line-height: 1.4; }
-        footer ul li a { color: #f6e5d6; transition: var(--transition); }
-        footer ul li a:hover { color: #d0bfbf; }
-        .footer-col:nth-child(2) ul { column-count: 2; column-gap: 8px; }
+        footer { background-color: #635847; color: #f6e5d6; padding: 60px 5% 40px; }
+        
+        .footer-container { display: grid; grid-template-columns: 1.3fr 2fr 0.9fr; gap: 40px; max-width: 1200px; margin: 0 auto; font-size: 0.9rem; }
+        
+        .footer-col h4 { margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; }
+        .footer-col p { color: #f6e5d6; line-height: 1.8; text-align: left; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 10px; line-height: 1.4; }
+        .footer-col ul li a { color: #f6e5d6; transition: var(--transition); font-size: 0.9rem; }
+        .footer-col ul li a:hover { color: #d0bfbf; }
+        .footer-col:nth-child(2) ul { column-count: 2; column-gap: 15px; }
+        .footer-col:nth-child(3) { justify-self: end; }
+        
         .footer-social-links { display: flex; flex-direction: column; gap: 6px; }
+        .footer-social-links li { margin-bottom: 0; }
         .footer-social-links li a { display: inline-flex; align-items: center; gap: 8px; }
         .social-icon { width: 16px; height: 16px; fill: #f6e5d6; transition: var(--transition); }
         .footer-social-links li a:hover .social-icon { fill: #d0bfbf; transform: translateY(-1px); }
@@ -287,9 +295,12 @@
             .project-gallery { grid-template-columns: 1fr; grid-auto-rows: 250px; }
             .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; }
 
-            footer { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            /* Footer Responsive Reset (Igual a index.html) */
+            .footer-container { grid-template-columns: 1fr; gap: 40px; }
+            footer { text-align: left; }
             .footer-col:nth-child(2) ul { column-count: 1; }
-            .footer-social-links { align-items: center; justify-content: center; }
+            .footer-col:nth-child(3) { justify-self: start; }
+            .footer-social-links { align-items: flex-start; justify-content: flex-start; }
 
             .whatsapp-floating-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
             .whatsapp-floating-btn svg { width: 28px; height: 28px; }
@@ -396,12 +407,12 @@
         <section id="contacto" class="section contact-section">
             <h2 class="section-title">Comenzá tu Proyecto</h2>
             <div class="contact-container">
-                <div class="contact-info">
-                    <h3>¿Hablamos de tu idea?</h3>
-                    <p>Queremos conocer las necesidades de tu espacio y contarte cómo trabajamos. El primer paso es coordinar una entrevista virtual sin cargo para definir el alcance del proyecto. Elegí la vía que te resulte más cómoda:</p>
+                  <div class="contact-info">
+                    <h3>¿HABLAMOS DE TU IDEA?</h3>
+                    <p>Queremos conocer tu propuesta, evaluar las necesidades de tu espacio y contarte cómo trabajamos. El primer paso es coordinar una entrevista virtual para definir el alcance del proyecto; a partir de ese encuentro, te enviaremos un presupuesto detallado, sin cargo y a la medida de tu caso. Elegí la opción que te resulte más cómoda para que tengamos esa primera charla:</p>
                     <div class="contact-details">
-                        <p><strong>Teléfono / WhatsApp:</strong> +54 9 351 791-4897</p>
-                        <p><strong>Mail:</strong> info@isarch.com.ar</p>
+                        <p><strong>Teléfono:</strong> +54 9 351 791-4897</p>
+                        <p><strong>Email:</strong> contacto.is.arch@gmail.com </p>
                     </div>
                 </div>
 
@@ -471,43 +482,45 @@
 
     <!-- FOOTER GENERAL -->
     <footer>
-        <div class="footer-col">
-            <h4>Filosofía</h4>
-            <p>"Proyectando, tienes noción de las metas que puedes alcanzar, la idea es clara y sencilla. Partimos de tus ideas y las ajustamos hasta lograr el proyecto deseado".</p>
-        </div>
-        <nav class="footer-col" aria-label="Menú de servicios">
-            <h4>Nuestros Servicios</h4>
-            <ul>
-                <li><a href="remodelaciones.html">Remodelaciones</a></li>
-                <li><a href="interiorismo.html">Interiorismo</a></li>
-                <li><a href="paisajismo.html">Paisajismo Arquitectónico</a></li>
-                <li><a href="arquitectura-para-marcas-y-empresas.html">Proyectos para Marcas y Empresas</a></li>
-                <li><a href="proyectos-residenciales.html">Proyectos Residenciales</a></li>
-                <li><a href="relevamientos-y-transcripciones.html">Relevamientos y Transcripciones</a></li>
-            </ul>
-        </nav>
-        <div class="footer-col">
-            <h4>Redes Sociales</h4>
-            <ul class="footer-social-links">
-                <li>
-                    <a href="https://www.instagram.com/is.arch.arq?igsh=ZHJudjh1MG43Zm1m" target="_blank" rel="noopener noreferrer" aria-label="Seguinos en Instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon" aria-hidden="true"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-                        Instagram
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.facebook.com/share/1E7nk3VJ9i/" target="_blank" rel="noopener noreferrer" aria-label="Seguinos en Facebook">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="social-icon" aria-hidden="true"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
-                        Facebook
-                    </a>
-                </li>
-                <li>
-                    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" aria-label="Contactanos por WhatsApp">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-                        WhatsApp
-                    </a>
-                </li>
-            </ul>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>¿Por qué is.ARCH?</h4>
+                <p>Te acompañamos desde las primeras líneas del diseño hasta la definición exacta de cada material. Entregamos un proyecto técnico integral, resuelto al 100% y listo para materializarse, para que transites el camino con tranquilidad y tu única prioridad sea habitar un refugio pensado para tu pausa diaria.</p>
+            </div>
+            <nav class="footer-col" aria-label="Menú de servicios">
+                <h4>Nuestros Servicios</h4>
+                <ul>
+                    <li><a href="remodelaciones.html">Remodelaciones</a></li>
+                    <li><a href="interiorismo.html">Interiorismo</a></li>
+                    <li><a href="paisajismo.html">Paisajismo Arquitectónico</a></li>
+                    <li><a href="arquitectura-para-marcas-y-empresas.html">Proyectos para Marcas y Empresas</a></li>
+                    <li><a href="proyectos-residenciales.html">Proyectos Residenciales</a></li>
+                    <li><a href="relevamientos-y-transcripciones.html">Relevamientos y Transcripciones</a></li>
+                </ul>
+            </nav>
+            <div class="footer-col">
+                <h4>Redes Sociales</h4>
+                <ul class="footer-social-links">
+                    <li>
+                        <a href="https://www.instagram.com/is.arch.arq?igsh=ZHJudjh1MG43Zm1m" target="_blank" rel="noopener noreferrer" aria-label="Seguinos en Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon" aria-hidden="true"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                            Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/share/1E7nk3VJ9i/" target="_blank" rel="noopener noreferrer" aria-label="Seguinos en Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="social-icon" aria-hidden="true"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" aria-label="Contactanos por WhatsApp">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                            WhatsApp
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </footer>
 
@@ -518,160 +531,178 @@
 
     <!-- Scripts DRY (No repeticiones) + Efectos Fluidos -->
     <script>
-        const galleryItems = document.querySelectorAll('.gallery-item img');
-        const lightbox = document.getElementById('lightboxVisor');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const closeBtn = document.getElementById('closeBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const counter = document.getElementById('lightboxCounter');
-        const lightboxTitle = document.querySelector('.lightbox-header-title');
-        
-        const prevProjectPreview = document.getElementById('prevProjectPreview');
-        const nextProjectPreview = document.getElementById('nextProjectPreview');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Menú Móvil
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
 
-        let currentImgIndex = 0;
-        const totalImages = galleryItems.length;
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isActive = mobileMenuBtn.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', isActive);
+                });
 
-        galleryItems.forEach((img, index) => {
-            img.parentElement.addEventListener('click', () => {
-                currentImgIndex = index;
-                updateVisorContent(false);
-                lightbox.classList.add('active'); 
-                document.body.style.overflow = 'hidden'; 
-            });
-        });
+                document.addEventListener('click', (e) => {
+                    if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        mobileMenuBtn.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
 
-        function updateVisorContent(animate = true) {
-            prevProjectPreview.classList.remove('active-mobile');
-            nextProjectPreview.classList.remove('active-mobile');
-            prevBtn.classList.remove('is-first');
-            nextBtn.classList.remove('is-last');
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenuBtn.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
 
-            const isMobile = window.innerWidth <= 900;
+            // Visor de Galería (Lightbox)
+            const galleryItems = document.querySelectorAll('.gallery-item img');
+            const lightbox = document.getElementById('lightboxVisor');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const closeBtn = document.getElementById('closeBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const counter = document.getElementById('lightboxCounter');
+            const lightboxTitle = document.querySelector('.lightbox-header-title');
+            const prevProjectPreview = document.getElementById('prevProjectPreview');
+            const nextProjectPreview = document.getElementById('nextProjectPreview');
 
-            if (currentImgIndex === -1) {
-                lightboxImg.style.display = 'none';
-                if (isMobile) {
-                    prevProjectPreview.classList.add('active-mobile');
-                    counter.innerText = `Proyecto Anterior`;
-                    if(lightboxTitle) lightboxTitle.style.opacity = '0';
+            if (lightbox && galleryItems.length > 0) {
+                let currentImgIndex = 0;
+                const totalImages = galleryItems.length;
+
+                galleryItems.forEach((img, index) => {
+                    img.parentElement.addEventListener('click', () => {
+                        currentImgIndex = index;
+                        updateVisorContent(false);
+                        lightbox.classList.add('active'); 
+                        document.body.style.overflow = 'hidden'; 
+                    });
+                });
+
+                function updateVisorContent(animate = true) {
+                    if(prevProjectPreview) prevProjectPreview.classList.remove('active-mobile');
+                    if(nextProjectPreview) nextProjectPreview.classList.remove('active-mobile');
+                    if(prevBtn) prevBtn.classList.remove('is-first');
+                    if(nextBtn) nextBtn.classList.remove('is-last');
+
+                    const isMobile = window.innerWidth <= 900;
+
+                    if (currentImgIndex === -1) {
+                        if(lightboxImg) lightboxImg.style.display = 'none';
+                        if (isMobile && prevProjectPreview) {
+                            prevProjectPreview.classList.add('active-mobile');
+                            if(counter) counter.innerText = `Proyecto Anterior`;
+                            if(lightboxTitle) lightboxTitle.style.opacity = '0';
+                        }
+                        if(prevBtn) prevBtn.classList.add('is-first');
+                    } else if (currentImgIndex === totalImages) {
+                        if(lightboxImg) lightboxImg.style.display = 'none';
+                        if (isMobile && nextProjectPreview) {
+                            nextProjectPreview.classList.add('active-mobile');
+                            if(counter) counter.innerText = `Próximo Proyecto`;
+                            if(lightboxTitle) lightboxTitle.style.opacity = '0';
+                        }
+                        if(nextBtn) nextBtn.classList.add('is-last');
+                    } else {
+                        if(lightboxImg) lightboxImg.style.display = 'block';
+                        
+                        if (animate && lightboxImg) {
+                            lightboxImg.style.opacity = '0';
+                            lightboxImg.style.transform = 'scale(0.96)';
+                            setTimeout(() => {
+                                lightboxImg.src = galleryItems[currentImgIndex].src;
+                                if(counter) counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
+                                if(lightboxTitle) lightboxTitle.style.opacity = '1';
+                                lightboxImg.style.opacity = '1';
+                                lightboxImg.style.transform = 'scale(1)';
+                            }, 220);
+                        } else if (lightboxImg) {
+                            lightboxImg.src = galleryItems[currentImgIndex].src;
+                            if(counter) counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
+                            if(lightboxTitle) lightboxTitle.style.opacity = '1';
+                            lightboxImg.style.opacity = '1';
+                            lightboxImg.style.transform = 'scale(1)';
+                        }
+                        
+                        if (currentImgIndex === 0 && prevBtn) prevBtn.classList.add('is-first');
+                        if (currentImgIndex === totalImages - 1 && nextBtn) nextBtn.classList.add('is-last');
+                    }
                 }
-                prevBtn.classList.add('is-first');
-            } else if (currentImgIndex === totalImages) {
-                lightboxImg.style.display = 'none';
-                if (isMobile) {
-                    nextProjectPreview.classList.add('active-mobile');
-                    counter.innerText = `Próximo Proyecto`;
-                    if(lightboxTitle) lightboxTitle.style.opacity = '0';
+
+                function nextImage() {
+                    const limit = window.innerWidth <= 900 ? totalImages : totalImages - 1;
+                    if (currentImgIndex >= limit) {
+                        window.location.href = 'casa-fm.html';
+                    } else {
+                        currentImgIndex++;
+                        updateVisorContent(true);
+                    }
                 }
-                nextBtn.classList.add('is-last');
-            } else {
-                lightboxImg.style.display = 'block';
-                
-                if (animate) {
-                    lightboxImg.style.opacity = '0';
-                    lightboxImg.style.transform = 'scale(0.96)';
-                    setTimeout(() => {
-                        lightboxImg.src = galleryItems[currentImgIndex].src;
-                        counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
-                        if(lightboxTitle) lightboxTitle.style.opacity = '1';
-                        lightboxImg.style.opacity = '1';
-                        lightboxImg.style.transform = 'scale(1)';
-                    }, 220);
-                } else {
-                    lightboxImg.src = galleryItems[currentImgIndex].src;
-                    counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
-                    if(lightboxTitle) lightboxTitle.style.opacity = '1';
-                    lightboxImg.style.opacity = '1';
-                    lightboxImg.style.transform = 'scale(1)';
+
+                function prevImage() {
+                    const limit = window.innerWidth <= 900 ? -1 : 0;
+                    if (currentImgIndex <= limit) {
+                        window.location.href = 'casa-cj.html';
+                    } else {
+                        currentImgIndex--;
+                        updateVisorContent(true);
+                    }
                 }
-                
-                if (currentImgIndex === 0) prevBtn.classList.add('is-first');
-                if (currentImgIndex === totalImages - 1) nextBtn.classList.add('is-last');
-            }
-        }
 
-        function nextImage() {
-            const limit = window.innerWidth <= 900 ? totalImages : totalImages - 1;
-            if (currentImgIndex >= limit) {
-                window.location.href = 'casa-fm.html';
-            } else {
-                currentImgIndex++;
-                updateVisorContent(true);
-            }
-        }
+                function closeVisor() {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto'; 
+                    if (currentImgIndex === -1) currentImgIndex = 0;
+                    if (currentImgIndex === totalImages) currentImgIndex = totalImages - 1;
+                }
 
-        function prevImage() {
-            const limit = window.innerWidth <= 900 ? -1 : 0;
-            if (currentImgIndex <= limit) {
-                window.location.href = 'casa-cj.html';
-            } else {
-                currentImgIndex--;
-                updateVisorContent(true);
-            }
-        }
+                if(nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+                if(prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+                if(closeBtn) closeBtn.addEventListener('click', closeVisor);
+                lightbox.addEventListener('click', closeVisor);
+                if(lightboxImg) lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); });
 
-        function closeVisor() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto'; 
-            if (currentImgIndex === -1) currentImgIndex = 0;
-            if (currentImgIndex === totalImages) currentImgIndex = totalImages - 1;
-        }
+                // Gestión táctil fluida
+                let touchStartX = 0;
+                let touchEndX = 0;
+                const lightboxContentContainer = document.getElementById('lightboxContentContainer');
 
-        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
-        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
-        closeBtn.addEventListener('click', closeVisor);
-        lightbox.addEventListener('click', closeVisor);
-        lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); });
+                if (lightboxContentContainer) {
+                    lightboxContentContainer.addEventListener('touchstart', (e) => {
+                        touchStartX = e.changedTouches[0].screenX;
+                    }, {passive: true});
 
-        // Gestión táctil fluida
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const lightboxContentContainer = document.getElementById('lightboxContentContainer');
+                    lightboxContentContainer.addEventListener('touchend', (e) => {
+                        touchEndX = e.changedTouches[0].screenX;
+                        const diff = touchEndX - touchStartX;
+                        if (diff < -40) nextImage();
+                        else if (diff > 40) prevImage();
+                    }, {passive: true});
+                }
 
-        lightboxContentContainer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, {passive: true});
-
-        lightboxContentContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchEndX - touchStartX;
-            if (diff < -40) nextImage();
-            else if (diff > 40) prevImage();
-        }, {passive: true});
-
-        document.addEventListener('keydown', (e) => {
-            if (!lightbox.classList.contains('active')) return;
-            if (e.key === 'ArrowRight') nextImage();
-            if (e.key === 'ArrowLeft') prevImage();
-            if (e.key === 'Escape') closeVisor();
-        });
-
-        // Menú Móvil con accesibilidad ARIA
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-
-        mobileMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isActive = mobileMenuBtn.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            mobileMenuBtn.setAttribute('aria-expanded', isActive);
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                mobileMenuBtn.classList.remove('active');
-                navLinks.classList.remove('active');
-                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                document.addEventListener('keydown', (e) => {
+                    if (!lightbox.classList.contains('active')) return;
+                    if (e.key === 'ArrowRight') nextImage();
+                    if (e.key === 'ArrowLeft') prevImage();
+                    if (e.key === 'Escape') closeVisor();
+                });
             }
         });
 
-        // Preloader
+        // Preloader Logic (Separado del DOMContentLoaded para que funcione al cargar todos los recursos gráficos)
         window.addEventListener('load', () => {
             const preloader = document.getElementById('sitePreloader');
-            preloader.classList.add('fade-out');
-            setTimeout(() => preloader.remove(), 800); 
+            if (preloader) {
+                preloader.classList.add('fade-out');
+                setTimeout(() => preloader.remove(), 800); 
+            }
         });  
     </script>
 </body>
