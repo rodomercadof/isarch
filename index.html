@@ -85,13 +85,26 @@
         .mobile-menu-btn.active .bar:nth-child(2) { opacity: 0; }
         .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* ----- SECCIÓN INICIO (HERO) CON VIDEO ----- */
+        /* ----- SECCIÓN INICIO (HERO) CON VIDEO Y TIPOEFECTO ----- */
         .hero { position: relative; height: 100vh; width: 100%; overflow: hidden; display: flex; justify-content: center; align-items: center; text-align: center; color: #fff; padding: 0 20px; }
         .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; object-position: center 100%; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0); z-index: 2; }
-        .hero-content { position: absolute; z-index: 3; bottom: 205px; left: 23%; transform: translate(-50%, 20px); opacity: 0; transition: opacity 1.2s ease, transform 1.2s ease; pointer-events: none; }
-        .hero-content.hero-visible { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
-        .hero p { font-size: 1.1rem; font-weight: 300; max-width: 650px; margin-bottom: 30px; }
+        
+        /* OSCURECIMIENTO APLICADO PARA CONTRASTE */
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.55); z-index: 2; }
+        
+        .hero-content { position: absolute; z-index: 3; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; display: flex; flex-direction: column; align-items: center; pointer-events: auto; }
+        
+        /* ESTILOS DEL TEXTO TIPO IMAGEN */
+        .hero-subtitle { font-size: 1.2rem; font-weight: 600; color: #d1c1af; margin-bottom: 20px; text-align: center; min-height: 28px; }
+        .hero-title { font-size: 2.4rem; font-weight: 700; color: #d1c1af; line-height: 1.3; text-align: center; max-width: 880px; margin-bottom: 40px; min-height: 100px; text-transform: none; }
+        
+        /* CONTENEDOR BOTÓN QUE APARECE AL FINAL */
+        .hero-btn-container { opacity: 0; transform: translateY(20px); transition: opacity 1.2s ease, transform 1.2s ease; }
+        .hero-btn-container.visible { opacity: 1; transform: translateY(0); }
+
+        /* EFECTO CURSOR TITILANTE */
+        .cursor::after { content: '|'; display: inline-block; animation: blink 0.8s infinite; margin-left: 3px; font-weight: 400; color: #d1c1af; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         /* ----- SECCIÓN FRASE INSPIRADORA ----- */
         .inspiration-section { background: linear-gradient(to right, #cfc0b25d 0%, #e9e9e700 100%); color: #635847; padding: 40px 4%; text-align: center; }
@@ -100,8 +113,8 @@
         .inspiration-text { font-size: 1.35rem; font-weight: 300; line-height: 1.8; letter-spacing: 0.5px; }
 
         /* ----- BOTONES GENERALES ----- */
-        .btn { padding: 15px 35px; background-color: transparent; color: #635847; border: 2px solid #635847; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: var(--transition); display: inline-block; }
-        .btn:hover { background-color: #635847; color: #ffffff; }
+        .btn { padding: 15px 35px; background-color: #e3dcd2; color: #635847; border: 2px solid #635847; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: var(--transition); display: inline-block; }
+        .btn:hover { background-color: #635847; color: #ffffff; border-color: #635847; }
 
         /* ----- ESTILOS GENERALES SECCIONES ----- */
         .section { padding: 100px 5%; scroll-margin-top: 70px; }
@@ -225,13 +238,15 @@
             .section-title { font-size: 1.6rem; margin-bottom: 40px; }
             .team-title { margin-top: 60px; margin-bottom: 40px; }
             
-            .hero { height: auto; padding: 130px 20px 40px 20px; display: flex; flex-direction: column; background-color: #ffffff; color: var(--text-color); }
-            .hero-video { position: relative; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; margin-top: 20px; }
-            .hero-overlay { display: none; }
+            /* HERO MÓVIL OPTIMIZADO PARA MANTENER LA EXPERIENCIA VISUAL INMERSIVA */
+            .hero { height: 100vh; padding: 0; } 
+            .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; aspect-ratio: auto; margin-top: 0; }
+            .hero-overlay { display: block; background-color: rgba(0, 0, 0, 0.6); } 
+            .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; margin-top: 0; }
             
-            .hero-content { position: relative; bottom: auto; left: auto; width: 100%; margin-top: 25px; display: flex; justify-content: center; transform: translateY(20px); }
-            .hero-content.hero-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-            .hero-content .btn { width: 100%; max-width: 320px; padding: 16px 20px; font-size: 0.85rem; text-align: center; border-radius: 4px; color: #635847; border-color: #635847; }
+            .hero-subtitle { font-size: 0.95rem; margin-bottom: 15px; min-height: 22px; }
+            .hero-title { font-size: 1.55rem; min-height: 70px; margin-bottom: 30px; }
+            .hero-content .btn { width: 100%; max-width: 320px; padding: 14px 20px; font-size: 0.85rem; border-radius: 4px; }
             
             .inspiration-section { padding: 50px 5%; }
             .inspiration-text { font-size: 1.1rem; }
@@ -250,7 +265,6 @@
             .contact-info, .contact-channels { min-width: 100%; width: 100%; }
             .channel-card { padding: 20px; }
             
-            /* Footer Responsive Reset */
             .footer-container { grid-template-columns: 1fr; gap: 40px; }
             .footer-col:nth-child(3) { justify-self: start; }
             
@@ -288,11 +302,18 @@
     <main>
         <section id="inicio" class="hero">
             <video autoplay muted playsinline preload="metadata" poster="portada-video.jpg" class="hero-video">
-                <source src="video-portada.mp4" type="video/mp4">
+                <source src="video-portada1.mp4" type="video/mp4">
             </video>
+            
             <div class="hero-overlay"></div>
+            
             <div class="hero-content">
-                <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="btn">HABLEMOS DE TU IDEA</a>
+                <h2 class="hero-subtitle" id="typeSubtitle"></h2>
+                <h1 class="hero-title" id="typeTitle"></h1>
+                
+                <div class="hero-btn-container" id="heroBtnContainer">
+                    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="btn">HABLEMOS DE TU IDEA</a>
+                </div>
             </div>
         </section>
 
@@ -603,6 +624,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // SCRIPT DEL MENÚ MÓVIL
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const navLinks = document.getElementById('navLinks');
 
@@ -631,7 +653,7 @@
                 });
             }
 
-            // Script para el Acordeón del Equipo
+            // SCRIPT DEL ACORDEÓN DEL EQUIPO
             const leerMasBtns = document.querySelectorAll('.leer-mas-btn');
             leerMasBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -650,21 +672,50 @@
                 });
             });
 
-            // Hero Video Logic
-            const heroVideo = document.querySelector('.hero-video');
-            const heroContentBlock = document.querySelector('.hero-content');
+            // SCRIPT DEL EFECTO TIPEO Y APARICIÓN DE BOTÓN
+            const subtitleEl = document.getElementById('typeSubtitle');
+            const titleEl = document.getElementById('typeTitle');
+            const btnContainer = document.getElementById('heroBtnContainer');
 
-            if (heroVideo && heroContentBlock) {
-                heroVideo.addEventListener('play', () => {
-                    setTimeout(() => { heroContentBlock.classList.add('hero-visible'); }, 7000);
-                });
-                if (!heroVideo.paused) {
-                    setTimeout(() => { heroContentBlock.classList.add('hero-visible'); }, 7000);
+            // Textos tomados de la imagen - El "|" simboliza un salto de línea
+            const text1 = "Cada lugar tiene algo que decir antes de que lleguemos";
+            const text2 = "Proyectamos y transformamos escuchando|la esencia de quienes lo habitan.";
+
+            function typeWriter(element, textString, speed, callback) {
+                let i = 0;
+                let currentHTML = "";
+                element.classList.add('cursor');
+
+                function type() {
+                    if (i < textString.length) {
+                        let char = textString.charAt(i);
+                        if (char === '|') {
+                            currentHTML += "<br>";
+                        } else {
+                            currentHTML += char;
+                        }
+                        element.innerHTML = currentHTML;
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        element.classList.remove('cursor');
+                        if (callback) setTimeout(callback, 300);
+                    }
                 }
+                type();
             }
+
+            // Iniciar la cascada de tipeo con un pequeño retraso
+            setTimeout(() => {
+                typeWriter(subtitleEl, text1, 40, () => {
+                    typeWriter(titleEl, text2, 40, () => {
+                        btnContainer.classList.add('visible'); // Aparece el botón
+                    });
+                });
+            }, 1300); // Espera 1.3s tras la pantalla de carga para empezar
         });
 
-        // Preloader Logic
+        // SCRIPT PANTALLA DE CARGA (PRELOADER)
         window.addEventListener('load', function() {
             const preloader = document.getElementById('sitePreloader');
             if (preloader) {
