@@ -189,6 +189,85 @@
         .channel-card p { font-size: 0.85rem; color: #635847; margin-bottom: 0; }
         .channel-card:hover { background-color: #e0ceb7; border-color: #635847; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
+        /* ----- VENTANA MODAL FLOTANTE ----- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            position: relative;
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 850px;
+            height: 88vh;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            background: #ffffff;
+            border: none;
+            font-size: 1.8rem;
+            color: #635847;
+            cursor: pointer;
+            z-index: 10;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background-color: #635847;
+            color: #ffffff;
+        }
+
+        .modal-iframe-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .modal-iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
         /* ----- FOOTER ----- */
         footer { background-color: #635847; color: #f6e5d6; padding: 60px 5% 40px; }
         .footer-container { display: grid; grid-template-columns: 1.3fr 2fr 0.9fr; gap: 40px; max-width: 1200px; margin: 0 auto; font-size: 0.9rem; }
@@ -270,6 +349,9 @@
             
             .whatsapp-floating-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
             .whatsapp-floating-btn svg { width: 28px; height: 28px; }
+
+            .modal-overlay { padding: 10px; }
+            .modal-container { height: 94vh; }
         }
     </style>
 </head>
@@ -302,7 +384,7 @@
     <main>
         <section id="inicio" class="hero">
             <video autoplay muted playsinline preload="metadata" poster="portada-video.jpg" class="hero-video">
-                <source src="video-portada1.mp4" type="video/mp4">
+                <source src="video-portada.mp4" type="video/mp4">
             </video>
             
             <div class="hero-overlay"></div>
@@ -556,17 +638,33 @@
                 <div class="contact-channels">
                     <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="channel-card">
                         <h4>Escribinos por WhatsApp</h4>
-                        <p>Para que charlemos de tu propuesta de forma directa y coordinemos juntos una primera videollamada.</p>
+                        <p>Para que charlemos de tu propuesta de forma directa y coordinemos juntos una primer videollamada.</p>
                     </a>
 
-                    <a href="https://calendly.com/tu-usuario-aqui" target="_blank" rel="noopener noreferrer" class="channel-card">
-                        <h4>Agendá tu reunión en Calendly</h4>
-                        <p>Si ya tenés claro lo que necesitás, seleccioná el día y horario que prefieras para nuestra primera entrevista virtual.</p>
+                    <!-- BOTÓN ACTIVADOR DEL MODAL DE GOOGLE FORMS -->
+                    <a href="#contacto" id="openModalBtn" class="channel-card">
+                        <h4>Completar formulario</h4>
+                        <p>Si ya tenés claro lo que necesitás, completá el formulario y nos pondremos en contacto contigo a la brevedad.</p>
                     </a>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- VENTANA MODAL FLOTANTE GOOGLE FORMS -->
+    <div id="formModal" class="modal-overlay" aria-hidden="true" role="dialog">
+        <div class="modal-container">
+            <button id="closeModalBtn" class="modal-close-btn" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-iframe-wrapper">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScY2vU7saGwgAV6wTefwab580rLZBnY7CfvzWDgK7jCo4HXkw/viewform?embedded=true" 
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0">
+                    Cargando formulario…
+                </iframe>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-container">
@@ -676,7 +774,6 @@
             const titleEl = document.getElementById('typeTitle');
             const btnContainer = document.getElementById('heroBtnContainer');
 
-            // Textos tomados de la imagen - El "|" simboliza un salto de línea
             const text1 = "Cada lugar tiene algo que decir antes de que lleguemos";
             const text2 = "Proyectamos y transformamos escuchando|la esencia de quienes lo habitan.";
 
@@ -704,14 +801,49 @@
                 type();
             }
 
-            // Iniciar la cascada de tipeo con un pequeño retraso
             setTimeout(() => {
                 typeWriter(subtitleEl, text1, 40, () => {
                     typeWriter(titleEl, text2, 40, () => {
-                        btnContainer.classList.add('visible'); // Aparece el botón
+                        btnContainer.classList.add('visible');
                     });
                 });
-            }, 1300); // Espera 1.3s tras la pantalla de carga para empezar
+            }, 1300);
+
+            // SCRIPT VENTANA MODAL GOOGLE FORMS
+            const openModalBtn = document.getElementById('openModalBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const formModal = document.getElementById('formModal');
+
+            if (openModalBtn && closeModalBtn && formModal) {
+                openModalBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    formModal.classList.add('active');
+                    formModal.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden'; // Bloquea el scroll de la web de fondo
+                });
+
+                const closeModal = () => {
+                    formModal.classList.remove('active');
+                    formModal.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = 'auto'; // Restaura el scroll
+                };
+
+                closeModalBtn.addEventListener('click', closeModal);
+
+                // Cerrar al hacer clic en el fondo oscuro
+                formModal.addEventListener('click', (e) => {
+                    if (e.target === formModal) {
+                        closeModal();
+                    }
+                });
+
+                // Cerrar con tecla Escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && formModal.classList.contains('active')) {
+                        closeModal();
+                    }
+                });
+            }
         });
 
         // SCRIPT PANTALLA DE CARGA (PRELOADER)
