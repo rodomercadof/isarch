@@ -10,6 +10,10 @@
     <link rel="icon" type="image/png" href="logo-solo3.png">
     <link rel="canonical" href="https://isarch.com.ar/">
     
+    <!-- Precarga de recursos críticos -->
+    <link rel="preload" href="logo-texto1.png" as="image">
+    <link rel="preload" href="IMG_1553.png" as="image" media="(max-width: 768px)">
+    
     <!-- Meta Etiquetas Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="is.Arch Arquitectura & Diseño · Córdoba">
@@ -69,6 +73,7 @@
         html, body { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
         body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
         a { text-decoration: none; color: var(--text-color); }
+        a, button, .service-card, .portfolio-item, .channel-card, .leer-mas-btn { touch-action: manipulation; }
 
         /* ----- BARRA DE NAVEGACIÓN ----- */
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: #fff; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
@@ -85,22 +90,22 @@
         .mobile-menu-btn.active .bar:nth-child(2) { opacity: 0; }
         .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* ----- SECCIÓN INICIO (HERO) CON VIDEO Y TIPOEFECTO ----- */
-        .hero { position: relative; height: 100vh; width: 100%; overflow: hidden; display: flex; justify-content: center; align-items: center; text-align: center; color: #fff; padding: 0 20px; }
+        /* ----- SECCIÓN INICIO (HERO) CON VIDEO Y TIPOEFECTO ALINEADO A LA IZQUIERDA ----- */
+        .hero { position: relative; height: 100vh; height: 100dvh; width: 100%; overflow: hidden; display: flex; justify-content: flex-start; align-items: center; text-align: left; color: #fff; padding: 0 5%; background-color: #1c1a17; }
         .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; object-position: center 100%; }
         
         /* OSCURECIMIENTO APLICADO PARA CONTRASTE */
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.55); z-index: 2; }
         
-        .hero-content { position: absolute; z-index: 3; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; display: flex; flex-direction: column; align-items: center; pointer-events: auto; }
+        .hero-content { position: relative; z-index: 3; width: 100%; max-width: 820px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; pointer-events: auto; }
         
-        /* ESTILOS DEL TEXTO TIPO IMAGEN */
-        .hero-subtitle { font-size: 1.2rem; font-weight: 600; color: #d1c1af; margin-bottom: 20px; text-align: center; min-height: 28px; }
-        .hero-title { font-size: 2.4rem; font-weight: 700; color: #d1c1af; line-height: 1.3; text-align: center; max-width: 880px; margin-bottom: 40px; min-height: 100px; text-transform: none; }
+        /* ESTILOS DEL TEXTO ALINEADO A LA IZQUIERDA */
+        .hero-subtitle { font-size: 1.15rem; font-weight: 600; color: #d1c1af; margin-bottom: 18px; text-align: left; min-height: 28px; }
+        .hero-title { font-size: 2.25rem; font-weight: 700; color: #d1c1af; line-height: 1.3; text-align: left; width: 100%; margin-bottom: 38px; min-height: 96px; text-transform: none; }
         
         /* CONTENEDOR BOTÓN QUE APARECE AL FINAL */
-        .hero-btn-container { opacity: 0; transform: translateY(20px); transition: opacity 1.2s ease, transform 1.2s ease; }
-        .hero-btn-container.visible { opacity: 1; transform: translateY(0); }
+        .hero-btn-container { opacity: 0; transform: translateY(20px); transition: opacity 1.2s ease, transform 1.2s ease; align-self: flex-start; pointer-events: none; }
+        .hero-btn-container.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
         /* EFECTO CURSOR TITILANTE */
         .cursor::after { content: '|'; display: inline-block; animation: blink 0.8s infinite; margin-left: 3px; font-weight: 400; color: #d1c1af; }
@@ -123,7 +128,7 @@
         
         /* ----- ESPECIALIDADES INTERACTIVAS ----- */
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .service-card { position: relative; height: 450px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px; cursor: pointer; }
+        .service-card { position: relative; height: 450px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px; cursor: pointer; background-color: #2b2723; }
         .service-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 0.6s ease; z-index: 1; }
         .service-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.2); transition: var(--transition); z-index: 2; }
         .service-content { position: relative; z-index: 3; color: #f6e5d6; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px; }
@@ -141,13 +146,11 @@
         /* ----- OBRAS (PORTFOLIO) ----- */
         .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .portfolio-item { display: flex; flex-direction: column; cursor: pointer; }
-        .portfolio-img-wrapper { position: relative; overflow: hidden; aspect-ratio: 4/3; width: 100%; }
+        .portfolio-img-wrapper { position: relative; overflow: hidden; aspect-ratio: 4/3; width: 100%; background-color: var(--light-gray); }
         .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
         
         .portfolio-hover-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); color: #fff; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: 0; transition: var(--transition); z-index: 2; }
-        .portfolio-hover-layer .quote { font-size: 0.95rem; font-style: italic; font-weight: 300; margin-bottom: 10px; max-width: 290px; line-height: 1.5; opacity: 0; transform: translateY(15px); transition: var(--transition); }
-        .portfolio-hover-layer p.quote:nth-of-type(2) { font-style: normal; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #bbb; margin-bottom: 25px; }
-        .portfolio-hover-layer .btn-card { opacity: 0; transform: translateY(15px); transition: var(--transition); }
+        .portfolio-hover-layer .btn-card { opacity: 0; transform: translateY(15px); transition: var(--transition); margin-top: 0; }
         
         .portfolio-info { padding: 15px 5px 0 5px; background-color: #fff; }
         .portfolio-info h4 { font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
@@ -155,9 +158,10 @@
         
         .portfolio-item:hover img { transform: scale(1.05); }
         .portfolio-item:hover .portfolio-hover-layer { opacity: 1; }
-        .portfolio-item:hover .quote, .portfolio-item:hover .portfolio-hover-layer .btn-card { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+        .portfolio-item:hover .portfolio-hover-layer .btn-card { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
 
         /* ----- NOSOTROS & EQUIPO ACORDEÓN ----- */
+        .nuestra-mirada-text { text-align: center; max-width: 800px; margin: 0 auto 50px auto; line-height: 2; color: #635847; }
         .team-title { margin-top: 100px; margin-bottom: 50px; }
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; align-items: start; }
         .team-member { text-align: center; display: flex; flex-direction: column; align-items: center; }
@@ -172,8 +176,8 @@
         .leer-mas-btn:hover { color: #635847; border-bottom: 1px solid #635847; }
         
         .member-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .member-details.open { max-height: 400px; opacity: 1; margin-top: 15px; }
-        .member-details p.member-bio { font-size: 0.9rem; color: #635847; text-transform: none; letter-spacing: 0.3px; font-weight: 400; line-height: 1.6; text-align: center; margin-bottom: 0; }
+        .member-details.open { max-height: 450px; opacity: 1; margin-top: 15px; }
+        .member-details p.member-bio { font-size: 0.9rem; color: #635847; text-transform: none; letter-spacing: 0.3px; font-weight: 400; line-height: 1.65; text-align: left; margin-bottom: 0; }
 
         /* ----- SECCIÓN CONTACTO ----- */
         .contact-container { display: flex; flex-wrap: wrap; gap: 60px; max-width: 1100px; margin: 0 auto; align-items: center; }
@@ -184,7 +188,7 @@
         .contact-details p { font-size: 0.9rem; margin-bottom: 10px; color: #635847; }
         
         .contact-channels { flex: 1.2; min-width: 300px; display: flex; flex-direction: column; gap: 20px; }
-        .channel-card { display: flex; flex-direction: column; justify-content: center; padding: 30px; background-color: #f6e5d6; border: 1px solid transparent; transition: var(--transition); cursor: pointer; }
+        .channel-card { display: flex; flex-direction: column; justify-content: center; padding: 30px; background-color: #f6e5d6; border: 1px solid transparent; transition: var(--transition); cursor: pointer; border-radius: 4px; }
         .channel-card h4 { font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: var(--text-color); }
         .channel-card p { font-size: 0.85rem; color: #635847; margin-bottom: 0; }
         .channel-card:hover { background-color: #e0ceb7; border-color: #635847; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
@@ -196,7 +200,7 @@
             background-color: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
-            z-index: 10000;
+            z-index: 10050;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -217,6 +221,7 @@
             width: 100%;
             max-width: 850px;
             height: 88vh;
+            height: 88dvh;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
@@ -237,6 +242,7 @@
             background: #ffffff;
             border: none;
             font-size: 1.8rem;
+            line-height: 1;
             color: #635847;
             cursor: pointer;
             z-index: 10;
@@ -259,6 +265,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background-color: #ffffff;
         }
 
         .modal-iframe-wrapper iframe {
@@ -292,7 +299,7 @@
         .whatsapp-floating-btn:hover { transform: scale(1.1); background-color: #20ba5a; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); }
 
         /* ----- PANTALLA DE CARGA (PRELOADER) ----- */
-        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; opacity: 1; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .preloader { position: fixed; inset: 0; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; opacity: 1; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
         .preloader-wrapper { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px; animation: preloaderReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
         .preloader-logo-img { width: 200px; height: auto; display: block; filter: none; }
         .preloader.fade-out { opacity: 0; transform: translateY(-30px); pointer-events: none; }
@@ -314,44 +321,60 @@
             .nav-links a:last-child { border-bottom: none; }
             
             .section { padding: 60px 5%; }
-            .section-title { font-size: 1.6rem; margin-bottom: 40px; }
+            .section-title, .section-title-nuestra-mirada { font-size: 1.6rem; margin-bottom: 40px; }
+            .section-title-nuestra-mirada { margin-bottom: 20px; }
             .team-title { margin-top: 60px; margin-bottom: 40px; }
             
-            /* HERO MÓVIL OPTIMIZADO PARA MANTENER LA EXPERIENCIA VISUAL INMERSIVA */
-            .hero { height: 100vh; padding: 0; } 
-            .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; aspect-ratio: auto; margin-top: 0; }
-            .hero-overlay { display: block; background-color: rgba(0, 0, 0, 0.6); } 
-            .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; margin-top: 0; }
+            /* HERO MÓVIL CON IMAGEN DE FONDO (IMG_1553.png) Y TEXTO ALINEADO A LA IZQUIERDA */
+            .hero { 
+                height: 100vh;
+                height: 100dvh;
+                padding: 0 5%; 
+                background-image: url('IMG_1553.png'); 
+                background-size: cover; 
+                background-position: center; 
+                background-repeat: no-repeat;
+                justify-content: flex-start;
+                align-items: center;
+                text-align: left;
+            } 
+            .hero-video { display: none; }
+            .hero-overlay { display: block; background-color: rgba(0, 0, 0, 0.55); } 
+            .hero-content { position: relative; width: 100%; max-width: 100%; align-items: flex-start; text-align: left; padding-top: 40px; }
             
-            .hero-subtitle { font-size: 0.95rem; margin-bottom: 15px; min-height: 22px; }
-            .hero-title { font-size: 1.55rem; min-height: 70px; margin-bottom: 30px; }
-            .hero-content .btn { width: 100%; max-width: 320px; padding: 14px 20px; font-size: 0.85rem; border-radius: 4px; }
+            .hero-subtitle { font-size: 0.95rem; margin-bottom: 15px; min-height: 22px; text-align: left; }
+            .hero-title { font-size: 1.55rem; min-height: 85px; margin-bottom: 30px; text-align: left; }
+            .hero-content .btn { width: auto; max-width: 100%; padding: 14px 24px; font-size: 0.85rem; border-radius: 4px; }
             
             .inspiration-section { padding: 50px 5%; }
             .inspiration-text { font-size: 1.1rem; }
 
             .services-grid { grid-template-columns: 1fr; }
+            .service-card { height: 400px; }
             .service-card .service-overlay { background-color: rgba(0, 0, 0, 0.65); }
             .service-card h3 { transform: translateY(0); }
             .service-card p, .service-card .btn-card { opacity: 1; transform: translateY(0); }
             
-            .portfolio-hover-layer { opacity: 1; background-color: rgba(0, 0, 0, 0.7); }
-            .portfolio-hover-layer .quote, .portfolio-hover-layer .btn-card { opacity: 1; transform: translateY(0); }
+            .portfolio-hover-layer { opacity: 1; background-color: rgba(0, 0, 0, 0.55); }
+            .portfolio-hover-layer .btn-card { opacity: 1; transform: translateY(0); }
             .team-member img { filter: grayscale(0%); }
             .team-member p.member-role { min-height: auto; }
             
-            .contact-container { gap: 40px; }
+            .contact-container { gap: 35px; }
             .contact-info, .contact-channels { min-width: 100%; width: 100%; }
-            .channel-card { padding: 20px; }
+            .contact-info h3 { font-size: 1.35rem; }
+            .channel-card { padding: 22px; }
             
             .footer-container { grid-template-columns: 1fr; gap: 40px; }
+            .footer-col:nth-child(2) ul { column-count: 1; }
             .footer-col:nth-child(3) { justify-self: start; }
             
             .whatsapp-floating-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
             .whatsapp-floating-btn svg { width: 28px; height: 28px; }
 
             .modal-overlay { padding: 10px; }
-            .modal-container { height: 94vh; }
+            .modal-container { height: 92vh; height: 92dvh; }
+            .modal-close-btn { top: 10px; right: 12px; width: 34px; height: 34px; font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -368,7 +391,7 @@
             <img src="logo-texto1.png" alt="is.Arch Logo" class="logo-img">
         </a>
         
-        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">
+        <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </button>
 
@@ -383,8 +406,9 @@
 
     <main>
         <section id="inicio" class="hero">
-            <video autoplay muted playsinline preload="metadata" poster="portada-video.jpg" class="hero-video">
-                <source src="video-portada.mp4" type="video/mp4">
+            <!-- Sin autoplay en HTML para evitar que arranque antes de que desaparezca el preloader -->
+            <video id="heroVideo" muted playsinline preload="none" poster="portada-video.jpg" class="hero-video">
+                <source src="portada.mp4" type="video/mp4">
             </video>
             
             <div class="hero-overlay"></div>
@@ -410,7 +434,7 @@
         <section id="especialidades" class="section">
             <h2 class="section-title">NUESTROS SERVICIOS</h2>
             <div class="services-grid">
-                 <div class="service-card">
+                <div class="service-card">
                     <div class="service-bg" style="background-image: url('ARQUITECTURA-RESIDENCIAL.jpg');"></div>
                     <div class="service-overlay"></div>
                     <div class="service-content">
@@ -419,6 +443,7 @@
                         <a href="proyectos-residenciales.html" class="btn-card">Ver más</a>
                     </div>
                 </div>
+
                 <div class="service-card">
                     <div class="service-bg" style="background-image: url('REMODELACIONES.jpg');"></div>
                     <div class="service-overlay"></div>
@@ -476,10 +501,8 @@
             <div class="portfolio-grid">
                 <div class="portfolio-item">
                     <div class="portfolio-img-wrapper">
-                        <img src="CasaCJ/casaco-frente.png" alt="CASA CJ" loading="lazy">
+                        <img src="CasaCJ/casaco-frente.png" alt="CASA CJ" loading="lazy" decoding="async">
                         <div class="portfolio-hover-layer">
-                            <p class="quote">"Superó todas nuestras expectativas."</p>
-                            <p class="quote">Familia C.</p>
                             <a href="casa-cj.html" class="btn-card">Ver más</a>
                         </div>
                     </div>
@@ -491,10 +514,8 @@
 
                 <div class="portfolio-item">
                     <div class="portfolio-img-wrapper">
-                        <img src="CasaAJ/AJ-frente.png" alt="CASA AJ" loading="lazy">
+                        <img src="CasaAJ/AJ-frente.png" alt="CASA AJ" loading="lazy" decoding="async">
                         <div class="portfolio-hover-layer">
-                            <p class="quote">"Excelente trabajo."</p>
-                            <p class="quote">Familia A.</p>
                             <a href="casa-aj.html" class="btn-card">Ver más</a>
                         </div>
                     </div>
@@ -506,10 +527,34 @@
 
                 <div class="portfolio-item">
                     <div class="portfolio-img-wrapper">
-                        <img src="CasaFM/1.jpg" alt="CASA FM" loading="lazy">
+                        <img src="PPM/2.png" alt="PPM - EDISUR" loading="lazy" decoding="async">
                         <div class="portfolio-hover-layer">
-                            <p class="quote">"Gran trabajo. Muy contentos con el resultado."</p>
-                            <p class="quote">Micaela Budano</p>
+                            <a href="ppm-edisur.html" class="btn-card">Ver más</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h4>PPM - EDISUR</h4>
+                        <p>Barrio Manantiales, Córdoba, Argentina | 2026</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-img-wrapper">
+                        <img src="CasaCB/1.png" alt="CASA CB" loading="lazy" decoding="async">
+                        <div class="portfolio-hover-layer">
+                            <a href="casa-cb.html" class="btn-card">Ver más</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h4>CASA CB</h4>
+                        <p>Cuesta Blanca, Córdoba, Argentina | 2025</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-img-wrapper">
+                        <img src="CasaFM/1.jpg" alt="CASA FM" loading="lazy" decoding="async">
+                        <div class="portfolio-hover-layer">
                             <a href="casa-fm.html" class="btn-card">Ver más</a>
                         </div>
                     </div>
@@ -518,43 +563,24 @@
                         <p>Barrio Sierra Nueva, Mendiolaza, Argentina | 2024</p>
                     </div>
                 </div>
-
-                <div class="portfolio-item">
-                    <div class="portfolio-img-wrapper">
-                        <img src="CasaCB/1.png" alt="CASA CB" loading="lazy">
-                        <div class="portfolio-hover-layer">
-                            <p class="quote">"Superó todas nuestras expectativas."</p>
-                            <p class="quote">Familia C.B.</p>
-                            <a href="casa-cb.html" class="btn-card">Ver más</a>
-                        </div>
-                    </div>
-                    <div class="portfolio-info">
-                        <h4>CASA CB</h4>
-                        <p>Barrio Sierra Nueva, Mendiolaza, Argentina | 2025</p>
-                    </div>
-                </div>
                
                 <div class="portfolio-item">
                     <div class="portfolio-img-wrapper">
-                        <img src="ComercialCRIE/1.png" alt="Consultorios RIE" loading="lazy">
+                        <img src="ComercialCRIE/1.png" alt="Consultorios RIE" loading="lazy" decoding="async">
                         <div class="portfolio-hover-layer">
-                            <p class="quote">"Superó todas nuestras expectativas."</p>
-                            <p class="quote">Director Médico</p>
                             <a href="comercial-crie.html" class="btn-card">Ver más</a>
                         </div>
                     </div>
                     <div class="portfolio-info">
                         <h4>Consultorios RIE</h4>
-                        <p>Barrio Centro, Villa María, Argentina | 2018</p>
+                        <p>Barrio Centro, Villa María, Argentina | 2018 - 2026</p>
                     </div>
                 </div>
                 
                 <div class="portfolio-item">
                     <div class="portfolio-img-wrapper">
-                        <img src="CasaFT/1.png" alt="Casa FT" loading="lazy">
+                        <img src="CasaFT/1.png" alt="Casa FT" loading="lazy" decoding="async">
                         <div class="portfolio-hover-layer">
-                            <p class="quote">"Superó todas nuestras expectativas."</p>
-                            <p class="quote">Familia F.T.</p>
                             <a href="casa-ft.html" class="btn-card">Ver más</a>
                         </div>
                     </div>
@@ -563,12 +589,38 @@
                         <p>Barrio El Terrón, Mendiolaza, Argentina | 2024</p>
                     </div>
                 </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-img-wrapper">
+                        <img src="BSE/5.png" alt="BODEGA BSE" loading="lazy" decoding="async">
+                        <div class="portfolio-hover-layer">
+                            <a href="bodega-bse.html" class="btn-card">Ver más</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h4>BODEGA BSE</h4>
+                        <p>Santiago del Estero, Argentina | 2026</p>
+                    </div>
+                </div>
+                <!--
+                <div class="portfolio-item">
+                    <div class="portfolio-img-wrapper">
+                        <img src="CasaFT/1.png" alt="Edisur - LOMAS OFFICE" loading="lazy" decoding="async">
+                        <div class="portfolio-hover-layer">
+                            <a href="edisur-lomas-office.html" class="btn-card">Ver más</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h4>Edisur - LOMAS OFFICE</h4>
+                        <p>Barrio Manantiales, Córdoba, Argentina | 2026</p>
+                    </div>
+                </div> -->
             </div>
         </section>
 
         <section id="nosotros" class="section">
             <h2 class="section-title-nuestra-mirada">NUESTRA MIRADA</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 50px auto; line-height: 2; color: #635847;">
+            <p class="nuestra-mirada-text">
                 No creemos en borrar todo para empezar de cero.<br>
                 Creemos en mirar.<br>
                 En entender qué vale la pena conservar, qué necesita transformarse y qué todavía no existe.<br>
@@ -585,39 +637,39 @@
                 <!-- INTEGRANTE 1 -->
                 <div class="team-member">
                     <div class="member-img-wrapper">
-                        <img src="mica.jpg" alt="Arq. Micaela Budano" loading="lazy">
+                        <img src="mica.jpg" alt="Arq. Micaela Budano" loading="lazy" decoding="async">
                     </div>
                     <h4>Arq. Micaela Budano</h4>
                     <p class="member-role">Dirección de proyectos, acompañamiento al cliente, interiorismo & visualizaciones.</p>
-                    <button class="leer-mas-btn" aria-expanded="false">+ Leer más</button>
+                    <button type="button" class="leer-mas-btn" aria-expanded="false">+ Leer más</button>
                     <div class="member-details">
-                        <p style="text-align: justify;" class="member-bio">Acompaña a cada cliente durante todo el proceso, guiando el diseño desde una mirada sensible del espacio integral. Coordina las reuniones y desarrolla las visualizaciones tridimensionales que permiten anticipar cómo se verá cada ambiente, asegurando que cada decisión técnica y material refleje fielmente la forma en que deseás habitar tu hogar.</p>
+                        <p class="member-bio">Acompaña a cada cliente durante todo el proceso, guiando el diseño desde una mirada sensible del espacio integral. Coordina las reuniones y desarrolla las visualizaciones tridimensionales que permiten anticipar cómo se verá cada ambiente, asegurando que cada decisión técnica y material refleje fielmente la forma en que deseás habitar tu hogar.</p>
                     </div>
                 </div>
 
                 <!-- INTEGRANTE 2 -->
                 <div class="team-member">
                     <div class="member-img-wrapper">
-                        <img src="IMG_4346.JPG" alt="Arq. Francisco Tamantini" style="object-position: center 32.5%;" loading="lazy">
+                        <img src="IMG_4346.JPG" alt="Arq. Francisco Tamantini Z" style="object-position: center 32.5%;" loading="lazy" decoding="async">
                     </div>
                     <h4>Arq. Francisco Tamantini Z</h4>
                     <p class="member-role">Dirección Técnica, Instalaciones y Gestión de Proyectos.</p>
-                    <button class="leer-mas-btn" aria-expanded="false">+ Leer más</button>
+                    <button type="button" class="leer-mas-btn" aria-expanded="false">+ Leer más</button>
                     <div class="member-details">
-                        <p style="text-align: justify;" class="member-bio">Transforma las ideas en soluciones concretas, anticipando las necesidades de instalaciones y detalles constructivos del estudio. Lidera el control y seguimiento de la materialización de cada obra, integrando herramientas de inteligencia artificial para optimizar la documentación técnica y los procesos ejecutivos. Garantizando que cada decisión de diseño se plasme de forma precisa, ordenada y eficiente en la realidad.</p>
+                        <p class="member-bio">Transforma las ideas en soluciones concretas, anticipando las necesidades de instalaciones y detalles constructivos del estudio. Lidera el control y seguimiento de la materialización de cada obra, integrando herramientas de inteligencia artificial para optimizar la documentación técnica y los procesos ejecutivos. Garantizando que cada decisión de diseño se plasme de forma precisa, ordenada y eficiente en la realidad.</p>
                     </div>
                 </div>
 
                 <!-- INTEGRANTE 3 -->
                 <div class="team-member">
                     <div class="member-img-wrapper">
-                        <img src="emi.jpg" alt="Arq. Emilia De La Fuente" style="object-position: center 32.5%;" loading="lazy">
+                        <img src="emi.jpg" alt="Arq. Emilia De La Fuente" style="object-position: center 32.5%;" loading="lazy" decoding="async">
                     </div>
                     <h4>Arq. Emilia De La Fuente</h4>
                     <p class="member-role">Estudio Funcional, Programas de Remodelación y Diseño Paisajístico.</p>
-                    <button class="leer-mas-btn" aria-expanded="false">+ Leer más</button>
+                    <button type="button" class="leer-mas-btn" aria-expanded="false">+ Leer más</button>
                     <div class="member-details">
-                        <p style="text-align: justify;" class="member-bio">Analiza en profundidad el funcionamiento de las remodelaciones y nuevos programas arquitectónicos según las necesidades específicas de cada usuario. Desarrolla propuestas de diseño paisajístico que integran la estética funcional con el entorno natural , logrando una interacción fluida con el proyecto integral y asegurando que cada espacio responda de manera coherente al modo de habitar.</p>
+                        <p class="member-bio">Analiza en profundidad el funcionamiento de las remodelaciones y nuevos programas arquitectónicos según las necesidades específicas de cada usuario. Desarrolla propuestas de diseño paisajístico que integran la estética funcional con el entorno natural, logrando una interacción fluida con el proyecto integral y asegurando que cada espacio responda de manera coherente al modo de habitar.</p>
                     </div>
                 </div>
             </div>
@@ -631,20 +683,20 @@
                     <p>Queremos conocer tu propuesta, evaluar las necesidades de tu espacio y contarte cómo trabajamos. El primer paso es coordinar una entrevista virtual para definir el alcance del proyecto; a partir de ese encuentro, te enviaremos un presupuesto detallado, sin cargo y a la medida de tu caso. Elegí la opción que te resulte más cómoda para que tengamos esa primera charla:</p>
                     <div class="contact-details">
                         <p><strong>Teléfono:</strong> +54 9 351 791-4897</p>
-                        <p><strong>Email:</strong> contacto.is.arch@gmail.com </p>
+                        <p><strong>Email:</strong> contacto.is.arch@gmail.com</p>
                     </div>
                 </div>
 
                 <div class="contact-channels">
+                    <!-- BOTÓN ACTIVADOR DEL MODAL DE GOOGLE FORMS -->
+                    <a href="#contacto" id="openModalBtn" class="channel-card" role="button" aria-haspopup="dialog" aria-controls="formModal">
+                        <h4>Completar formulario</h4>
+                        <p>Si ya tenés claro lo que necesitás, completá el formulario y nos pondremos en contacto contigo a la brevedad.</p>
+                    </a>
+
                     <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="channel-card">
                         <h4>Escribinos por WhatsApp</h4>
                         <p>Para que charlemos de tu propuesta de forma directa y coordinemos juntos una primer videollamada.</p>
-                    </a>
-
-                    <!-- BOTÓN ACTIVADOR DEL MODAL DE GOOGLE FORMS -->
-                    <a href="#contacto" id="openModalBtn" class="channel-card">
-                        <h4>Completar formulario</h4>
-                        <p>Si ya tenés claro lo que necesitás, completá el formulario y nos pondremos en contacto contigo a la brevedad.</p>
                     </a>
                 </div>
             </div>
@@ -652,14 +704,14 @@
     </main>
 
     <!-- VENTANA MODAL FLOTANTE GOOGLE FORMS -->
-    <div id="formModal" class="modal-overlay" aria-hidden="true" role="dialog">
+    <div id="formModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Formulario de consulta is.Arch">
         <div class="modal-container">
-            <button id="closeModalBtn" class="modal-close-btn" aria-label="Cerrar modal">&times;</button>
+            <button type="button" id="closeModalBtn" class="modal-close-btn" aria-label="Cerrar formulario">&times;</button>
             <div class="modal-iframe-wrapper">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScY2vU7saGwgAV6wTefwab580rLZBnY7CfvzWDgK7jCo4HXkw/viewform?embedded=true" 
-                        frameborder="0" 
-                        marginheight="0" 
-                        marginwidth="0">
+                <iframe id="googleFormIframe"
+                        data-src="https://docs.google.com/forms/d/e/1FAIpQLScY2vU7saGwgAV6wTefwab580rLZBnY7CfvzWDgK7jCo4HXkw/viewform?embedded=true" 
+                        title="Formulario de contacto is.Arch"
+                        loading="lazy">
                     Cargando formulario…
                 </iframe>
             </div>
@@ -713,40 +765,120 @@
        target="_blank" 
        rel="noopener noreferrer" 
        class="whatsapp-floating-btn" 
-       title="Escribinos por WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+       title="Escribinos por WhatsApp"
+       aria-label="Iniciar chat en WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
             <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
         </svg>
     </a>
 
     <script>
+        let heroExperienceStarted = false;
+        let preloaderHidden = false;
+
+        function startHeroExperience() {
+            if (heroExperienceStarted) return;
+            heroExperienceStarted = true;
+
+            const heroVideo = document.getElementById('heroVideo');
+            const subtitleEl = document.getElementById('typeSubtitle');
+            const titleEl = document.getElementById('typeTitle');
+            const btnContainer = document.getElementById('heroBtnContainer');
+
+            // 1. Iniciar el video exactamente desde el segundo 0 solo en escritorio
+            if (heroVideo && window.innerWidth > 768) {
+                heroVideo.currentTime = 0;
+                const playPromise = heroVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        // Si el navegador restringe autoplay, se mantiene en el fotograma inicial
+                    });
+                }
+            }
+
+            // 2. Iniciar la secuencia de tipeo sincronizada con la apertura de pantalla
+            const text1 = "Cada lugar tiene algo que decir antes de que lleguemos";
+            const text2 = "Proyectamos y transformamos escuchando|la esencia de quienes lo habitan.";
+
+            function typeWriter(element, textString, speed, callback) {
+                if (!element) return;
+                let i = 0;
+                let currentHTML = "";
+                element.classList.add('cursor');
+
+                function type() {
+                    if (i < textString.length) {
+                        const char = textString.charAt(i);
+                        currentHTML += (char === '|') ? "<br>" : char;
+                        element.innerHTML = currentHTML;
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        element.classList.remove('cursor');
+                        if (callback) setTimeout(callback, 300);
+                    }
+                }
+                type();
+            }
+
+            setTimeout(() => {
+                typeWriter(subtitleEl, text1, 40, () => {
+                    typeWriter(titleEl, text2, 40, () => {
+                        setTimeout(() => {
+                            if (btnContainer) btnContainer.classList.add('visible');
+                        }, 250);
+                    });
+                });
+            }, 250);
+        }
+
+        function finishPreloaderAndStart() {
+            if (preloaderHidden) return;
+            preloaderHidden = true;
+            const preloader = document.getElementById('sitePreloader');
+            if (preloader) {
+                preloader.classList.add('fade-out');
+                startHeroExperience();
+                setTimeout(() => preloader.remove(), 800);
+            } else {
+                startHeroExperience();
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            // PRECARGAR EL VIDEO EN SEGUNDO PLANO SOLO EN ESCRITORIO (PAUSADO EN 0:00)
+            const heroVideo = document.getElementById('heroVideo');
+            if (heroVideo && window.innerWidth > 768) {
+                heroVideo.preload = 'auto';
+                heroVideo.load();
+            }
+
             // SCRIPT DEL MENÚ MÓVIL
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const navLinks = document.getElementById('navLinks');
 
             if (mobileMenuBtn && navLinks) {
+                const closeMobileMenu = () => {
+                    mobileMenuBtn.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                };
+
                 mobileMenuBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const isActive = mobileMenuBtn.classList.toggle('active');
                     navLinks.classList.toggle('active');
-                    mobileMenuBtn.setAttribute('aria-expanded', isActive);
+                    mobileMenuBtn.setAttribute('aria-expanded', String(isActive));
                 });
 
                 document.addEventListener('click', (e) => {
-                    if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                        mobileMenuBtn.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        closeMobileMenu();
                     }
                 });
 
                 navLinks.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenuBtn.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                    });
+                    link.addEventListener('click', closeMobileMenu);
                 });
             }
 
@@ -769,93 +901,58 @@
                 });
             });
 
-            // SCRIPT DEL EFECTO TIPEO Y APARICIÓN DE BOTÓN
-            const subtitleEl = document.getElementById('typeSubtitle');
-            const titleEl = document.getElementById('typeTitle');
-            const btnContainer = document.getElementById('heroBtnContainer');
-
-            const text1 = "Cada lugar tiene algo que decir antes de que lleguemos";
-            const text2 = "Proyectamos y transformamos escuchando|la esencia de quienes lo habitan.";
-
-            function typeWriter(element, textString, speed, callback) {
-                let i = 0;
-                let currentHTML = "";
-                element.classList.add('cursor');
-
-                function type() {
-                    if (i < textString.length) {
-                        let char = textString.charAt(i);
-                        if (char === '|') {
-                            currentHTML += "<br>";
-                        } else {
-                            currentHTML += char;
-                        }
-                        element.innerHTML = currentHTML;
-                        i++;
-                        setTimeout(type, speed);
-                    } else {
-                        element.classList.remove('cursor');
-                        if (callback) setTimeout(callback, 300);
-                    }
-                }
-                type();
-            }
-
-            setTimeout(() => {
-                typeWriter(subtitleEl, text1, 40, () => {
-                    typeWriter(titleEl, text2, 40, () => {
-                        btnContainer.classList.add('visible');
-                    });
-                });
-            }, 1300);
-
-            // SCRIPT VENTANA MODAL GOOGLE FORMS
+            // SCRIPT VENTANA MODAL GOOGLE FORMS (CON CARGA DIFERIDA)
             const openModalBtn = document.getElementById('openModalBtn');
             const closeModalBtn = document.getElementById('closeModalBtn');
             const formModal = document.getElementById('formModal');
+            const googleFormIframe = document.getElementById('googleFormIframe');
+
+            const ensureFormLoaded = () => {
+                if (googleFormIframe && !googleFormIframe.src && googleFormIframe.dataset.src) {
+                    googleFormIframe.src = googleFormIframe.dataset.src;
+                }
+            };
 
             if (openModalBtn && closeModalBtn && formModal) {
                 openModalBtn.addEventListener('click', (e) => {
                     e.preventDefault();
+                    ensureFormLoaded();
                     formModal.classList.add('active');
                     formModal.setAttribute('aria-hidden', 'false');
-                    document.body.style.overflow = 'hidden'; // Bloquea el scroll de la web de fondo
+                    document.body.style.overflow = 'hidden';
+                    closeModalBtn.focus();
                 });
 
                 const closeModal = () => {
                     formModal.classList.remove('active');
                     formModal.setAttribute('aria-hidden', 'true');
-                    document.body.style.overflow = 'auto'; // Restaura el scroll
+                    document.body.style.overflow = '';
                 };
 
                 closeModalBtn.addEventListener('click', closeModal);
 
-                // Cerrar al hacer clic en el fondo oscuro
                 formModal.addEventListener('click', (e) => {
-                    if (e.target === formModal) {
-                        closeModal();
-                    }
+                    if (e.target === formModal) closeModal();
                 });
 
-                // Cerrar con tecla Escape
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape' && formModal.classList.contains('active')) {
                         closeModal();
                     }
                 });
+
+                window.addEventListener('load', () => {
+                    setTimeout(ensureFormLoaded, 2000);
+                }, { once: true });
             }
         });
 
-        // SCRIPT PANTALLA DE CARGA (PRELOADER)
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('sitePreloader');
-            if (preloader) {
-                setTimeout(() => {
-                    preloader.classList.add('fade-out');
-                    setTimeout(() => { preloader.remove(); }, 800); 
-                }, 400);
-            }
-        });   
+        // ORQUESTACIÓN SINCRONIZADA AL COMPLETAR LA CARGA DE LA PÁGINA (CON RESPALDO)
+        window.addEventListener('load', () => {
+            setTimeout(finishPreloaderAndStart, 400);
+        }, { once: true });
+
+        setTimeout(finishPreloaderAndStart, 2600);
     </script>
 </body>
 </html>
