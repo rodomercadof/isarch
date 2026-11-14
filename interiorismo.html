@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Servicios de Interiorismo - is.Arch">
-    <title>Interiorismo - is.Arch</title>
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Servicios de Interiorismo - is.Arch Arquitectura & Diseño en Córdoba.">
+    <title>Interiorismo · is.Arch</title>
     
     <link rel="icon" type="image/png" href="logo-solo3.png">
+    <link rel="preload" href="logo-texto1.png" as="image">
     
     <!-- Optimización de carga de fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,12 +26,13 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        html { scroll-behavior: smooth; }
-        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
+        html, body { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
         a { text-decoration: none; color: var(--text-color); }
+        a, button, .faq-question { touch-action: manipulation; }
 
         /* ----- 2. PANTALLA DE CARGA ----- */
-        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .preloader { position: fixed; inset: 0; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
         .preloader-wrapper { display: flex; flex-direction: column; align-items: center; gap: 24px; animation: preloaderReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
         .preloader-logo-img { width: 200px; height: auto; display: block; }
         .preloader.fade-out { opacity: 0; transform: translateY(-30px); pointer-events: none; }
@@ -51,56 +54,138 @@
         .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
         /* ----- 4. ESTILOS GLOBALES Y ANIMACIONES ----- */
-        .section { padding: 70px 3%; scroll-margin-top: 60px; }
+        .section { padding: 80px 5%; scroll-margin-top: 70px; }
         .bg-light { background-color: var(--light-gray); }
-        .section-title { text-align: center; font-size: 2rem; font-weight: 600; margin-bottom: 60px; text-transform: uppercase; letter-spacing: 3px; }
+        .section-title { text-align: center; font-size: 2rem; font-weight: 600; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 3px; }
         
-        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
 
         .btn { padding: 15px 35px; background-color: transparent; color: #f6e5d6; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; border: 1px solid #f6e5d6; cursor: pointer; transition: var(--transition); display: inline-block; text-align: center; }
         .btn:hover { background-color: #f6e5d6; color: var(--text-color); }
-        .btn-dark { padding: 15px 35px; background-color: var(--text-color); color: #f6e5d6; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; border: 1px solid var(--text-color); cursor: pointer; transition: var(--transition); display: inline-block; text-align: center; }
+        .btn-dark { padding: 15px 35px; background-color: var(--text-color); color: #f6e5d6; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; border: 1px solid var(--text-color); cursor: pointer; transition: var(--transition); display: inline-block; text-align: center; font-size: 0.9rem; }
         .btn-dark:hover { background-color: #f6e5d6; color: var(--text-color); }
-        .btn-a { padding: 15px 35px; background-color: transparent; color: var(--text-color); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; border: 1px solid #ccc; cursor: pointer; transition: var(--transition); display: inline-block; text-align: center; }
-        .btn-a:hover { background-color: #f6e5d6; border-color: #f6e5d6; }
+        .btn-a { padding: 15px 35px; background-color: transparent; color: var(--text-color); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; border: 1px solid var(--text-color); cursor: pointer; transition: var(--transition); display: inline-block; text-align: center; font-size: 0.9rem; }
+        .btn-a:hover { background-color: #f6e5d6; border-color: var(--text-color); }
 
         /* ----- 5. HERO SECTION ----- */
-        .hero { min-height: 55vh; padding: 80px 20px 0; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('interiorismoo1.jpg') center/cover no-repeat; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #f6e5d6; }
-        .hero h1 { font-size: 3.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .hero { min-height: 62vh; padding: 120px 5% 60px; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('interiorismoo1.jpg') center/cover no-repeat; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #f6e5d6; }
+        .hero h1 { font-size: 3.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 35px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
         /* ----- 6. SECCIÓN ENFOQUE (ABOUT) ----- */
         .about-container { max-width: 1100px; margin: 0 auto; text-align: left; }
-        .about-editorial-title { font-size: 1.1rem; font-style: italic; font-weight: 600; color: #9e9589; margin-bottom: 17px; line-height: 1.5; max-width: 500px; }
+        .about-editorial-title { font-size: 1.15rem; font-style: italic; font-weight: 600; color: #8c8173; margin-bottom: 24px; line-height: 1.5; max-width: 540px; }
         .about-grid-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-        .about-text-block p { font-size: 1.05rem; font-weight: 300; margin-bottom: 20px; line-height: 1.8; }
+        .about-text-block p { font-size: 1.02rem; font-weight: 300; margin-bottom: 20px; line-height: 1.8; }
+        .about-text-block p:last-child { margin-bottom: 0; }
         
         .team-signature-centered { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 60px; text-align: center; }
         .team-signature-centered p { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
         
-        .team-avatar-container { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; display: inline-block; }
+        .team-avatar-container { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; display: inline-block; background-color: var(--light-gray); }
         .team-avatar-container img { width: 95%; height: 100%; object-fit: cover; transform: scale(1.4); object-position: 34% -25%; display: block; }
 
         /* ----- 7. PREGUNTAS FRECUENTES ----- */
-        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-container { max-width: 820px; margin: 0 auto; }
         .faq-item { border-bottom: 1px solid #e0e0e0; }
-        .faq-question { width: 100%; text-align: left; padding: 25px 0; color: var(--text-color); background: none; border: none; font-size: 1.05rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px; }
+        .faq-question { width: 100%; text-align: left; padding: 25px 0; color: var(--text-color); background: none; border: none; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px; line-height: 1.45; }
         .faq-question:hover { color: #8a7f6f; }
-        .faq-icon { font-size: 1.5rem; font-weight: 300; transition: transform 0.3s ease; }
+        .faq-icon { font-size: 1.5rem; font-weight: 300; flex-shrink: 0; transition: transform 0.3s ease; }
         .faq-question.active .faq-icon { transform: rotate(45deg); }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-        .faq-answer p { padding-bottom: 25px; font-size: 0.95rem; line-height: 1.6; }
+        .faq-answer p { padding-bottom: 25px; font-size: 0.95rem; line-height: 1.7; }
 
-        /* ----- 8. CONTACTO (Ajustado para eliminar espacio en blanco) ----- */
-        .contact-section { text-align: center; padding-bottom: 40px; }
-        .contact-text { max-width: 600px; margin: 0 auto 30px; font-size: 1.05rem; font-weight: 300; }
+        /* ----- 8. CONTACTO ----- */
+        .contact-section { text-align: center; padding-bottom: 80px; }
+        .contact-section .section-title { margin-bottom: 24px; }
+        .contact-text { max-width: 620px; margin: 0 auto 35px; font-size: 1.05rem; font-weight: 300; line-height: 1.7; }
         .contact-btn-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+        /* ----- VENTANA MODAL FLOTANTE GOOGLE FORMS ----- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 10050;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            position: relative;
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 850px;
+            height: 88vh;
+            height: 88dvh;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            background: #ffffff;
+            border: none;
+            font-size: 1.8rem;
+            line-height: 1;
+            color: #635847;
+            cursor: pointer;
+            z-index: 10;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background-color: #635847;
+            color: #ffffff;
+        }
+
+        .modal-iframe-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .modal-iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
 
         /* ----- 9. FOOTER & WHATSAPP ----- */
         footer { background-color: #635847; color: #f6e5d6; padding: 60px 5% 40px; }
-        
         .footer-container { display: grid; grid-template-columns: 1.3fr 2fr 0.9fr; gap: 40px; max-width: 1200px; margin: 0 auto; font-size: 0.9rem; }
-        
         .footer-col h4 { margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; }
         .footer-col p { color: #f6e5d6; line-height: 1.8; text-align: left; }
         .footer-col ul { list-style: none; padding: 0; margin: 0; }
@@ -123,23 +208,35 @@
         /* ----- 10. RESPONSIVE MÓVIL ----- */
         @media (max-width: 768px) {
             .mobile-menu-btn { display: flex; }
-            .nav-links { position: absolute; top: 80px; left: 0; width: 100%; background-color: #ffffff; flex-direction: column; padding: 20px 5% 40px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 999; gap: 0;}
+            .nav-links { position: absolute; top: 80px; left: 0; width: 100%; background-color: #ffffff; flex-direction: column; padding: 20px 5% 40px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 999; gap: 0; }
             .nav-links.active { opacity: 1; visibility: visible; transform: translateY(0); }
-            .nav-links a { width: 100%; padding: 15px 0; font-size: 1.1rem; border-bottom: 1px solid #f5f5f5; }
+            .nav-links a { width: 100%; padding: 15px 0; font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid #f5f5f5; }
+            .nav-links a:last-child { border-bottom: none; }
             
-            .hero { min-height: 100vh; padding-top: 100px; }
-            .hero h1 { font-size: 2.2rem; }
+            .hero { min-height: 75vh; min-height: 75dvh; padding-top: 110px; }
+            .hero h1 { font-size: 2.2rem; letter-spacing: 3px; }
             .section { padding: 60px 5%; }
+            .section-title { font-size: 1.6rem; margin-bottom: 35px; }
             
-            .about-grid-columns { grid-template-columns: 1fr; gap: 30px; }
-            .about-editorial-title { max-width: 100%; font-size: 1.15rem; }
+            .about-grid-columns { grid-template-columns: 1fr; gap: 20px; }
+            .about-editorial-title { max-width: 100%; font-size: 1.1rem; }
+            .team-signature-centered { margin-top: 40px; }
+
+            .faq-question { font-size: 0.92rem; padding: 20px 0; }
+
+            .contact-btn-group { flex-direction: column; align-items: stretch; max-width: 340px; margin: 0 auto; }
+            .contact-btn-group .btn-a, .contact-btn-group .btn-dark { width: 100%; }
             
-            footer { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .footer-container { grid-template-columns: 1fr; gap: 40px; }
             .footer-col:nth-child(2) ul { column-count: 1; }
-            .footer-social-links { align-items: center; }
+            .footer-col:nth-child(3) { justify-self: start; }
 
             .whatsapp-floating-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
             .whatsapp-floating-btn svg { width: 28px; height: 28px; }
+
+            .modal-overlay { padding: 10px; }
+            .modal-container { height: 92vh; height: 92dvh; }
+            .modal-close-btn { top: 10px; right: 12px; width: 34px; height: 34px; font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -153,13 +250,13 @@
     
     <!-- NAVBAR -->
     <header>
-        <a href="index.html" class="logo-container">
+        <a href="index.html" class="logo-container" aria-label="Ir al inicio de is.Arch">
             <img src="logo-texto1.png" alt="is.Arch Logo" class="logo-img">
         </a>
-        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">
+        <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </button>
-        <nav class="nav-links" id="navLinks">
+        <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
             <a href="index.html#inicio">Inicio</a>
             <a href="index.html#especialidades">Nuestros Servicios</a>
             <a href="index.html#obras">Proyectos Destacados</a>
@@ -168,91 +265,107 @@
         </nav>
     </header>
 
-    <!-- 1. HERO -->
-    <section class="hero fade-up">
-        <h1>INTERIORISMO</h1>
-        <a href="#contacto" class="btn">Diseñemos tu espacio</a>
-    </section>
+    <main>
+        <!-- 1. HERO -->
+        <section class="hero fade-up">
+            <h1>INTERIORISMO</h1>
+            <a href="#contacto" class="btn">Diseñemos tu espacio</a>
+        </section>
 
-    <!-- 2. EL ENFOQUE -->
-    <section class="section">
-        <div class="about-container fade-up">
-            <h3 class="about-editorial-title">La fusión entre la sensibilidad espacial y la utilidad real.</h3>
-            
-            <div class="about-grid-columns">
-                <div class="about-col-left">
-                    <div class="about-text-block">
-                        <p>Concebimos el interiorismo como la herramienta para dar vida y sentido a un espacio, transformándolo en un reflejo auténtico de quienes lo habitan. Proponemos un diseño vivo, pensado para responder a tu dinámica diaria, acompañar tu crecimiento y tomar carácter con el paso del tiempo.</p>
-                    </div>
-                </div>
+        <!-- 2. EL ENFOQUE -->
+        <section class="section">
+            <div class="about-container fade-up">
+                <h3 class="about-editorial-title">La fusión entre la sensibilidad espacial y la utilidad real.</h3>
                 
-                <div class="about-col-right">
-                    <div class="about-text-block">
-                        <p>Nuestro enfoque busca el equilibrio exacto entre la emoción que despierta un ambiente y su absoluta funcionalidad. No creamos espacios que solo sean visualmente atractivos; diseñamos para simplificar actividades, potenciar los días y hacer que las personas se sientan genuinamente en su hogar.</p>
+                <div class="about-grid-columns">
+                    <div class="about-col-left">
+                        <div class="about-text-block">
+                            <p>Concebimos el interiorismo como la herramienta para dar vida y sentido a un espacio, transformándolo en un reflejo auténtico de quienes lo habitan. Proponemos un diseño vivo, pensado para responder a tu dinámica diaria, acompañar tu crecimiento y tomar carácter con el paso del tiempo.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-col-right">
+                        <div class="about-text-block">
+                            <p>Nuestro enfoque busca el equilibrio exacto entre la emoción que despierta un ambiente y su absoluta funcionalidad. No creamos espacios que solo sean visualmente atractivos; diseñamos para simplificar actividades, potenciar los días y hacer que las personas se sientan genuinamente en su hogar.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Firma Centrada -->
-        <div class="team-signature-centered fade-up">
-            <div class="team-avatar-container">
-                <img src="IMG_9630.jpg" alt="Dirección is.Arch" loading="lazy">
+            <!-- Firma Centrada -->
+            <div class="team-signature-centered fade-up">
+                <div class="team-avatar-container">
+                    <img src="IMG_9630.jpg" alt="Dirección is.Arch" loading="lazy" decoding="async">
+                </div>
+                <p>El equipo de is.Arch</p>
             </div>
-            <p>El equipo de is.Arch</p>
-        </div>
-    </section>
+        </section>
 
-    <!-- 3. PREGUNTAS FRECUENTES -->
-    <section class="section">
-        <h2 class="section-title fade-up">Preguntas Frecuentes</h2>
-        <div class="faq-container fade-up">
-            <div class="faq-item">
-                <button class="faq-question">¿Qué alcance tiene un proyecto de interiorismo? <span class="faq-icon">+</span></button>
-                <div class="faq-answer"><p>Nuestra intervención abarca distintos niveles. Podemos involucrarnos durante la obra gris para definir revestimientos, pisos y la ubicación de instalaciones, asegurando que el diseño interior y la arquitectura dialoguen con precisión técnica. O bien, sumarnos en etapas más avanzadas para enfocarnos en el diseño de muebles a medida y la estética final del espacio, mediante la selección de equipamiento, textiles, iluminación y curaduría de detalles. </p></div>
+        <!-- 3. PREGUNTAS FRECUENTES -->
+        <section class="section bg-light">
+            <h2 class="section-title fade-up">Preguntas Frecuentes</h2>
+            <div class="faq-container fade-up">
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">¿Qué alcance tiene un proyecto de interiorismo?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Nuestra intervención abarca distintos niveles. Podemos involucrarnos durante la obra gris para definir revestimientos, pisos y la ubicación de instalaciones, asegurando que el diseño interior y la arquitectura dialoguen con precisión técnica. O bien, sumarnos en etapas más avanzadas para enfocarnos en el diseño de muebles a medida y la estética final del espacio, mediante la selección de equipamiento, textiles, iluminación y curaduría de detalles.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">¿El servicio de interiorismo aplica tanto para viviendas nuevas como para remodelaciones?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Sí, abordamos ambos casos. Podemos intervenir un espacio existente para renovarlo y adaptarlo a tu estilo de vida actual, o proyectar el interior de una obra nueva desde el inicio, asegurando que cada detalle y la materialidad reflejen la esencia de lo que buscás.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">Otro profesional diseña mi casa, ¿pueden ayudarme a definir el interiorismo?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Sí, es uno de nuestros servicios principales. Trabajamos en conjunto con otros profesionales durante la obra o la etapa de desarrollo del proyecto. Podemos involucrarnos en la fase que requieran: ya sea para intervenir en decisiones clave (como revestimientos, diseño de nichos, sanitarios y ubicación de luminarias), o en una etapa posterior con el equipamiento y los detalles finales. De esta forma, aportamos nuestra visión para ayudar a que todo el conjunto dialogue a la perfección.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">¿Pueden hacer el diseño interior de un solo ambiente o tiene que ser de toda la casa?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Adaptamos el alcance del proyecto a tu necesidad, ya sea para un único ambiente o la vivienda completa, pero siempre evaluamos la estética general para que el nuevo espacio dialogue y se integre de forma armónica con el resto de tu casa.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">¿Tengo que cambiar todos mis muebles para hacer un proyecto de interiorismo?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>No necesariamente, hay piezas que cuentan historias y guardan recuerdos; no creemos que todo se tenga que ir para que un espacio se renueve. Nuestro trabajo consiste en evaluar tu mobiliario actual para ayudarte a definir qué conservar, restaurar o reubicar. Integramos lo preexistente con nuevos elementos y diseños a medida, logrando una atmósfera renovada y coherente sin generar gastos innecesarios.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">¿Los muebles son diseñados a medida o seleccionados de catálogo?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Dependiendo de lo que pida tu espacio, diseñamos mobiliario a medida (entregando toda la documentación técnica para su fabricación) o seleccionamos piezas existentes en el mercado. Siempre te sugerimos profesionales y marcas de nuestra confianza, pero tenés total libertad para elegir con qué carpintero trabajar o dónde adquirir cada elemento.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">¿Pueden encargarse ustedes de las compras y la ambientación final?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Sí, contamos con un servicio independiente de gestión de compras. A partir de un presupuesto definido, nos ocupamos de adquirir cada elemento, recibirlo y realizar el montaje final en tu casa. Es una opción ideal si buscás delegar todo el proceso y llegar con el espacio terminado, aunque siempre tenés la alternativa de hacer las compras vos misma siguiendo nuestra propuesta.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">¿Realizan proyectos de interiorismo de forma online para el resto del país?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Sí, realizamos proyectos 100% virtuales para cualquier punto de Argentina. Por eso, cuando diseñamos, lo hacemos teniendo en cuenta el mercado local que te rodea junto con opciones de tiendas con envío online. O bien, proyectamos mobiliario a medida y te entregamos toda la documentación técnica para que lo fabriques en tu ciudad sin complicaciones, porque nuestro objetivo es que puedas materializar el espacio exactamente igual a como lo diseñamos.</p></div>
+                </div>
             </div>
-            <div class="faq-item">
-                <button class="faq-question">¿El servicio de interiorismo aplica tanto para viviendas nuevas como para remodelaciones?<span class="faq-icon">+</span></button>
-                <div class="faq-answer"><p> Sí, abordamos ambos casos. Podemos intervenir un espacio existente para renovarlo y adaptarlo a tu estilo de vida actual, o proyectar el interior de una obra nueva desde el inicio, asegurando que cada detalle y la materialidad reflejen la esencia de lo que buscás. </p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Otro profesional diseña mi casa, ¿pueden ayudarme a definir el interiorismo?<span class="faq-icon">+</span></button>
-                <div class="faq-answer"><p> Sí, es uno de nuestros servicios principales. Trabajamos en conjunto con otros profesionales durante la obra o la etapa de desarrollo del proyecto. Podemos involucrarnos en la fase que requieran: ya sea para intervenir en decisiones clave (como revestimientos, diseño de nichos, sanitarios y ubicación de luminarias), o en una etapa posterior con el equipamiento y los detalles finales. De esta forma, aportamos nuestra visión para ayudar a que todo el conjunto dialogue a la perfección.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">¿Pueden hacer el diseño interior de un solo ambiente o tiene que ser de toda la casa? <span class="faq-icon">+</span></button>
-                <div class="faq-answer"><p>Adaptamos el alcance del proyecto a tu necesidad, ya sea para un único ambiente o la vivienda completa, pero siempre evaluamos la estética general para que el nuevo espacio dialogue y se integre de forma armónica con el resto de tu casa.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">¿Tengo que cambiar todos mis muebles para hacer un proyecto de interiorismo?<span class="faq-icon">+</span></button>
-                <div class="faq-answer"><p>No necesariamente, hay piezas que cuentan historias y guardan recuerdos; no creemos que todo se tenga que ir para que un espacio se renueve. Nuestro trabajo consiste en evaluar tu mobiliario actual para ayudarte a definir qué conservar, restaurar o reubicar. Integramos lo preexistente con nuevos elementos y diseños a medida, logrando una atmósfera renovada y coherente sin generar gastos innecesarios.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">¿Los muebles son diseñados a medida o seleccionados de catálogo?<span class="faq-icon">+</span></button>
-                <div class="faq-answer"><p> Dependiendo de lo que pida tu espacio, diseñamos mobiliario a medida (entregando toda la documentación técnica para su fabricación) o seleccionamos piezas existentes en el mercado. Siempre te sugerimos profesionales y marcas de nuestra confianza, pero tenés total libertad para elegir con qué carpintero trabajar o dónde adquirir cada elemento.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Pueden encargarse ustedes de las compras y la ambientación final?<span class="faq-icon">+</span></button>
-                <div class="faq-answer"><p>Sí, contamos con un servicio independiente de gestión de compras. A partir de un presupuesto definido, nos ocupamos de adquirir cada elemento, recibirlo y realizar el montaje final en tu casa. Es una opción ideal si buscás delegar todo el proceso y llegar con el espacio terminado, aunque siempre tenés la alternativa de hacer las compras vos misma siguiendo nuestra propuesta.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">¿Realizan proyectos de interiorismo de forma online para el resto del país?<span class="faq-icon">+</span></button>
-                <div class="faq-answer"><p> Sí, realizamos proyectos 100% virtuales para cualquier punto de Argentina. Por eso, cuando diseñamos, lo hacemos teniendo en cuenta el mercado local que te rodea junto con opciones de tiendas con envío online. O bien, proyectamos mobiliario a medida y te entregamos toda la documentación técnica para que lo fabriques en tu ciudad sin complicaciones, porque nuestro objetivo es que puedas materializar el espacio exactamente igual a como lo diseñamos.</p></div>
-            </div>
-           
-        </div>
-    </section>
+        </section>
 
-    <!-- 4. CONTACTO -->
-    <section id="contacto" class="section bg-light contact-section">
-        <h2 class="section-title fade-up">Comenzá tu Proyecto</h2>
-        <p class="contact-text fade-up">Contactanos de forma directa para despejar dudas iniciales o agenda una entrevista para profundizar en tus ideas.</p>
-        
-        <div class="contact-btn-group fade-up">
-            <a href="https://wa.me/543517914897" target="_blank" class="btn-dark">WhatsApp Directo</a>
-            <a href="https://calendly.com/" target="_blank" class="btn-a">Agendar Reunión</a>
+        <!-- 4. CONTACTO -->
+        <section id="contacto" class="section contact-section">
+            <h2 class="section-title fade-up">Comenzá tu Proyecto</h2>
+            <p class="contact-text fade-up">Completá nuestro formulario con los detalles de tu espacio o escribinos directamente para despejar tus dudas iniciales.</p>
+            
+            <div class="contact-btn-group fade-up">
+                <button type="button" id="openModalBtn" class="btn-a" aria-haspopup="dialog" aria-controls="formModal">Completar Formulario</button>
+                <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="btn-dark">WhatsApp Directo</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- VENTANA MODAL FLOTANTE GOOGLE FORMS -->
+    <div id="formModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Formulario de consulta is.Arch">
+        <div class="modal-container">
+            <button type="button" id="closeModalBtn" class="modal-close-btn" aria-label="Cerrar formulario">&times;</button>
+            <div class="modal-iframe-wrapper">
+                <iframe id="googleFormIframe"
+                        data-src="https://docs.google.com/forms/d/e/1FAIpQLScY2vU7saGwgAV6wTefwab580rLZBnY7CfvzWDgK7jCo4HXkw/viewform?embedded=true" 
+                        title="Formulario de contacto is.Arch"
+                        loading="lazy">
+                    Cargando formulario…
+                </iframe>
+            </div>
         </div>
-    </section>
+    </div>
 
     <!-- FOOTER GENERAL -->
     <footer>
@@ -302,70 +415,140 @@
        target="_blank" 
        rel="noopener noreferrer" 
        class="whatsapp-floating-btn" 
-       title="Escribinos por WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+       title="Escribinos por WhatsApp"
+       aria-label="Iniciar chat en WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
             <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
         </svg>
     </a>
 
     <script>
-        // Lógica del Menú Móvil
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
+        let preloaderHidden = false;
 
-        mobileMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            mobileMenuBtn.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
+        function hidePreloader() {
+            if (preloaderHidden) return;
+            preloaderHidden = true;
+            const preloader = document.getElementById('sitePreloader');
+            if (preloader) {
+                preloader.classList.add('fade-out');
+                setTimeout(() => preloader.remove(), 800);
+            }
+        }
 
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                mobileMenuBtn.classList.remove('active');
-                navLinks.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Menú Móvil
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+
+            if (mobileMenuBtn && navLinks) {
+                const closeMobileMenu = () => {
+                    mobileMenuBtn.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                };
+
+                mobileMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isActive = mobileMenuBtn.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', String(isActive));
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        closeMobileMenu();
+                    }
+                });
+
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', closeMobileMenu);
+                });
+            }
+
+            // Acordeón FAQ
+            const faqItems = document.querySelectorAll('.faq-question');
+            faqItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const answer = item.nextElementSibling;
+                    const isActive = item.classList.contains('active');
+                    
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.setAttribute('aria-expanded', 'false');
+                        otherItem.nextElementSibling.style.maxHeight = null;
+                    });
+
+                    if (!isActive) {
+                        item.classList.add('active');
+                        item.setAttribute('aria-expanded', 'true');
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // Animaciones al Scrollear
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+            // Ventana Modal Google Forms (carga diferida)
+            const openModalBtn = document.getElementById('openModalBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const formModal = document.getElementById('formModal');
+            const googleFormIframe = document.getElementById('googleFormIframe');
+
+            const ensureFormLoaded = () => {
+                if (googleFormIframe && !googleFormIframe.src && googleFormIframe.dataset.src) {
+                    googleFormIframe.src = googleFormIframe.dataset.src;
+                }
+            };
+
+            if (openModalBtn && closeModalBtn && formModal) {
+                openModalBtn.addEventListener('click', () => {
+                    ensureFormLoaded();
+                    formModal.classList.add('active');
+                    formModal.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden';
+                    closeModalBtn.focus();
+                });
+
+                const closeModal = () => {
+                    formModal.classList.remove('active');
+                    formModal.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = '';
+                };
+
+                closeModalBtn.addEventListener('click', closeModal);
+
+                formModal.addEventListener('click', (e) => {
+                    if (e.target === formModal) closeModal();
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && formModal.classList.contains('active')) {
+                        closeModal();
+                    }
+                });
+
+                window.addEventListener('load', () => {
+                    setTimeout(ensureFormLoaded, 2000);
+                }, { once: true });
             }
         });
 
-        // Acordeón FAQ
-        const faqItems = document.querySelectorAll('.faq-question');
-        faqItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const answer = item.nextElementSibling;
-                const isActive = item.classList.contains('active');
-                
-                faqItems.forEach(otherItem => {
-                    otherItem.classList.remove('active');
-                    otherItem.nextElementSibling.style.maxHeight = null;
-                });
-
-                if (!isActive) {
-                    item.classList.add('active');
-                    answer.style.maxHeight = answer.scrollHeight + "px";
-                }
-            });
-        });
-
-        // Animaciones al Scrollear
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                } else {
-                    entry.target.classList.remove('visible');
-                }
-            });
-        }, { threshold: 0.15 });
-
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-        // Preloader
+        // Preloader con respaldo de tiempo máximo
         window.addEventListener('load', () => {
-            const preloader = document.getElementById('sitePreloader');
-            setTimeout(() => {
-                preloader.classList.add('fade-out');
-                setTimeout(() => preloader.remove(), 800); 
-            }, 400);
-        });  
+            setTimeout(hidePreloader, 400);
+        }, { once: true });
+
+        setTimeout(hidePreloader, 2500);
     </script>
 </body>
 </html>
