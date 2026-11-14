@@ -72,6 +72,7 @@
         html, body { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
         body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
         a { text-decoration: none; color: var(--text-color); }
+        a, button, .gallery-item, .channel-card { touch-action: manipulation; }
 
         /* ----- 2. PANTALLA DE CARGA ----- */
         .preloader { position: fixed; inset: 0; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
@@ -112,9 +113,9 @@
         .project-description p { margin-bottom: 10px; line-height: 1.7; }
         .project-description p:last-child { margin-bottom: 0; }
 
-        /* ----- 5. GALERÍA MOSAICO DINÁMICO (8 IMÁGENES A LA VISTA) ----- */
+        /* ----- 5. GALERÍA MOSAICO DINÁMICO ----- */
         .project-gallery { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 150px; gap: 3px; }
-        .gallery-item { overflow: hidden; cursor: pointer; position: relative; }
+        .gallery-item { overflow: hidden; cursor: pointer; position: relative; background-color: var(--light-gray); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; }
         .gallery-item:hover img { transform: scale(1.03); }
 
@@ -139,12 +140,94 @@
         .contact-details { margin-top: 30px; }
         .contact-details p { font-size: 0.9rem; margin-bottom: 10px; color: #635847; }
         .contact-channels { flex: 1.2; min-width: 300px; display: flex; flex-direction: column; gap: 20px; }
-        .channel-card { display: flex; flex-direction: column; justify-content: center; padding: 30px; background-color: #f6e5d6; border: 1px solid transparent; transition: var(--transition); border-radius: 4px; }
+        .channel-card { display: flex; flex-direction: column; justify-content: center; padding: 30px; background-color: #f6e5d6; border: 1px solid transparent; transition: var(--transition); border-radius: 4px; cursor: pointer; }
         .channel-card h4 { font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: var(--text-color); }
         .channel-card p { font-size: 0.85rem; color: #635847; margin-bottom: 0; line-height: 1.5; }
         .channel-card:hover { background-color: #e0ceb7; border-color: #635847; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
-        /* ----- 7. LIGHTBOX / VISOR ----- */
+        /* ----- 7. VENTANA MODAL FLOTANTE GOOGLE FORMS ----- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 10050;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            position: relative;
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 850px;
+            height: 88vh;
+            height: 88dvh;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            background: #ffffff;
+            border: none;
+            font-size: 1.8rem;
+            line-height: 1;
+            color: #635847;
+            cursor: pointer;
+            z-index: 10;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background-color: #635847;
+            color: #ffffff;
+        }
+
+        .modal-iframe-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .modal-iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* ----- 8. LIGHTBOX / VISOR ----- */
         .lightbox { 
             position: fixed; inset: 0; 
             background-color: rgba(255, 255, 255, 0.96); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
@@ -154,7 +237,7 @@
         .lightbox.active { display: flex; }
 
         .lightbox-content { 
-            position: relative; width: 100vw; height: 100vh; display: flex; 
+            position: relative; width: 100vw; height: 100vh; height: 100dvh; display: flex; 
             justify-content: center; align-items: center; background-color: transparent; padding: 110px 80px 70px 80px; 
             overflow: hidden;
         }
@@ -163,7 +246,7 @@
             max-width: 100%; max-height: 100%; width: auto; height: auto; 
             object-fit: contain; box-shadow: 0 15px 50px rgba(0,0,0,0.08); 
             opacity: 1; transform: scale(1);
-            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* TÍTULO RÍGIDO DE 2 LÍNEAS OPTIMIZADO */
@@ -182,9 +265,9 @@
         .title-line-2 { font-size: 0.65rem; font-weight: 400; text-transform: uppercase; letter-spacing: 1.5px; color: #777777; }
 
         .lightbox-btn { 
-            position: fixed; top: 0; height: 100vh; width: 80px; background-color: transparent; 
+            position: fixed; top: 0; height: 100vh; height: 100dvh; width: 80px; background-color: transparent; 
             color: #1a1a1a; border: none; display: flex; justify-content: center; align-items: center; 
-            font-size: 2.2rem; font-weight: 300; cursor: pointer; z-index: 10020; transition: background-color 0.4s ease; 
+            font-size: 2.2rem; font-weight: 300; cursor: pointer; z-index: 10038; transition: background-color 0.4s ease; 
         }
         
         .lightbox-btn:hover { background-color: rgba(0, 0, 0, 0.03); }
@@ -234,7 +317,7 @@
         .next-btn.is-last:hover ~ .next-project-preview-floating,
         .next-project-preview-floating:hover { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); pointer-events: auto; }
 
-        /* ----- 8. FOOTER & WHATSAPP ----- */
+        /* ----- 9. FOOTER & WHATSAPP ----- */
         footer { background-color: #635847; color: #f6e5d6; padding: 60px 5% 40px; }
         
         .footer-container { display: grid; grid-template-columns: 1.3fr 2fr 0.9fr; gap: 40px; max-width: 1200px; margin: 0 auto; font-size: 0.9rem; }
@@ -258,12 +341,12 @@
         .whatsapp-floating-btn svg { width: 32px; height: 32px; fill: #fff; }
         .whatsapp-floating-btn:hover { transform: scale(1.1); background-color: #20ba5a; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); }
 
-        /* ----- 9. RESPONSIVE MÓVIL ----- */
+        /* ----- 10. RESPONSIVE MÓVIL ----- */
         @media (max-width: 900px) {
-            .lightbox-content { padding: 100px 12px 60px 12px; }
+            .lightbox-content { padding: 100px 48px 60px 48px; }
             
             /* Título y Tarjetas Centradas para Móvil */
-            .lightbox-header-title { top: 15px; width: 85vw; padding: 6px 12px; }
+            .lightbox-header-title { top: 15px; width: 78vw; padding: 6px 12px; }
             .title-line-1 { font-size: 0.65rem; }
             .title-line-2 { font-size: 0.58rem; }
             
@@ -283,17 +366,32 @@
         }
 
         @media (max-width: 768px) {
+            .project-header { padding-top: 105px; }
             .project-meta-grid { flex-direction: column; gap: 20px; }
             .meta-item p { white-space: normal; }
             .mobile-menu-btn { display: flex; }
             .nav-links { position: absolute; top: 80px; left: 0; width: 100%; background-color: #ffffff; flex-direction: column; padding: 20px 5% 40px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 999; gap: 0; }
             .nav-links.active { opacity: 1; visibility: visible; transform: translateY(0); }
             .nav-links a { width: 100%; padding: 15px 0; font-size: 1.1rem; border-bottom: 1px solid #f5f5f5; }
+            .nav-links a:last-child { border-bottom: none; }
 
             .project-title { font-size: 1.8rem; }
-            
-            .project-gallery { grid-template-columns: 1fr; grid-auto-rows: 250px; }
+            .project-content { padding-bottom: 60px; }
+            .project-gallery { grid-template-columns: 1fr; grid-auto-rows: 250px; gap: 6px; }
             .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+
+            /* Contacto Responsive */
+            .section { padding: 60px 5%; }
+            .section-title { font-size: 1.6rem; margin-bottom: 40px; }
+            .contact-container { gap: 35px; }
+            .contact-info, .contact-channels { min-width: 100%; width: 100%; }
+            .contact-info h3 { font-size: 1.35rem; }
+            .channel-card { padding: 22px; }
+
+            /* Modal Responsive */
+            .modal-overlay { padding: 10px; }
+            .modal-container { height: 92vh; height: 92dvh; }
+            .modal-close-btn { top: 10px; right: 12px; width: 34px; height: 34px; font-size: 1.6rem; }
 
             /* Footer Responsive Reset (Igual a index.html) */
             .footer-container { grid-template-columns: 1fr; gap: 40px; }
@@ -305,7 +403,6 @@
             .whatsapp-floating-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
             .whatsapp-floating-btn svg { width: 28px; height: 28px; }
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -337,7 +434,7 @@
         <!-- Encabezado con HTML5 -->
         <article class="project-header">
             <a href="index.html#obras" class="back-link" aria-label="Volver a la lista de obras">← Volver a Proyectos Destacados</a>
-            <h1 class="project-title">CASA FM</h1>
+            <h1 class="project-title">CASA FM - Arquitectura Evolutiva y Conexión Natural</h1>
             
             <section class="project-meta-grid">
                 <div class="meta-item">
@@ -369,69 +466,84 @@
         <!-- Galería e info -->
         <section class="project-content">
             <div class="project-description">
-            <p>El proyecto nació a partir de dos grandes premisas: concebir una vivienda capaz de crecer y transformarse junto con la dinámica de la familia, y garantizar que cada ambiente mantenga un contacto estrecho con el exterior. Ubicada en un lote en esquina con una pendiente muy pronunciada, nuestra estrategia de diseño consistió en implantar la casa en el sector más alto del terreno, logrando así capturar la vista hacia las sierras cordobesas.</p>
-            <p>En esta primera etapa construida, el living se consolida como uno de los espacios más especiales. Su diseño se abre en dos de sus frentes mediante amplios ventanales, conectando por un lado con un patio privado que da una cálida bienvenida a la vivienda. Por su parte, la cocina destaca por un fuerte gesto de diseño: un ventanal que se pliega y proyecta hacia el techo, permitiendo un baño de luz natural que potencia la conexión con el entorno. Acompañando esta búsqueda de integración, una galería recorre todo el largo de la casa hacia el patio posterior; hacia este espacio se expanden tanto el living como todos los dormitorios, conectando directamente con el jardín.</p>
-            <p>Pensando en la evolución del hogar, el diseño contempla una segunda etapa donde la actual planta baja se destinará a las áreas privadas y de uso más diario. La cocina inicial se transformará en un espacio de office/kitchenette, y se sumarán un nuevo dormitorio y un baño. De este modo, las actividades de carácter social y los puntos de reunión se trasladarán a la futura planta alta, donde sobre toda la superficie de la planta bajan se proyectó un gran estar-comedor-cocina con expansión directa hacia una terraza.</p>
-        </div>
+                <p>El proyecto nació a partir de dos grandes premisas: concebir una vivienda capaz de crecer y transformarse junto con la dinámica de la familia, y garantizar que cada ambiente mantenga un contacto estrecho con el exterior. Ubicada en un lote en esquina con una pendiente muy pronunciada, nuestra estrategia de diseño consistió en implantar la casa en el sector más alto del terreno, logrando así capturar la vista hacia las sierras cordobesas.</p>
+                <p>En esta primera etapa construida, el living se consolida como uno de los espacios más especiales. Su diseño se abre en dos de sus frentes mediante amplios ventanales, conectando por un lado con un patio privado que da una cálida bienvenida a la vivienda. Por su parte, la cocina destaca por un fuerte gesto de diseño: un ventanal que se pliega y proyecta hacia el techo, permitiendo un baño de luz natural que potencia la conexión con el entorno. Acompañando esta búsqueda de integración, una galería recorre todo el largo de la casa hacia el patio posterior; hacia este espacio se expanden tanto el living como todos los dormitorios, conectando directamente con el jardín.</p>
+                <p>Pensando en la evolución del hogar, el diseño contempla una segunda etapa donde la actual planta baja se destinará a las áreas privadas y de uso más diario. La cocina inicial se transformará en un espacio de office/kitchenette, y se sumarán un nuevo dormitorio y un baño. De este modo, las actividades de carácter social y los puntos de reunión se trasladarán a la futura planta alta, donde sobre toda la superficie de la planta bajan se proyectó un gran estar-comedor-cocina con expansión directa hacia una terraza.</p>
+            </div>
 
-            <!-- MOSAICO COMPLETO 8 IMÁGENES -->
+            <!-- MOSAICO DE IMÁGENES -->
             <div class="project-gallery">
                 <div class="gallery-item">
-                    <img src="CasaFM/2.jpg" alt="Fachada Principal e Integración del Parque en Casa FM" fetchpriority="high">
+                    <img src="CasaFM/2.jpg" alt="Fachada Principal e Integración del Entorno en Casa FM" fetchpriority="high" decoding="async">
                 </div>
                 <div class="gallery-item">
-                    <img src="CasaFM/1.jpg" style="object-position: 40% 50%;" alt="Galería Exterior y Área de Piscina Casa FM" loading="lazy">
+                    <img src="CasaFM/1.jpg" style="object-position: 40% 50%;" alt="Galería Exterior y Área de Jardín Casa FM" loading="lazy" decoding="async">
                 </div>
                 <div class="gallery-item">
-                    <img src="CasaFM/3.png" alt="Diseño de Interiores y Comedor Integrado is.Arch" loading="lazy">
+                    <img src="CasaFM/3.png" alt="Diseño de Interiores y Estar Integrado Casa FM" loading="lazy" decoding="async">
                 </div>
                 <div class="gallery-item">
-                    <img src="CasaFM/4.jpg" alt="Detalle de Escalera Cemento y Madera is.Arch" loading="lazy">
+                    <img src="CasaFM/4.jpg" alt="Detalle Arquitectónico y Ventanales en Casa FM" loading="lazy" decoding="async">
                 </div>
                 <div class="gallery-item">
-                    <img src="CasaFM/5.jpg" alt="Estudio de Iluminación Cenital Cocina Casa FM" loading="lazy">
+                    <img src="CasaFM/5.jpg" alt="Estudio de Iluminación Cenital Cocina Casa FM" loading="lazy" decoding="async">
                 </div>
                 <div class="gallery-item">
-                    <img src="CasaFM/IMG_3905.jpg" alt="Detalle de Guardería e Interiorismo Casa FM " loading="lazy">
+                    <img src="CasaFM/IMG_3905.jpg" alt="Vista Exterior e Implantación en Pendiente Casa FM" loading="lazy" decoding="async">
                 </div>
-                <div class="gallery-item">
-                    <img src="CasaFM/6.png" alt="Detalle ingreso Casa FM Mendiolaza" loading="lazy">
-                </div>
+                <!--<div class="gallery-item">
+                    <img src="CasaFM/6.png" alt="Detalle ingreso Casa FM Mendiolaza" loading="lazy" decoding="async">
+                </div> -->
             </div>
-        </div>
         </section>
 
         <!-- SECCIÓN DE CONTACTO OPTIMIZADA -->
         <section id="contacto" class="section contact-section">
             <h2 class="section-title">Comenzá tu Proyecto</h2>
             <div class="contact-container">
-                  <div class="contact-info">
+                <div class="contact-info">
                     <h3>¿HABLAMOS DE TU IDEA?</h3>
                     <p>Queremos conocer tu propuesta, evaluar las necesidades de tu espacio y contarte cómo trabajamos. El primer paso es coordinar una entrevista virtual para definir el alcance del proyecto; a partir de ese encuentro, te enviaremos un presupuesto detallado, sin cargo y a la medida de tu caso. Elegí la opción que te resulte más cómoda para que tengamos esa primera charla:</p>
                     <div class="contact-details">
                         <p><strong>Teléfono:</strong> +54 9 351 791-4897</p>
-                        <p><strong>Email:</strong> contacto.is.arch@gmail.com </p>
+                        <p><strong>Email:</strong> contacto.is.arch@gmail.com</p>
                     </div>
                 </div>
 
                 <div class="contact-channels">
-                    <a href="https://wa.me/543517914897?text=Hola!%20Vi%20Casa%20AJ%20y%20quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="channel-card">
-                        <h4>Escribinos por WhatsApp</h4>
-                        <p>Para charlar de forma directa, resolver dudas rápidas y coordinar una primera videollamada con el equipo de is.Arch.</p>
+                    <!-- BOTÓN ACTIVADOR DEL MODAL DE GOOGLE FORMS -->
+                    <a href="#contacto" id="openModalBtn" class="channel-card" role="button" aria-haspopup="dialog" aria-controls="formModal">
+                        <h4>Completar formulario</h4>
+                        <p>Si ya tenés claro lo que necesitás, completá el formulario y nos pondremos en contacto contigo a la brevedad.</p>
                     </a>
-
-                    <a href="https://calendly.com/tu-usuario-aqui" target="_blank" rel="noopener noreferrer" class="channel-card">
-                        <h4>Agendá tu reunión en Calendly</h4>
-                        <p>Si ya tenés claras tus metas, seleccioná el día y horario que prefieras para nuestra primera entrevista virtual de asesoramiento.</p>
+                    
+                    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="channel-card">
+                        <h4>Escribinos por WhatsApp</h4>
+                        <p>Para que charlemos de tu propuesta de forma directa y coordinemos juntos una primer videollamada.</p>
                     </a>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- VENTANA MODAL FLOTANTE GOOGLE FORMS -->
+    <div id="formModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Formulario de consulta is.Arch">
+        <div class="modal-container">
+            <button type="button" id="closeModalBtn" class="modal-close-btn" aria-label="Cerrar formulario">&times;</button>
+            <div class="modal-iframe-wrapper">
+                <iframe id="googleFormIframe"
+                        data-src="https://docs.google.com/forms/d/e/1FAIpQLScY2vU7saGwgAV6wTefwab580rLZBnY7CfvzWDgK7jCo4HXkw/viewform?embedded=true" 
+                        title="Formulario de contacto is.Arch"
+                        loading="lazy">
+                    Cargando formulario…
+                </iframe>
+            </div>
+        </div>
+    </div>
+
     <!-- Visor de Imágenes Unificado -->
-    <div id="lightboxVisor" class="lightbox" aria-modal="true" role="dialog">
-        <button class="lightbox-btn close-btn" id="closeBtn" aria-label="Cerrar visor">✕</button>
+    <div id="lightboxVisor" class="lightbox" aria-modal="true" role="dialog" aria-label="Visor de imágenes de Casa FM">
+        <button type="button" class="lightbox-btn close-btn" id="closeBtn" aria-label="Cerrar visor">✕</button>
         
         <!-- Título Rígido en 2 Líneas (Mobile First) -->
         <div class="lightbox-header-title">
@@ -440,42 +552,42 @@
         </div>
         
         <div class="lightbox-content" id="lightboxContentContainer">
-            <button class="lightbox-btn prev-btn" id="prevBtn" aria-label="Imagen anterior">‹</button>
+            <button type="button" class="lightbox-btn prev-btn" id="prevBtn" aria-label="Imagen anterior">‹</button>
 
             <!-- TARJETA FLOTANTE (PROYECTO ANTERIOR) -->
             <div class="prev-project-preview-floating" id="prevProjectPreview">
-                <a href="casa-aj.html" class="next-project-card-white"> 
+                <a href="casa-cb.html" class="next-project-card-white"> 
                     <h4 class="next-label">Proyecto Anterior</h4>
                     <div class="next-img-wrapper">
-                        <img src="CasaAJ/AJ-1.png" alt="Casa CJ" loading="lazy">
+                        <img src="CasaCB/1.png" alt="Casa CB" loading="lazy">
                     </div>
                     <div class="next-info">
-                        <h5>CASA AJ</h5>
-                        <p>Barrio Sierra Nueva, Mendiolaza, Argentina</p>
+                        <h5>CASA CB</h5>
+                        <p>Cuesta Blanca, Córdoba, Argentina.</p>
                     </div>
                 </a>
             </div>
 
             <img src="" alt="Visor de Obra is.Arch" class="lightbox-img" id="lightboxImg">
             
-            <button class="lightbox-btn next-btn" id="nextBtn" aria-label="Siguiente imagen">›</button>
+            <button type="button" class="lightbox-btn next-btn" id="nextBtn" aria-label="Siguiente imagen">›</button>
 
             <!-- TARJETA FLOTANTE (PROYECTO SIGUIENTE) -->
             <div class="next-project-preview-floating" id="nextProjectPreview">
-                <a href="casa-cb.html" class="next-project-card-white"> 
+                <a href="comercial-crie.html" class="next-project-card-white"> 
                     <h4 class="next-label">Próximo Proyecto</h4>
                     <div class="next-img-wrapper">
-                        <img src="CasaCB/1.png" alt="Casa CB" loading="lazy">
+                        <img src="ComercialCRIE/1.png" alt="Comercial CRIE" loading="lazy">
                     </div>
                     <div class="next-info">
-                        <h5>CASA CB</h5>
-                        <p>Barrio Sierra Nueva, Mendiolaza, Argentina.</p>
+                        <h5>CONSULTORIOS RIE</h5>
+                        <p>Barrio Centro, Villa María, Argentina.</p>
                     </div>
                 </a>
             </div>
         </div>
         
-        <div class="lightbox-counter" id="lightboxCounter" aria-live="polite">1 / 8</div>
+        <div class="lightbox-counter" id="lightboxCounter" aria-live="polite">1 / 6</div>
     </div>
 
     <!-- FOOTER GENERAL -->
@@ -523,43 +635,89 @@
     </footer>
 
     <!-- Botón Flotante WhatsApp -->
-    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="whatsapp-floating-btn" aria-label="Iniciar chat en WhatsApp">
+    <a href="https://wa.me/543517914897?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20de%20arquitectura." target="_blank" rel="noopener noreferrer" class="whatsapp-floating-btn" title="Escribinos por WhatsApp" aria-label="Iniciar chat en WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-28-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
     </a>
 
-    <!-- Scripts DRY (No repeticiones) + Efectos Fluidos -->
+    <!-- Scripts DRY + Efectos Fluidos -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Menú Móvil
+            // 1. Menú Móvil
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const navLinks = document.getElementById('navLinks');
 
             if (mobileMenuBtn && navLinks) {
+                const closeMobileMenu = () => {
+                    mobileMenuBtn.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                };
+
                 mobileMenuBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const isActive = mobileMenuBtn.classList.toggle('active');
                     navLinks.classList.toggle('active');
-                    mobileMenuBtn.setAttribute('aria-expanded', isActive);
+                    mobileMenuBtn.setAttribute('aria-expanded', String(isActive));
                 });
 
                 document.addEventListener('click', (e) => {
-                    if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                        mobileMenuBtn.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        closeMobileMenu();
                     }
                 });
 
                 navLinks.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenuBtn.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                    });
+                    link.addEventListener('click', closeMobileMenu);
                 });
             }
 
-            // Visor de Galería (Lightbox)
+            // 2. Ventana Modal Google Forms (con precarga diferida para máxima fluidez)
+            const openModalBtn = document.getElementById('openModalBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const formModal = document.getElementById('formModal');
+            const googleFormIframe = document.getElementById('googleFormIframe');
+
+            const ensureFormLoaded = () => {
+                if (googleFormIframe && !googleFormIframe.src && googleFormIframe.dataset.src) {
+                    googleFormIframe.src = googleFormIframe.dataset.src;
+                }
+            };
+
+            if (openModalBtn && closeModalBtn && formModal) {
+                const openModal = (e) => {
+                    e.preventDefault();
+                    ensureFormLoaded();
+                    formModal.classList.add('active');
+                    formModal.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden';
+                    closeModalBtn.focus();
+                };
+
+                const closeModal = () => {
+                    formModal.classList.remove('active');
+                    formModal.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = '';
+                };
+
+                openModalBtn.addEventListener('click', openModal);
+                closeModalBtn.addEventListener('click', closeModal);
+
+                formModal.addEventListener('click', (e) => {
+                    if (e.target === formModal) closeModal();
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && formModal.classList.contains('active')) {
+                        closeModal();
+                    }
+                });
+
+                window.addEventListener('load', () => {
+                    setTimeout(ensureFormLoaded, 2000);
+                }, { once: true });
+            }
+
+            // 3. Visor de Galería (Lightbox) Inteligente con precarga y soporte táctil (Swipe)
             const galleryItems = document.querySelectorAll('.gallery-item img');
             const lightbox = document.getElementById('lightboxVisor');
             const lightboxImg = document.getElementById('lightboxImg');
@@ -574,6 +732,20 @@
             if (lightbox && galleryItems.length > 0) {
                 let currentImgIndex = 0;
                 const totalImages = galleryItems.length;
+                const preloadedSources = new Set();
+
+                const preloadAdjacentImages = (index) => {
+                    [index - 1, index + 1].forEach(adjIndex => {
+                        if (adjIndex >= 0 && adjIndex < totalImages) {
+                            const src = galleryItems[adjIndex].src;
+                            if (!preloadedSources.has(src)) {
+                                const img = new Image();
+                                img.src = src;
+                                preloadedSources.add(src);
+                            }
+                        }
+                    });
+                };
 
                 galleryItems.forEach((img, index) => {
                     img.parentElement.addEventListener('click', () => {
@@ -581,50 +753,52 @@
                         updateVisorContent(false);
                         lightbox.classList.add('active'); 
                         document.body.style.overflow = 'hidden'; 
+                        preloadAdjacentImages(index);
                     });
                 });
 
                 function updateVisorContent(animate = true) {
-                    if(prevProjectPreview) prevProjectPreview.classList.remove('active-mobile');
-                    if(nextProjectPreview) nextProjectPreview.classList.remove('active-mobile');
-                    if(prevBtn) prevBtn.classList.remove('is-first');
-                    if(nextBtn) nextBtn.classList.remove('is-last');
+                    if (prevProjectPreview) prevProjectPreview.classList.remove('active-mobile');
+                    if (nextProjectPreview) nextProjectPreview.classList.remove('active-mobile');
+                    if (prevBtn) prevBtn.classList.remove('is-first');
+                    if (nextBtn) nextBtn.classList.remove('is-last');
 
                     const isMobile = window.innerWidth <= 900;
 
                     if (currentImgIndex === -1) {
-                        if(lightboxImg) lightboxImg.style.display = 'none';
+                        if (lightboxImg) lightboxImg.style.display = 'none';
                         if (isMobile && prevProjectPreview) {
                             prevProjectPreview.classList.add('active-mobile');
-                            if(counter) counter.innerText = `Proyecto Anterior`;
-                            if(lightboxTitle) lightboxTitle.style.opacity = '0';
+                            if (counter) counter.innerText = 'Proyecto Anterior';
+                            if (lightboxTitle) lightboxTitle.style.opacity = '0';
                         }
-                        if(prevBtn) prevBtn.classList.add('is-first');
+                        if (prevBtn) prevBtn.classList.add('is-first');
                     } else if (currentImgIndex === totalImages) {
-                        if(lightboxImg) lightboxImg.style.display = 'none';
+                        if (lightboxImg) lightboxImg.style.display = 'none';
                         if (isMobile && nextProjectPreview) {
                             nextProjectPreview.classList.add('active-mobile');
-                            if(counter) counter.innerText = `Próximo Proyecto`;
-                            if(lightboxTitle) lightboxTitle.style.opacity = '0';
+                            if (counter) counter.innerText = 'Próximo Proyecto';
+                            if (lightboxTitle) lightboxTitle.style.opacity = '0';
                         }
-                        if(nextBtn) nextBtn.classList.add('is-last');
+                        if (nextBtn) nextBtn.classList.add('is-last');
                     } else {
-                        if(lightboxImg) lightboxImg.style.display = 'block';
+                        if (lightboxImg) lightboxImg.style.display = 'block';
+                        preloadAdjacentImages(currentImgIndex);
                         
                         if (animate && lightboxImg) {
                             lightboxImg.style.opacity = '0';
                             lightboxImg.style.transform = 'scale(0.96)';
                             setTimeout(() => {
                                 lightboxImg.src = galleryItems[currentImgIndex].src;
-                                if(counter) counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
-                                if(lightboxTitle) lightboxTitle.style.opacity = '1';
+                                if (counter) counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
+                                if (lightboxTitle) lightboxTitle.style.opacity = '1';
                                 lightboxImg.style.opacity = '1';
                                 lightboxImg.style.transform = 'scale(1)';
-                            }, 220);
+                            }, 200);
                         } else if (lightboxImg) {
                             lightboxImg.src = galleryItems[currentImgIndex].src;
-                            if(counter) counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
-                            if(lightboxTitle) lightboxTitle.style.opacity = '1';
+                            if (counter) counter.innerText = `${currentImgIndex + 1} / ${totalImages}`;
+                            if (lightboxTitle) lightboxTitle.style.opacity = '1';
                             lightboxImg.style.opacity = '1';
                             lightboxImg.style.transform = 'scale(1)';
                         }
@@ -637,7 +811,7 @@
                 function nextImage() {
                     const limit = window.innerWidth <= 900 ? totalImages : totalImages - 1;
                     if (currentImgIndex >= limit) {
-                        window.location.href = 'casa-cb.html';
+                        window.location.href = 'comercial-crie.html';
                     } else {
                         currentImgIndex++;
                         updateVisorContent(true);
@@ -647,7 +821,7 @@
                 function prevImage() {
                     const limit = window.innerWidth <= 900 ? -1 : 0;
                     if (currentImgIndex <= limit) {
-                        window.location.href = 'casa-aj.html';
+                        window.location.href = 'casa-cb.html';
                     } else {
                         currentImgIndex--;
                         updateVisorContent(true);
@@ -656,52 +830,61 @@
 
                 function closeVisor() {
                     lightbox.classList.remove('active');
-                    document.body.style.overflow = 'auto'; 
+                    document.body.style.overflow = ''; 
                     if (currentImgIndex === -1) currentImgIndex = 0;
                     if (currentImgIndex === totalImages) currentImgIndex = totalImages - 1;
                 }
 
-                if(nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
-                if(prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
-                if(closeBtn) closeBtn.addEventListener('click', closeVisor);
+                if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+                if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+                if (closeBtn) closeBtn.addEventListener('click', closeVisor);
                 lightbox.addEventListener('click', closeVisor);
-                if(lightboxImg) lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); });
+                if (lightboxImg) lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); });
 
-                // Gestión táctil fluida
+                // Gestión táctil fluida (Swipe horizontal)
                 let touchStartX = 0;
-                let touchEndX = 0;
+                let touchStartY = 0;
                 const lightboxContentContainer = document.getElementById('lightboxContentContainer');
 
                 if (lightboxContentContainer) {
                     lightboxContentContainer.addEventListener('touchstart', (e) => {
                         touchStartX = e.changedTouches[0].screenX;
-                    }, {passive: true});
+                        touchStartY = e.changedTouches[0].screenY;
+                    }, { passive: true });
 
                     lightboxContentContainer.addEventListener('touchend', (e) => {
-                        touchEndX = e.changedTouches[0].screenX;
-                        const diff = touchEndX - touchStartX;
-                        if (diff < -40) nextImage();
-                        else if (diff > 40) prevImage();
-                    }, {passive: true});
+                        const diffX = e.changedTouches[0].screenX - touchStartX;
+                        const diffY = e.changedTouches[0].screenY - touchStartY;
+                        if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                            if (diffX < 0) nextImage();
+                            else prevImage();
+                        }
+                    }, { passive: true });
                 }
 
                 document.addEventListener('keydown', (e) => {
                     if (!lightbox.classList.contains('active')) return;
                     if (e.key === 'ArrowRight') nextImage();
-                    if (e.key === 'ArrowLeft') prevImage();
-                    if (e.key === 'Escape') closeVisor();
+                    else if (e.key === 'ArrowLeft') prevImage();
+                    else if (e.key === 'Escape') closeVisor();
                 });
             }
         });
 
-        // Preloader Logic (Separado del DOMContentLoaded para que funcione al cargar todos los recursos gráficos)
-        window.addEventListener('load', () => {
+        // 4. Pantalla de carga con respaldo ante conexiones lentas
+        let preloaderHidden = false;
+        function hidePreloader() {
+            if (preloaderHidden) return;
+            preloaderHidden = true;
             const preloader = document.getElementById('sitePreloader');
             if (preloader) {
                 preloader.classList.add('fade-out');
-                setTimeout(() => preloader.remove(), 800); 
+                setTimeout(() => preloader.remove(), 800);
             }
-        });  
+        }
+
+        window.addEventListener('load', () => setTimeout(hidePreloader, 350), { once: true });
+        setTimeout(hidePreloader, 2500);
     </script>
 </body>
 </html>
