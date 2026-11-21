@@ -10,9 +10,8 @@
     <link rel="icon" type="image/png" href="logo-solo3.png">
     
     <!-- Preload de recursos críticos para mayor velocidad (LCP) -->
-    <!-- Preload de recursos críticos para mayor velocidad (LCP) -->
-<link rel="preload" href="LOGOANIMADOISARCH.webp" as="image">
-<link rel="preload" href="logo-texto1.png" as="image">
+    <link rel="preload" href="LOGOANIMADOISARCH.webp" as="image">
+    <link rel="preload" href="logo-texto1.png" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -77,11 +76,11 @@
         a, button, .gallery-item, .channel-card { touch-action: manipulation; }
 
         /* ----- 2. PANTALLA DE CARGA ----- */
-        /* ----- 2. PANTALLA DE CARGA ----- */
-.preloader { position: fixed; inset: 0; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-.preloader-wrapper { display: flex; flex-direction: column; align-items: center; gap: 24px; }
-.preloader-logo-img { width: 220px; height: auto; display: block; }
-.preloader.fade-out { opacity: 0; transform: translateY(-30px); pointer-events: none; }
+        .preloader { position: fixed; inset: 0; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .preloader-wrapper { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+        .preloader-logo-img { width: 220px; height: auto; display: block; }
+        .preloader.fade-out { opacity: 0; transform: translateY(-30px); pointer-events: none; }
+
         /* ----- 3. BARRA DE NAVEGACIÓN ----- */
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: #fff; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo-container { display: flex; align-items: center; height: 100%; padding-left: 15px; }
@@ -268,13 +267,12 @@
         .lightbox-btn { 
             position: fixed; top: 0; height: 100vh; height: 100dvh; width: 80px; background-color: transparent; 
             color: #1a1a1a; border: none; display: flex; justify-content: center; align-items: center; 
-            font-size: 2.2rem; font-weight: 300; cursor: pointer; z-index: 10038; transition: background-color 0.4s ease, opacity 0.3s ease; 
+            font-size: 2.2rem; font-weight: 300; cursor: pointer; z-index: 10038; transition: background-color 0.4s ease; 
         }
         
         .lightbox-btn:hover { background-color: rgba(0, 0, 0, 0.03); }
         .prev-btn { left: 0; }
         .next-btn { right: 0; }
-        .next-btn.is-last-end { opacity: 0; visibility: hidden; pointer-events: none; }
 
         .close-btn { 
             position: fixed; top: 20px; right: 4%; width: 45px; height: 45px; background: none; 
@@ -287,13 +285,16 @@
             color: #666; font-size: 0.8rem; letter-spacing: 2px; font-weight: 600; z-index: 10030; user-select: none; 
         }
 
-        /* TARJETA FLOTANTE PC (PROYECTO ANTERIOR) */
-        .prev-project-preview-floating {
-            position: absolute; top: 50%; left: 80px; opacity: 0; visibility: hidden; 
-            transform: translateY(-50%) translateX(-15px);
+        /* ----- TARJETAS EDITORIALES BLANCAS (FLOTANTES EN PC) ----- */
+        .prev-project-preview-floating,
+        .next-project-preview-floating {
+            position: absolute; top: 50%; opacity: 0; visibility: hidden; 
             transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
             z-index: 10025; pointer-events: none; 
         }
+
+        .prev-project-preview-floating { left: 80px; transform: translateY(-50%) translateX(-15px); }
+        .next-project-preview-floating { right: 80px; transform: translateY(-50%) translateX(15px); }
 
         .next-project-card-white {
             background-color: #ffffff; border-radius: 8px; padding: 25px 25px 20px; width: 320px;
@@ -311,7 +312,14 @@
         .next-info p { font-size: 0.95rem; font-weight: 300; color: #777777; margin: 0; }
 
         .prev-btn.is-first:hover ~ .prev-project-preview-floating,
-        .prev-project-preview-floating:hover { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); pointer-events: auto; }
+        .prev-project-preview-floating:hover {
+            opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); pointer-events: auto;
+        }
+
+        .next-btn.is-last:hover ~ .next-project-preview-floating,
+        .next-project-preview-floating:hover {
+            opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); pointer-events: auto;
+        }
 
         /* ----- 9. FOOTER & WHATSAPP ----- */
         footer { background-color: #635847; color: #f6e5d6; padding: 60px 5% 40px; }
@@ -348,14 +356,16 @@
             
             .lightbox-btn { width: 45px; font-size: 1.6rem; }
             
-            .prev-project-preview-floating {
+            .prev-project-preview-floating,
+            .next-project-preview-floating {
                 position: absolute; inset: 0; transform: none !important; opacity: 0; visibility: hidden; 
                 display: flex; align-items: center; justify-content: center; 
                 transition: opacity 0.4s ease, visibility 0.4s ease; 
                 background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
                 z-index: 10035; padding: 20px;
             }
-            .prev-project-preview-floating.active-mobile { opacity: 1; visibility: visible; pointer-events: auto; }
+            .prev-project-preview-floating.active-mobile,
+            .next-project-preview-floating.active-mobile { opacity: 1; visibility: visible; pointer-events: auto; }
             .next-project-card-white { width: 90vw; max-width: 340px; margin: auto; }
         }
 
@@ -401,12 +411,11 @@
 </head>
 <body>
     <!-- PANTALLA DE CARGA -->
-    <!-- PANTALLA DE CARGA -->
-<div id="sitePreloader" class="preloader">
-    <div class="preloader-wrapper">
-        <img src="LOGOANIMADOISARCH.webp" alt="is.Arch" class="preloader-logo-img" loading="eager" fetchpriority="high">
+    <div id="sitePreloader" class="preloader">
+        <div class="preloader-wrapper">
+            <img src="LOGOANIMADOISARCH.webp" alt="is.Arch" class="preloader-logo-img" loading="eager" fetchpriority="high">
+        </div>
     </div>
-</div>
     
     <!-- NAVBAR SEMÁNTICO -->
     <header>
@@ -560,6 +569,20 @@
             <img src="" alt="Visor de Obra is.Arch" class="lightbox-img" id="lightboxImg">
             
             <button type="button" class="lightbox-btn next-btn" id="nextBtn" aria-label="Siguiente imagen">›</button>
+
+            <!-- TARJETA FLOTANTE (PROYECTO SIGUIENTE) -->
+            <div class="next-project-preview-floating" id="nextProjectPreview">
+                <a href="edisur-lomas-office.html" class="next-project-card-white"> 
+                    <h4 class="next-label">Próximo Proyecto</h4>
+                    <div class="next-img-wrapper">
+                        <img src="Lomas/4.png" alt="Edisur - Lomas Office" loading="lazy">
+                    </div>
+                    <div class="next-info">
+                        <h5>EDISUR - LOMAS OFFICE</h5>
+                        <p>Barrio Manantiales, Córdoba, Argentina.</p>
+                    </div>
+                </a>
+            </div>
         </div>
         
         <div class="lightbox-counter" id="lightboxCounter" aria-live="polite">1 / 5</div>
@@ -702,6 +725,7 @@
             const counter = document.getElementById('lightboxCounter');
             const lightboxTitle = document.querySelector('.lightbox-header-title');
             const prevProjectPreview = document.getElementById('prevProjectPreview');
+            const nextProjectPreview = document.getElementById('nextProjectPreview');
 
             if (lightbox && galleryItems.length > 0) {
                 let currentImgIndex = 0;
@@ -733,8 +757,9 @@
 
                 function updateVisorContent(animate = true) {
                     if (prevProjectPreview) prevProjectPreview.classList.remove('active-mobile');
+                    if (nextProjectPreview) nextProjectPreview.classList.remove('active-mobile');
                     if (prevBtn) prevBtn.classList.remove('is-first');
-                    if (nextBtn) nextBtn.classList.remove('is-last-end');
+                    if (nextBtn) nextBtn.classList.remove('is-last');
 
                     const isMobile = window.innerWidth <= 900;
 
@@ -746,6 +771,14 @@
                             if (lightboxTitle) lightboxTitle.style.opacity = '0';
                         }
                         if (prevBtn) prevBtn.classList.add('is-first');
+                    } else if (currentImgIndex === totalImages) {
+                        if (lightboxImg) lightboxImg.style.display = 'none';
+                        if (isMobile && nextProjectPreview) {
+                            nextProjectPreview.classList.add('active-mobile');
+                            if (counter) counter.innerText = 'Próximo Proyecto';
+                            if (lightboxTitle) lightboxTitle.style.opacity = '0';
+                        }
+                        if (nextBtn) nextBtn.classList.add('is-last');
                     } else {
                         if (lightboxImg) lightboxImg.style.display = 'block';
                         preloadAdjacentImages(currentImgIndex);
@@ -769,14 +802,18 @@
                         }
                         
                         if (currentImgIndex === 0 && prevBtn) prevBtn.classList.add('is-first');
-                        if (currentImgIndex === totalImages - 1 && nextBtn) nextBtn.classList.add('is-last-end');
+                        if (currentImgIndex === totalImages - 1 && nextBtn) nextBtn.classList.add('is-last');
                     }
                 }
 
                 function nextImage() {
-                    if (currentImgIndex >= totalImages - 1) return;
-                    currentImgIndex++;
-                    updateVisorContent(true);
+                    const limit = window.innerWidth <= 900 ? totalImages : totalImages - 1;
+                    if (currentImgIndex >= limit) {
+                        window.location.href = 'edisur-lomas-office.html';
+                    } else {
+                        currentImgIndex++;
+                        updateVisorContent(true);
+                    }
                 }
 
                 function prevImage() {
@@ -793,6 +830,7 @@
                     lightbox.classList.remove('active');
                     document.body.style.overflow = ''; 
                     if (currentImgIndex === -1) currentImgIndex = 0;
+                    if (currentImgIndex === totalImages) currentImgIndex = totalImages - 1;
                 }
 
                 if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
@@ -832,47 +870,47 @@
         });
 
         // 4. Pantalla de carga sincronizada con la descarga y duración del logo animado
-let preloaderHidden = false;
-const ANIMATION_DURATION_MS = 1200; // Duración en ms de LOGOANIMADOISARCH.webp
+        let preloaderHidden = false;
+        const ANIMATION_DURATION_MS = 1200; // Duración en ms de LOGOANIMADOISARCH.webp
 
-function hidePreloader() {
-    if (preloaderHidden) return;
-    preloaderHidden = true;
-    const preloader = document.getElementById('sitePreloader');
-    if (preloader) {
-        preloader.classList.add('fade-out');
-        setTimeout(() => preloader.remove(), 800);
-    }
-}
-
-function startPreloaderCountdown() {
-    const logoImg = document.querySelector('.preloader-logo-img');
-    const triggerHide = () => setTimeout(hidePreloader, ANIMATION_DURATION_MS);
-
-    if (!logoImg) {
-        triggerHide();
-        return;
-    }
-
-    if (logoImg.complete && logoImg.naturalWidth > 0) {
-        if (logoImg.decode) {
-            logoImg.decode().then(triggerHide).catch(triggerHide);
-        } else {
-            triggerHide();
+        function hidePreloader() {
+            if (preloaderHidden) return;
+            preloaderHidden = true;
+            const preloader = document.getElementById('sitePreloader');
+            if (preloader) {
+                preloader.classList.add('fade-out');
+                setTimeout(() => preloader.remove(), 800);
+            }
         }
-    } else {
-        logoImg.addEventListener('load', triggerHide, { once: true });
-        logoImg.addEventListener('error', hidePreloader, { once: true });
-    }
-}
 
-if (document.readyState === 'complete') {
-    startPreloaderCountdown();
-} else {
-    window.addEventListener('load', startPreloaderCountdown, { once: true });
-}
+        function startPreloaderCountdown() {
+            const logoImg = document.querySelector('.preloader-logo-img');
+            const triggerHide = () => setTimeout(hidePreloader, ANIMATION_DURATION_MS);
 
-setTimeout(hidePreloader, 3500);
+            if (!logoImg) {
+                triggerHide();
+                return;
+            }
+
+            if (logoImg.complete && logoImg.naturalWidth > 0) {
+                if (logoImg.decode) {
+                    logoImg.decode().then(triggerHide).catch(triggerHide);
+                } else {
+                    triggerHide();
+                }
+            } else {
+                logoImg.addEventListener('load', triggerHide, { once: true });
+                logoImg.addEventListener('error', hidePreloader, { once: true });
+            }
+        }
+
+        if (document.readyState === 'complete') {
+            startPreloaderCountdown();
+        } else {
+            window.addEventListener('load', startPreloaderCountdown, { once: true });
+        }
+
+        setTimeout(hidePreloader, 3500);
     </script>
 </body>
 </html>
