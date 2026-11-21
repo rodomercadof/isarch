@@ -8,7 +8,8 @@
     <title>Paisajismo Arquitectónico · is.Arch</title>
     
     <link rel="icon" type="image/png" href="logo-solo3.png">
-    <link rel="preload" href="logo-texto1.png" as="image">
+<link rel="preload" href="LOGOANIMADOISARCH.webp" as="image">
+<link rel="preload" href="logo-texto1.png" as="image">
     
     <!-- Optimización de fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,12 +33,10 @@
         a, button, .faq-question { touch-action: manipulation; }
 
         /* ----- 2. PANTALLA DE CARGA ----- */
-        .preloader { position: fixed; inset: 0; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-        .preloader-wrapper { display: flex; flex-direction: column; align-items: center; gap: 24px; animation: preloaderReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-        .preloader-logo-img { width: 200px; height: auto; display: block; }
-        .preloader.fade-out { opacity: 0; transform: translateY(-30px); pointer-events: none; }
-        @keyframes preloaderReveal { 0% { opacity: 0; transform: scale(0.97) translateY(5px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-
+.preloader { position: fixed; inset: 0; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+.preloader-wrapper { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.preloader-logo-img { width: 220px; height: auto; display: block; }
+.preloader.fade-out { opacity: 0; transform: translateY(-30px); pointer-events: none; }
         /* ----- 3. BARRA DE NAVEGACIÓN ----- */
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: #fff; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo-container { display: flex; align-items: center; height: 100%; padding-left: 15px; }
@@ -241,11 +240,11 @@
 </head>
 <body>
     <!-- PANTALLA DE CARGA -->
-    <div id="sitePreloader" class="preloader">
-        <div class="preloader-wrapper">
-            <img src="LogoR-Beige.png" alt="is.Arch Volúmenes" class="preloader-logo-img">
-        </div>
+<div id="sitePreloader" class="preloader">
+    <div class="preloader-wrapper">
+        <img src="LOGOANIMADOISARCH.webp" alt="is.Arch" class="preloader-logo-img" loading="eager" fetchpriority="high">
     </div>
+</div>
     
     <!-- NAVBAR -->
     <header>
@@ -535,12 +534,37 @@
             }
         });
 
-        // Preloader con respaldo de tiempo máximo
-        window.addEventListener('load', () => {
-            setTimeout(hidePreloader, 400);
-        }, { once: true });
+        // Preloader sincronizado con la descarga y duración del logo animado
+const ANIMATION_DURATION_MS = 1200; // Duración en ms de LOGOANIMADOISARCH.webp
 
-        setTimeout(hidePreloader, 2500);
+function startPreloaderCountdown() {
+    const logoImg = document.querySelector('.preloader-logo-img');
+    const triggerHide = () => setTimeout(hidePreloader, ANIMATION_DURATION_MS);
+
+    if (!logoImg) {
+        triggerHide();
+        return;
+    }
+
+    if (logoImg.complete && logoImg.naturalWidth > 0) {
+        if (logoImg.decode) {
+            logoImg.decode().then(triggerHide).catch(triggerHide);
+        } else {
+            triggerHide();
+        }
+    } else {
+        logoImg.addEventListener('load', triggerHide, { once: true });
+        logoImg.addEventListener('error', hidePreloader, { once: true });
+    }
+}
+
+if (document.readyState === 'complete') {
+    startPreloaderCountdown();
+} else {
+    window.addEventListener('load', startPreloaderCountdown, { once: true });
+}
+
+setTimeout(hidePreloader, 3500);
     </script>
 </body>
 </html>
