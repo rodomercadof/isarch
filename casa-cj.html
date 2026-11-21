@@ -358,7 +358,7 @@
     <!-- PANTALLA DE CARGA -->
     <div id="sitePreloader" class="preloader">
         <div class="preloader-wrapper">
-            <img src="LogoR-Beige.png" alt="is.Arch Volúmenes" class="preloader-logo-img">
+            <img src="LOGOANIMADOISARCH.webp" alt="is.Arch Volúmenes" class="preloader-logo-img">
         </div>
     </div>
     
@@ -382,7 +382,7 @@
     <!-- Encabezado -->
     <div class="project-header">
         <a href="index.html#obras" class="back-link">← Volver a Proyectos Destacados</a>
-        <h1 class="project-title">CASA CJ</h1>
+        <h1 class="project-title">CASA CJ - Conservar para transformar</h1>
         
         <div class="project-meta-grid">
             <div class="meta-item">
@@ -460,7 +460,7 @@
                 <h3>¿HABLAMOS DE TU IDEA?</h3>
                 <p>Queremos conocer tu propuesta, evaluar las necesidades de tu espacio y contarte cómo trabajamos. El primer paso es coordinar una entrevista virtual para definir el alcance del proyecto; a partir de ese encuentro, te enviaremos un presupuesto detallado, sin cargo y a la medida de tu caso. Elegí la opción que te resulte más cómoda para que tengamos esa primera charla:</p>
                 <div class="contact-details">
-                    <p><strong>Teléfono:</strong> +54 9 351 791-4897</p>
+                    <p><strong>Teléfono:</strong> +54 9 3512 01-5686</p>
                     <p><strong>Email:</strong> contacto.is.arch@gmail.com</p>
                 </div>
             </div>
@@ -802,20 +802,48 @@
             }
         });
 
-        // 4. Pantalla de carga con respaldo ante conexiones lentas
-        let preloaderHidden = false;
-        function hidePreloader() {
-            if (preloaderHidden) return;
-            preloaderHidden = true;
-            const preloader = document.getElementById('sitePreloader');
-            if (preloader) {
-                preloader.classList.add('fade-out');
-                setTimeout(() => preloader.remove(), 800);
-            }
-        }
+        // 4. Pantalla de carga sincronizada con la descarga y duración del logo animado
+let preloaderHidden = false;
+const ANIMATION_DURATION_MS = 1200; // Duración en ms de LOGOANIMADOISARCH.webp
 
-        window.addEventListener('load', () => setTimeout(hidePreloader, 400), { once: true });
-        setTimeout(hidePreloader, 2500);
+function hidePreloader() {
+    if (preloaderHidden) return;
+    preloaderHidden = true;
+    const preloader = document.getElementById('sitePreloader');
+    if (preloader) {
+        preloader.classList.add('fade-out');
+        setTimeout(() => preloader.remove(), 800);
+    }
+}
+
+function startPreloaderCountdown() {
+    const logoImg = document.querySelector('.preloader-logo-img');
+    const triggerHide = () => setTimeout(hidePreloader, ANIMATION_DURATION_MS);
+
+    if (!logoImg) {
+        triggerHide();
+        return;
+    }
+
+    if (logoImg.complete && logoImg.naturalWidth > 0) {
+        if (logoImg.decode) {
+            logoImg.decode().then(triggerHide).catch(triggerHide);
+        } else {
+            triggerHide();
+        }
+    } else {
+        logoImg.addEventListener('load', triggerHide, { once: true });
+        logoImg.addEventListener('error', hidePreloader, { once: true });
+    }
+}
+
+if (document.readyState === 'complete') {
+    startPreloaderCountdown();
+} else {
+    window.addEventListener('load', startPreloaderCountdown, { once: true });
+}
+
+setTimeout(hidePreloader, 3500);
     </script>
 </body>
 </html>
