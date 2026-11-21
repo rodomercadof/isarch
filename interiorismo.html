@@ -8,7 +8,8 @@
     <title>Interiorismo · is.Arch</title>
     
     <link rel="icon" type="image/png" href="logo-solo3.png">
-    <link rel="preload" href="logo-texto1.png" as="image">
+<link rel="preload" href="LOGOANIMADOISARCH.webp" as="image">
+<link rel="preload" href="logo-texto1.png" as="image">
     
     <!-- Optimización de carga de fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,12 +33,10 @@
         a, button, .faq-question { touch-action: manipulation; }
 
         /* ----- 2. PANTALLA DE CARGA ----- */
-        .preloader { position: fixed; inset: 0; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-        .preloader-wrapper { display: flex; flex-direction: column; align-items: center; gap: 24px; animation: preloaderReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-        .preloader-logo-img { width: 200px; height: auto; display: block; }
-        .preloader.fade-out { opacity: 0; transform: translateY(-30px); pointer-events: none; }
-        @keyframes preloaderReveal { 0% { opacity: 0; transform: scale(0.97) translateY(5px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-
+.preloader { position: fixed; inset: 0; background-color: #fcfcfc; display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+.preloader-wrapper { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.preloader-logo-img { width: 220px; height: auto; display: block; }
+.preloader.fade-out { opacity: 0; transform: translateY(-30px); pointer-events: none; }
         /* ----- 3. BARRA DE NAVEGACIÓN ----- */
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: #fff; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo-container { display: flex; align-items: center; height: 100%; padding-left: 15px; }
@@ -242,12 +241,11 @@
 </head>
 <body>
     <!-- PANTALLA DE CARGA -->
-    <div id="sitePreloader" class="preloader">
-        <div class="preloader-wrapper">
-            <img src="LogoR-Beige.png" alt="is.Arch Volúmenes" class="preloader-logo-img">
-        </div>
+<div id="sitePreloader" class="preloader">
+    <div class="preloader-wrapper">
+        <img src="LOGOANIMADOISARCH.webp" alt="is.Arch" class="preloader-logo-img" loading="eager" fetchpriority="high">
     </div>
-    
+</div>
     <!-- NAVBAR -->
     <header>
         <a href="index.html" class="logo-container" aria-label="Ir al inicio de is.Arch">
@@ -307,15 +305,7 @@
             <div class="faq-container fade-up">
                 <div class="faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">¿Qué alcance tiene un proyecto de interiorismo?<span class="faq-icon">+</span></button>
-                    <div class="faq-answer"><p>Nuestra intervención abarca distintos niveles. Podemos involucrarnos durante la obra gris para definir revestimientos, pisos y la ubicación de instalaciones, asegurando que el diseño interior y la arquitectura dialoguen con precisión técnica. O bien, sumarnos en etapas más avanzadas para enfocarnos en el diseño de muebles a medida y la estética final del espacio, mediante la selección de equipamiento, textiles, iluminación y curaduría de detalles.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button type="button" class="faq-question" aria-expanded="false">¿El servicio de interiorismo aplica tanto para viviendas nuevas como para remodelaciones?<span class="faq-icon">+</span></button>
-                    <div class="faq-answer"><p>Sí, abordamos ambos casos. Podemos intervenir un espacio existente para renovarlo y adaptarlo a tu estilo de vida actual, o proyectar el interior de una obra nueva desde el inicio, asegurando que cada detalle y la materialidad reflejen la esencia de lo que buscás.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button type="button" class="faq-question" aria-expanded="false">Otro profesional diseña mi casa, ¿pueden ayudarme a definir el interiorismo?<span class="faq-icon">+</span></button>
-                    <div class="faq-answer"><p>Sí, es uno de nuestros servicios principales. Trabajamos en conjunto con otros profesionales durante la obra o la etapa de desarrollo del proyecto. Podemos involucrarnos en la fase que requieran: ya sea para intervenir en decisiones clave (como revestimientos, diseño de nichos, sanitarios y ubicación de luminarias), o en una etapa posterior con el equipamiento y los detalles finales. De esta forma, aportamos nuestra visión para ayudar a que todo el conjunto dialogue a la perfección.</p></div>
+                    <div class="faq-answer"><p>Nuestra intervención se adapta a la etapa en la que se encuentre tu proyecto. Podemos involucrarnos desde la obra gris para definir materialidades, revestimientos y la distribución técnica de instalaciones, asegurando un diálogo perfecto entre la arquitectura y el diseño interior. Si el proyecto original está a cargo de otro colega, trabajamos en sinergia para garantizar que las bases estructurales respondan a la atmósfera que proyectamos. Alternativamente, podemos sumarnos en etapas más avanzadas para enfocarnos en el diseño de mobiliario a medida y definir la estética final del espacio mediante la selección de equipamiento, textiles, iluminación y una rigurosa curaduría de detalles.</p></div>
                 </div>
                 <div class="faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">¿Pueden hacer el diseño interior de un solo ambiente o tiene que ser de toda la casa?<span class="faq-icon">+</span></button>
@@ -332,10 +322,6 @@
                 <div class="faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">¿Pueden encargarse ustedes de las compras y la ambientación final?<span class="faq-icon">+</span></button>
                     <div class="faq-answer"><p>Sí, contamos con un servicio independiente de gestión de compras. A partir de un presupuesto definido, nos ocupamos de adquirir cada elemento, recibirlo y realizar el montaje final en tu casa. Es una opción ideal si buscás delegar todo el proceso y llegar con el espacio terminado, aunque siempre tenés la alternativa de hacer las compras vos misma siguiendo nuestra propuesta.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button type="button" class="faq-question" aria-expanded="false">¿Realizan proyectos de interiorismo de forma online para el resto del país?<span class="faq-icon">+</span></button>
-                    <div class="faq-answer"><p>Sí, realizamos proyectos 100% virtuales para cualquier punto de Argentina. Por eso, cuando diseñamos, lo hacemos teniendo en cuenta el mercado local que te rodea junto con opciones de tiendas con envío online. O bien, proyectamos mobiliario a medida y te entregamos toda la documentación técnica para que lo fabriques en tu ciudad sin complicaciones, porque nuestro objetivo es que puedas materializar el espacio exactamente igual a como lo diseñamos.</p></div>
                 </div>
             </div>
         </section>
@@ -543,12 +529,37 @@
             }
         });
 
-        // Preloader con respaldo de tiempo máximo
-        window.addEventListener('load', () => {
-            setTimeout(hidePreloader, 400);
-        }, { once: true });
+        // Preloader sincronizado con la descarga y duración del logo animado
+const ANIMATION_DURATION_MS = 1200; // Duración en ms de LOGOANIMADOISARCH.webp
 
-        setTimeout(hidePreloader, 2500);
+function startPreloaderCountdown() {
+    const logoImg = document.querySelector('.preloader-logo-img');
+    const triggerHide = () => setTimeout(hidePreloader, ANIMATION_DURATION_MS);
+
+    if (!logoImg) {
+        triggerHide();
+        return;
+    }
+
+    if (logoImg.complete && logoImg.naturalWidth > 0) {
+        if (logoImg.decode) {
+            logoImg.decode().then(triggerHide).catch(triggerHide);
+        } else {
+            triggerHide();
+        }
+    } else {
+        logoImg.addEventListener('load', triggerHide, { once: true });
+        logoImg.addEventListener('error', hidePreloader, { once: true });
+    }
+}
+
+if (document.readyState === 'complete') {
+    startPreloaderCountdown();
+} else {
+    window.addEventListener('load', startPreloaderCountdown, { once: true });
+}
+
+setTimeout(hidePreloader, 3500);
     </script>
 </body>
 </html>
